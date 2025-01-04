@@ -1,0 +1,12 @@
+
+---
+
+### **6. Adicionar Licença**
+Adicione o arquivo `LICENSE` com a licença MIT:
+```plaintext
+MIT License
+
+Copyright (c) 2025 Gabriel Sousa dos Santos
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+...

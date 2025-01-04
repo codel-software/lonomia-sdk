@@ -1,0 +1,31 @@
+{
+    "name": "codel-software/lonomia-sdk",
+    "description": "Laravel SDK for capturing application errors for Lonomia",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gabriel Sousa dos Santos",
+            "email": "your-email@example.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "illuminate/support": "^8.0|^9.0|^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodelSoftware\\LonomiaSdk\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CodelSoftware\\LonomiaSdk\\LonomiaServiceProvider"
+            ],
+            "aliases": {
+                "Lonomia": "CodelSoftware\\LonomiaSdk\\Facades\\Lonomia"
+            }
+        }
+    }
+}
