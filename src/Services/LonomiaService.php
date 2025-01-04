@@ -12,11 +12,13 @@ class LonomiaService
     public function __construct(array $config)
     {
         $this->apiKey = $config['api_key'];
-        $this->baseUrl = 'https://api.lonomia.com';
+        //$this->baseUrl = 'https://api.lonomia.com';
+        $this->baseUrl = 'http://127.0.0.1';
     }
 
     public function captureError(\Throwable $exception, string $projectToken)
     {
+        dd(1);
         $payload = [
             'message' => $exception->getMessage(),
             'file' => $exception->getFile(),

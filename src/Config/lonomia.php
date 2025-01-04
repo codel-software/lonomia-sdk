@@ -1,4 +1,3 @@
-// src/Config/lonomia.php
 <?php
 
 return [
