@@ -14,8 +14,8 @@ class LonomiaService
     {
 
         $this->apiKey = $config['api_key'];
-        //$this->baseUrl = 'https://api.lonomia.com';
-        $this->baseUrl = 'http://127.0.0.1';
+        $this->baseUrl = 'https://lonomia.codelsoftware.com.br';
+        //$this->baseUrl = 'http://127.0.0.1';
     }
 
     public function captureError(\Throwable $exception, string $projectToken)
