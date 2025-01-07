@@ -2,6 +2,7 @@
 
 namespace CodelSoftware\LonomiaSdk\Services;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class LonomiaService
@@ -11,6 +12,7 @@ class LonomiaService
 
     public function __construct(array $config)
     {
+
         $this->apiKey = $config['api_key'];
         //$this->baseUrl = 'https://api.lonomia.com';
         $this->baseUrl = 'http://127.0.0.1';
@@ -18,7 +20,6 @@ class LonomiaService
 
     public function captureError(\Throwable $exception, string $projectToken)
     {
-        dd(1);
         $payload = [
             'message' => $exception->getMessage(),
             'file' => $exception->getFile(),
@@ -28,7 +29,24 @@ class LonomiaService
         ];
 
         return Http::withHeaders([
-            'Authorization' => "Bearer {$this->apiKey}",
-        ])->post("{$this->baseUrl}/errors", $payload);
+        ])->post("{$this->baseUrl}/api/error", $payload);
+    }
+
+    public function logRequest($request, $response, float $executionTime, string $projectToken)
+    {
+        // Dados a serem enviados
+        $payload = [
+            'route' => $request->path(),
+            'method' => $request->method(),
+            'status' => $response->status(),
+            'user_id' => Auth::id() ?? 'guest', // ID do usuário ou 'guest'
+            'execution_time' => $executionTime, // Tempo em segundos
+            'project_token' => $projectToken,
+
+        ];
+
+        // Envia os dados para o endpoint
+        return Http::withHeaders([
+        ])->post("{$this->baseUrl}/api/requests", $payload);
     }
 }
