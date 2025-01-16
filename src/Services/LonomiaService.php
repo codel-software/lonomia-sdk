@@ -155,13 +155,13 @@ class LonomiaService
         $data['project_token'] = config('lonomia.api_key');
         $data['image_tag'] = env('LOMONIA_IMAGE_TAG');
         $data['app_route'] = $this->getAppRoute($data['request']['url']);
-        Http::post('http://127.0.0.1' . '/api/monitoring', $data);
+        Http::post('https://lonomia.codelsoftware.com.br' . '/api/monitoring', $data);
     }
 
     
     public function getAppRoute($url)
     {
-        // 1. Remover protocolo e domínio (http://127.0.0.1/)
+        // 1. Remover protocolo e domínio (https://lonomia.codelsoftware.com.br/)
         $parsedUrl = parse_url($url);
         $path = $parsedUrl['path'] ?? '/';
     
