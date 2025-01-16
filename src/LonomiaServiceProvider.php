@@ -3,6 +3,7 @@
 namespace CodelSoftware\LonomiaSdk;
 
 use Illuminate\Support\ServiceProvider;
+use CodelSoftware\LonomiaSdk\Services\LonomiaService;
 
 class LonomiaServiceProvider extends ServiceProvider
 {
@@ -10,9 +11,13 @@ class LonomiaServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/Config/lonomia.php', 'lonomia');
 
-        $this->app->singleton('lonomia-sdk', function ($app) {
-            return new Services\LonomiaService(config('lonomia'));
+        // Registra o serviço como singleton com um alias e com a classe
+        $this->app->singleton(LonomiaService::class, function ($app) {
+            return new LonomiaService(config('lonomia'));
         });
+
+        // Alias opcional para facilitar o uso
+        $this->app->alias(LonomiaService::class, 'lonomia-sdk');
     }
 
     public function boot()
