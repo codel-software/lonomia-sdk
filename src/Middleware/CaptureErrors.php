@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use CodelSoftware\LonomiaSdk\Services\LonomiaService;
+use Throwable;
 
 class CaptureErrors
 {
@@ -28,7 +29,7 @@ class CaptureErrors
 
         if (!$trackingId) {
             // Gera um UUID único para rastreamento
-            $trackingId = (string) Str::uuid();
+            $trackingId = (string) Str::uuid() . time();
             Cookie::queue(Cookie::make($cookieName, $trackingId, 525600)); // 1 ano
         }
 
@@ -54,21 +55,25 @@ class CaptureErrors
             $this->lonomia->addQuery($query->sql, $query->bindings, $query->time);
         });
 
-        try {
-            // Inicia a tag para medir o tempo total da requisição
+       
             $this->lonomia->startTag('request-total');
             $response = $next($request);
             $this->lonomia->endTag('request-total');
-        } catch (\Throwable $exception) {
-            // Captura dados da exceção para serem enviados no log final
-            $exceptionData = [
-                'message' => $exception->getMessage(),
-                'trace' => $exception->getTraceAsString(),
-                'code' => $exception->getCode(),
-            ];
 
-            throw $exception; // Continua propagando a exceção
-        }
+            $exceptionData = null;
+            if($response->exception){
+                // Captura dados da exceção para serem enviados no log final
+                $exceptionData = [
+                    'message' => $response->exception->getMessage(),
+                    'trace' => $response->exception->getTrace(),
+                    'code' => $response->exception->getCode(),
+                    'file' => $response->exception->getFile(),
+                    'line' => $response->exception->getLine(),
+                    'file_snippet' => $this->getfileSnippet($response->exception)
+                ];
+
+            }
+
 
         // Fim do monitoramento de performance
         $endTime = microtime(true);
@@ -140,4 +145,34 @@ class CaptureErrors
         }
         return null;
     }
+
+    function getfileSnippet(Throwable $exception, int $contextLines = 3): array
+{
+    $exceptionData = [
+        'message' => $exception->getMessage(),
+        'trace' => $exception->getTrace(),
+        'code' => $exception->getCode(),
+        'file' => $exception->getFile(),
+        'line' => $exception->getLine(),
+        'previous' => $exception->getPrevious(),
+        'file_snippet' => [],
+    ];
+
+    // Verifica se o arquivo do erro existe
+    if (file_exists($exceptionData['file'])) {
+        $fileLines = file($exceptionData['file']); // Lê todas as linhas do arquivo
+        $totalLines = count($fileLines);
+        $errorLine = $exceptionData['line'];
+
+        // Define o intervalo de linhas a serem exibidas
+        $startLine = max(0, $errorLine - $contextLines - 1);
+        $endLine = min($totalLines - 1, $errorLine + $contextLines - 1);
+
+        // Captura as linhas do arquivo ao redor do erro
+        return  array_slice($fileLines, $startLine, ($endLine - $startLine + 1), true);
+    }
+
+    return null;
+}
+
 }
