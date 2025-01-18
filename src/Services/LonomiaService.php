@@ -29,8 +29,11 @@ class LonomiaService
      * @param string $message
      * @param array $context
      */
-    private function addLog(string $level, string $message, array $context = []): void
+    private function addLog(string $level, string $message, $context = null): void
     {
+        if($context != null){
+            $context = json_encode($context);
+        }
         $this->logs[] = [
             'timestamp' => microtime(true),
             'level' => $level,
@@ -40,42 +43,44 @@ class LonomiaService
     }
 
     // Métodos para diferentes níveis de log
-    public function emergency(string $message, array $context = []): void
+    public function emergency(string $message,  $context = null): void
     {
+        
         $this->addLog('emergency', $message, $context);
     }
 
-    public function alert(string $message, array $context = []): void
+    public function alert(string $message,  $context = null): void
     {
+        
         $this->addLog('alert', $message, $context);
     }
 
-    public function critical(string $message, array $context = []): void
+    public function critical(string $message,  $context = null): void
     {
         $this->addLog('critical', $message, $context);
     }
 
-    public function error(string $message, array $context = []): void
+    public function error(string $message,  $context = null): void
     {
         $this->addLog('error', $message, $context);
     }
 
-    public function warning(string $message, array $context = []): void
+    public function warning(string $message,  $context = null): void
     {
         $this->addLog('warning', $message, $context);
     }
 
-    public function notice(string $message, array $context = []): void
+    public function notice(string $message,  $context = null): void
     {
         $this->addLog('notice', $message, $context);
     }
 
-    public function info(string $message, array $context = []): void
+    public function info(string $message,  $context = null): void
     {
         $this->addLog('info', $message, $context);
     }
 
-    public function debug(string $message, array $context = []): void
+    public function debug(string $message,  $context = null): void
     {
         $this->addLog('debug', $message, $context);
     }
