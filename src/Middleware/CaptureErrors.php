@@ -21,101 +21,105 @@ class CaptureErrors
 
     public function handle(Request $request, Closure $next)
     {
-        // Nome do cookie de rastreamento
-        $cookieName = 'tracking_id';
+        try{
 
-        // Verifica se o cookie já existe
-        $trackingId = $request->cookie($cookieName);
+            // Nome do cookie de rastreamento
+            $cookieName = 'tracking_id';
 
-        if (!$trackingId) {
-            // Gera um UUID único para rastreamento
-            $trackingId = (string) Str::uuid() . time();
-            Cookie::queue(Cookie::make($cookieName, $trackingId, 525600)); // 1 ano
-        }
+            // Verifica se o cookie já existe
+            $trackingId = $request->cookie($cookieName);
 
-        // Define o contexto do usuário
-        $this->lonomia->setUserContext(['tracking_id' => $trackingId]);
-
-        // Início do monitoramento de performance
-        $startTime = microtime(true);
-        $startMemory = memory_get_usage();
-        $queries = [];
-        $exceptionData = null;
-
-        // Captura as queries
-        DB::listen(function ($query) use (&$queries) {
-            $queries[] = [
-                'sql' => $query->sql,
-                'bindings' => $query->bindings,
-                'time' => $query->time,
-                'executed_at' => now()->format('Y-m-d H:i:s.u'),
-            ];
-
-            // Adiciona a query ao APM
-            $this->lonomia->addQuery($query->sql, $query->bindings, $query->time);
-        });
-
-       
-            $this->lonomia->startTag('request-total');
-            $response = $next($request);
-            $this->lonomia->endTag('request-total');
-
-            $exceptionData = null;
-            if($response->exception){
-                // Captura dados da exceção para serem enviados no log final
-                $exceptionData = [
-                    'message' => $response->exception->getMessage(),
-                    'trace' => $response->exception->getTrace(),
-                    'code' => $response->exception->getCode(),
-                    'file' => $response->exception->getFile(),
-                    'line' => $response->exception->getLine(),
-                    'file_snippet' => $this->getfileSnippet($response->exception)
-                ];
-
+            if (!$trackingId) {
+                // Gera um UUID único para rastreamento
+                $trackingId = (string) Str::uuid() . time();
+                Cookie::queue(Cookie::make($cookieName, $trackingId, 525600)); // 1 ano
             }
 
+            // Define o contexto do usuário
+            $this->lonomia->setUserContext(['tracking_id' => $trackingId]);
 
-        // Fim do monitoramento de performance
-        $endTime = microtime(true);
-        $endMemory = memory_get_usage();
-        $peakMemory = memory_get_peak_usage();
+            // Início do monitoramento de performance
+            $startTime = microtime(true);
+            $startMemory = memory_get_usage();
+            $queries = [];
+            $exceptionData = null;
 
-        // Dados de performance
-        $performanceData = [
-            'execution_time' => $endTime - $startTime,
-            'memory_start' => $startMemory,
-            'memory_end' => $endMemory,
-            'peak_memory' => $peakMemory,
-        ];
+            // Captura as queries
+            DB::listen(function ($query) use (&$queries) {
+                $queries[] = [
+                    'sql' => $query->sql,
+                    'bindings' => $query->bindings,
+                    'time' => $query->time,
+                    'executed_at' => now()->format('Y-m-d H:i:s.u'),
+                ];
+
+                // Adiciona a query ao APM
+                $this->lonomia->addQuery($query->sql, $query->bindings, $query->time);
+            });
+
+        
+                $this->lonomia->startTag('request-total');
+                $response = $next($request);
+                $this->lonomia->endTag('request-total');
+
+                $exceptionData = null;
+                if($response->exception){
+                    // Captura dados da exceção para serem enviados no log final
+                    $exceptionData = [
+                        'message' => $response->exception->getMessage(),
+                        'trace' => $response->exception->getTrace(),
+                        'code' => $response->exception->getCode(),
+                        'file' => $response->exception->getFile(),
+                        'line' => $response->exception->getLine(),
+                        'file_snippet' => $this->getfileSnippet($response->exception)
+                    ];
+                }
 
 
-        // Envia os dados para o Lonomia
-        $this->lonomia->logPerformanceData([
-            'tracking_id' => $trackingId,
-            'request' => [
-                'method' => $request->method(),
-                'url' => $request->fullUrl(),
-                'headers' => $request->headers->all(),
-                'body' => $this->getRequestBody($request),
-            ],
-            'response' => isset($response) ? [
-                'status' => $response->getStatusCode(),
-                'headers' => $response->headers->all(),
-                'body' => $this->getJsonResponseBody($response),
-            ] : null,
-            'performance' => $performanceData,
-            'queries' => $queries,
-            'apm' => $this->lonomia->getApmData(), // Inclui todas as tags APM criadas
-            'logs' => $this->lonomia->getLogs(),
-            'exception' => $exceptionData, // Adiciona os dados da exceção, se houver
-        ]);
+            // Fim do monitoramento de performance
+            $endTime = microtime(true);
+            $endMemory = memory_get_usage();
+            $peakMemory = memory_get_peak_usage();
 
-        // Garante que o cookie de rastreamento está presente na resposta
-        if (!Cookie::hasQueued($cookieName)) {
-            Cookie::queue(Cookie::make($cookieName, $trackingId, 525600));
+            // Dados de performance
+            $performanceData = [
+                'execution_time' => $endTime - $startTime,
+                'memory_start' => $startMemory,
+                'memory_end' => $endMemory,
+                'peak_memory' => $peakMemory,
+            ];
+
+
+            // Envia os dados para o Lonomia
+            $this->lonomia->logPerformanceData([
+                'tracking_id' => $trackingId,
+                'request' => [
+                    'method' => $request->method(),
+                    'url' => $request->fullUrl(),
+                    'headers' => $request->headers->all(),
+                    'body' => $this->getRequestBody($request),
+                ],
+                'response' => isset($response) ? [
+                    'status' => $response->getStatusCode(),
+                    'headers' => $response->headers->all(),
+                    'body' => $this->getJsonResponseBody($response),
+                ] : null,
+                'performance' => $performanceData,
+                'queries' => $queries,
+                'apm' => $this->lonomia->getApmData(), // Inclui todas as tags APM criadas
+                'logs' => $this->lonomia->getLogs(),
+                'exception' => $exceptionData, // Adiciona os dados da exceção, se houver
+            ]);
+
+            // Garante que o cookie de rastreamento está presente na resposta
+            if (!Cookie::hasQueued($cookieName)) {
+                Cookie::queue(Cookie::make($cookieName, $trackingId, 525600));
+            }
+
+            return $response;
+        }catch(\Throwable $e){
+            return $response;
         }
-
-        return $response;
     }
 
     /**

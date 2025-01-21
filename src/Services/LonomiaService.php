@@ -161,6 +161,7 @@ class LonomiaService
         $data['image_tag'] = env('LOMONIA_IMAGE_TAG');
         $data['app_route'] = $this->getAppRoute($data['request']['url']);
         Http::post('https://lonomia.codelsoftware.com.br' . '/api/monitoring', $data);
+        //Http::post('http://127.0.0.1' . '/api/monitoring', $data);
     }
 
     
