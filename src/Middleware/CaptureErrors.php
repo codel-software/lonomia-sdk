@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use CodelSoftware\LonomiaSdk\Services\LonomiaService;
+use Illuminate\Support\Facades\Auth;
 use Throwable;
 
 class CaptureErrors
@@ -23,18 +24,27 @@ class CaptureErrors
     {
         try{
 
-            // Nome do cookie de rastreamento
-            $cookieName = 'tracking_id';
+              // Nome do cookie de rastreamento
+              $cookieName = 'tracking_id';
 
-            // Verifica se o cookie já existe
-            $trackingId = $request->cookie($cookieName);
+              // Verifica se o cookie já existe
 
-            if (!$trackingId) {
-                // Gera um UUID único para rastreamento
-                $trackingId = (string) Str::uuid() . time();
+            if( $request->cookie($cookieName) != null ){
+                $trackingId = $request->cookie($cookieName);
+            }else{
+                $trackingId = 'anon_' . Str::uuid()->toString() . '_' . time();
                 Cookie::queue(Cookie::make($cookieName, $trackingId, 525600)); // 1 ano
             }
 
+             // Verifica se há um usuário logado
+             $user = Auth::user();
+              
+             if ($user) {
+                 // Se há usuário logado, cria um tracking_id baseado no ID do usuário
+                 $trackingId = 'user_' . $user->id;
+             }
+            
+            //dd($trackingId);
             // Define o contexto do usuário
             $this->lonomia->setUserContext(['tracking_id' => $trackingId]);
 
@@ -118,6 +128,7 @@ class CaptureErrors
 
             return $response;
         }catch(\Throwable $e){
+            dd($e);
             return $response;
         }
     }
