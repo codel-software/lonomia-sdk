@@ -22,6 +22,9 @@ class CaptureErrors
 
     public function handle(Request $request, Closure $next)
     {
+        if(env('LONOMIA_ENABLED',true) == false){
+            return $next($request);
+        }
         try{
 
               // Nome do cookie de rastreamento
