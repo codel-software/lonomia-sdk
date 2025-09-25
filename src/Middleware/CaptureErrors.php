@@ -76,7 +76,7 @@ class CaptureErrors
                 $this->lonomia->endTag('request-total');
 
                 $exceptionData = null;
-                if($response->exception){
+                if(isset($response->exception)){
                     // Captura dados da exceção para serem enviados no log final
                     $exceptionData = [
                         'message' => $response->exception->getMessage(),
@@ -128,12 +128,12 @@ class CaptureErrors
             if (!Cookie::hasQueued($cookieName)) {
                 Cookie::queue(Cookie::make($cookieName, $trackingId, 525600));
             }
-
-            return $response;
         }catch(\Throwable $e){
-            dd($e);
-            return $response;
+            if(env('LONOMIA_ENABLED',true) == true){
+              throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
         }
+        return $response;
     }
 
     /**
