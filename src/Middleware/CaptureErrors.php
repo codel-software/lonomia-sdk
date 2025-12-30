@@ -25,6 +25,7 @@ class CaptureErrors
         if(env('LONOMIA_ENABLED',true) == false){
             return $next($request);
         }
+        
         try{
 
               // Nome do cookie de rastreamento
@@ -95,34 +96,41 @@ class CaptureErrors
             $peakMemory = memory_get_peak_usage();
 
             // Dados de performance
+            $executionTime = $endTime - $startTime;
             $performanceData = [
-                'execution_time' => $endTime - $startTime,
+                'execution_time' => $executionTime,
                 'memory_start' => $startMemory,
                 'memory_end' => $endMemory,
                 'peak_memory' => $peakMemory,
             ];
 
+            // Obtém o status code da resposta, se existir
+            $statusCode = isset($response) ? $response->getStatusCode() : null;
+            $isServerError = $statusCode && $statusCode >= 500 && $statusCode < 600;
+            $isSlowRequest = $executionTime > 1.0;
 
-            // Envia os dados para o Lonomia
-            $this->lonomia->logPerformanceData([
-                'tracking_id' => $trackingId,
-                'request' => [
-                    'method' => $request->method(),
-                    'url' => $request->fullUrl(),
-                    'headers' => $request->headers->all(),
-                    'body' => $this->getRequestBody($request),
-                ],
-                'response' => isset($response) ? [
-                    'status' => $response->getStatusCode(),
-                    'headers' => $response->headers->all(),
-                    'body' => $this->getJsonResponseBody($response),
-                ] : null,
-                'performance' => $performanceData,
-                'queries' => $queries,
-                'apm' => $this->lonomia->getApmData(), // Inclui todas as tags APM criadas
-                'logs' => $this->lonomia->getLogs(),
-                'exception' => $exceptionData, // Adiciona os dados da exceção, se houver
-            ]);
+            // Envia os dados para o Lonomia apenas se demorar mais de 1 segundo ou se for erro 5xx
+            if ($isSlowRequest || $isServerError) {
+                $this->lonomia->logPerformanceData([
+                    'tracking_id' => $trackingId,
+                    'request' => [
+                        'method' => $request->method(),
+                        'url' => $request->fullUrl(),
+                        'headers' => $request->headers->all(),
+                        'body' => $this->getRequestBody($request),
+                    ],
+                    'response' => isset($response) ? [
+                        'status' => $statusCode,
+                        'headers' => $response->headers->all(),
+                        'body' => $this->getJsonResponseBody($response),
+                    ] : null,
+                    'performance' => $performanceData,
+                    'queries' => $queries,
+                    'apm' => $this->lonomia->getApmData(), // Inclui todas as tags APM criadas
+                    'logs' => $this->lonomia->getLogs(),
+                    'exception' => $exceptionData, // Adiciona os dados da exceção, se houver
+                ]);
+            }
 
             // Garante que o cookie de rastreamento está presente na resposta
             if (!Cookie::hasQueued($cookieName)) {
