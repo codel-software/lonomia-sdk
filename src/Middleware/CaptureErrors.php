@@ -114,6 +114,13 @@ class CaptureErrors
             $processa_request = (env('LONOMIA_REQUEST_ALL', false) == true) ? true : ($isSlowRequest || $isServerError);
             if ($processa_request) {
                 $this->lonomia->logPerformanceData([
+                    'tracking_id' => $trackingId,
+                    'request' => [
+                        'method' => $request->method(),
+                        'url' => $request->fullUrl(),
+                        'headers' => $request->headers->all(),
+                        'body' => $this->getRequestBody($request),
+                    ],
                     'response' => isset($response) ? [
                         'status' => $statusCode,
                         'headers' => $response->headers->all(),
@@ -133,7 +140,7 @@ class CaptureErrors
             }
         }catch(\Throwable $e){
             if(env('LONOMIA_ENABLED',true) == true){
-              throw new \Exception($e->getMessage(), $e->getCode(), $e);
+              throw new \Exception($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine(), $e);
             }
         }
         return $response;
