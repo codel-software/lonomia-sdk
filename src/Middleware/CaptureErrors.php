@@ -108,17 +108,12 @@ class CaptureErrors
             $statusCode = isset($response) ? $response->getStatusCode() : null;
             $isServerError = $statusCode && $statusCode >= 500 && $statusCode < 600;
             $isSlowRequest = $executionTime > 1.0;
+            
+            // se o env LONOMIA_REQUEST_ALL for true, envia todos os dados para o Lonomia
 
-            // Envia os dados para o Lonomia apenas se demorar mais de 1 segundo ou se for erro 5xx
-            if ($isSlowRequest || $isServerError) {
+            $processa_request = (env('LONOMIA_REQUEST_ALL', false) == true) ? true : ($isSlowRequest || $isServerError);
+            if ($processa_request) {
                 $this->lonomia->logPerformanceData([
-                    'tracking_id' => $trackingId,
-                    'request' => [
-                        'method' => $request->method(),
-                        'url' => $request->fullUrl(),
-                        'headers' => $request->headers->all(),
-                        'body' => $this->getRequestBody($request),
-                    ],
                     'response' => isset($response) ? [
                         'status' => $statusCode,
                         'headers' => $response->headers->all(),
