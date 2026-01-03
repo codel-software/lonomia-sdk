@@ -133,7 +133,7 @@ class CaptureErrors
             }
         }catch(\Throwable $e){
             if(env('LONOMIA_ENABLED',true) == true){
-              throw new Exception($e->getMessage(), $e->getCode(), $e);
+              throw new \Exception($e->getMessage(), $e->getCode(), $e);
             }
         }
         return $response;
