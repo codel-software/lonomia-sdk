@@ -159,9 +159,11 @@ class LonomiaService
         // Exemplo fictício de envio:
         $data['project_token'] = config('lonomia.api_key');
         $data['image_tag'] = env('LOMONIA_IMAGE_TAG');
-        $data['app_route'] = $this->getAppRoute($data['request']['url']);
+        $data['app_route'] = isset($data['request']['url']) 
+            ? $this->getAppRoute($data['request']['url']) 
+            : null;
         $url = env('LOMONIA_API_URL', 'https://lonomia.com.br');
-        Http::post($url . '/api/monitoring', $data);
+        Http::post($url . '/api/monitoring', $data)->timeout(1);
         //Http::post('http://127.0.0.1' . '/api/monitoring', $data);
     }
 

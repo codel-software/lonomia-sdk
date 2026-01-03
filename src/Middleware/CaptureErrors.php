@@ -140,8 +140,9 @@ class CaptureErrors
             }
         }catch(\Throwable $e){
             if(env('LONOMIA_ENABLED',true) == true){
-              throw new \Exception($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine(), $e);
+              throw $e;
             }
+            return $next($request);
         }
         return $response;
     }
@@ -174,7 +175,7 @@ class CaptureErrors
         return null;
     }
 
-    function getfileSnippet(Throwable $exception, int $contextLines = 3): array
+    function getfileSnippet(Throwable $exception, int $contextLines = 3): ?array
 {
     $exceptionData = [
         'message' => $exception->getMessage(),
