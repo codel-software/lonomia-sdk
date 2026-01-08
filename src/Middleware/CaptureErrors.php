@@ -248,6 +248,7 @@ class CaptureErrors
             // Apenas para respostas não-stream, pois streams são processados separadamente
             if (!$isStreamedResponse) {
                 $this->lonomia->clearHttpRequests();
+                $this->lonomia->clearExternalRequests();
             }
         }catch(\Throwable $e){
             if(env('LONOMIA_ENABLED',true) == true){
@@ -336,6 +337,7 @@ class CaptureErrors
         
         // Limpa requisições HTTP após processamento do stream
         $data['lonomia']->clearHttpRequests();
+        $data['lonomia']->clearExternalRequests();
     }
 
     /**

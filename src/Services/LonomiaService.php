@@ -12,6 +12,7 @@ class LonomiaService
     protected $logs = [];
     protected $queries = [];
     protected $httpRequests = [];
+    protected $externalRequests = [];
 
     /**
      * Define o contexto do usuário.
@@ -161,9 +162,16 @@ class LonomiaService
         $data['project_token'] = config('lonomia.api_key');
         $data['image_tag'] = env('LOMONIA_IMAGE_TAG');
         $data['app_route'] = $this->getAppRoute($data['request']['url']);
+        
+        // Adiciona external_requests ao payload (null se vazio)
+        $data['external_requests'] = !empty($this->externalRequests) ? $this->externalRequests : null;
+        
         $url = env('LOMONIA_API_URL', 'https://lonomia.com.br');
         Http::post($url . '/api/monitoring', $data);
         //Http::post('http://127.0.0.1' . '/api/monitoring', $data);
+        
+        // Limpa external_requests após envio
+        $this->clearExternalRequests();
     }
 
     
@@ -211,6 +219,77 @@ class LonomiaService
     public function getLogs(): array
     {
         return $this->logs;
+    }
+
+    /**
+     * Registra uma chamada HTTP externa realizada durante a requisição.
+     *
+     * Este método armazena informações sobre chamadas para APIs de terceiros, webhooks, ou qualquer serviço HTTP externo. 
+     * Os dados são enviados ao servidor Lonomia junto com os demais dados de monitoramento (queries, logs, APM tags).
+     * Permite rastrear integrações externas, identificar falhas em serviços de terceiros e medir performance de APIs.
+     *
+     * @param string $url URL completa da API externa
+     * @param string $method Método HTTP (GET, POST, PUT, DELETE, etc)
+     * @param array|null $requestHeaders Headers da requisição
+     * @param mixed|null $requestBody Corpo da requisição (array, string, etc)
+     * @param int|null $statusCode Status HTTP da resposta
+     * @param array|null $responseHeaders Headers da resposta
+     * @param mixed|null $responseBody Corpo da resposta
+     * @param float|null $executionTime Tempo de execução em segundos
+     * @param bool $success Indica se a chamada foi bem-sucedida
+     * @param string|null $errorMessage Mensagem de erro se houver
+     * @return void
+     */
+    public function addExternalRequest(
+        string $url,
+        string $method = 'GET',
+        ?array $requestHeaders = null,
+        $requestBody = null,
+        ?int $statusCode = null,
+        ?array $responseHeaders = null,
+        $responseBody = null,
+        ?float $executionTime = null,
+        bool $success = true,
+        ?string $errorMessage = null
+    ): void {
+        // Timestamp atual (Unix timestamp com microsegundos)
+        $executedAt = microtime(true);
+
+        $this->externalRequests[] = [
+            'url' => $url,
+            'method' => strtoupper($method),
+            'request_headers' => $requestHeaders ?? [],
+            'request_body' => $requestBody,
+            'status_code' => $statusCode,
+            'response_headers' => $responseHeaders ?? [],
+            'response_body' => $responseBody,
+            'execution_time' => $executionTime,
+            'executed_at' => $executedAt,
+            'success' => $success,
+            'error_message' => $errorMessage,
+        ];
+    }
+
+    /**
+     * Retorna todas as chamadas HTTP externas registradas.
+     *
+     * @return array
+     */
+    public function getExternalRequests(): array
+    {
+        return $this->externalRequests;
+    }
+
+    /**
+     * Limpa o array de chamadas HTTP externas.
+     *
+     * Útil para resetar após enviar os dados ao servidor, evitando acúmulo de memória entre requisições.
+     *
+     * @return void
+     */
+    public function clearExternalRequests(): void
+    {
+        $this->externalRequests = [];
     }
 
     /**
