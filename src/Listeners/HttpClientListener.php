@@ -23,7 +23,12 @@ class HttpClientListener
         $requestId = spl_object_hash($event->request);
         self::$requestStartTimes[$requestId] = microtime(true);
 
-        // Podemos logar o início da requisição aqui se necessário
+        // Debug apenas em desenvolvimento
+        if (env('APP_DEBUG', false)) {
+            \Log::debug('Lonomia: Requisição HTTP iniciada', [
+                'request_id' => $requestId,
+            ]);
+        }
     }
 
     /**
@@ -38,6 +43,7 @@ class HttpClientListener
         $requestId = spl_object_hash($event->request);
         $startTime = self::$requestStartTimes[$requestId] ?? microtime(true);
         $endTime = microtime(true);
+        $executionTime = $endTime - $startTime;
 
         // Limpa o tempo de início para liberar memória
         unset(self::$requestStartTimes[$requestId]);
@@ -45,40 +51,76 @@ class HttpClientListener
         try {
             $lonomia = App::make(LonomiaService::class);
             
-            $request = $event->request;
-            $options = [];
-            
-            // Obtém a URL - tenta diferentes métodos
+            // O Laravel HTTP Client usa PendingRequest e Response
+            // A URL está disponível via toPsrRequest() ou diretamente no response
             $url = null;
-            if (method_exists($request, 'getUrl')) {
-                $url = $request->getUrl();
-            } elseif (method_exists($request, 'url')) {
-                $url = $request->url();
-            } elseif (property_exists($request, 'url')) {
-                $url = $request->url;
-            }
-            
-            // Obtém o método HTTP
             $method = 'GET';
-            if (method_exists($request, 'getMethod')) {
-                $method = strtoupper($request->getMethod());
-            } elseif (property_exists($request, 'method')) {
-                $method = strtoupper($request->method);
+            $requestHeaders = [];
+            $requestBody = null;
+            
+            // Tenta obter a URL do response primeiro (mais confiável)
+            if (method_exists($event->response, 'effectiveUri')) {
+                $url = (string) $event->response->effectiveUri();
             }
             
-            // Extrai opções do request (headers, body, etc)
-            if (method_exists($request, 'getOptions')) {
-                $requestOptions = $request->getOptions();
-                $options = $requestOptions;
-            } elseif (method_exists($request, 'options')) {
-                $options = $request->options();
+            // Tenta obter do request usando reflection ou métodos públicos
+            if (!$url) {
+                // O PendingRequest tem uma propriedade 'url' protegida
+                try {
+                    $reflection = new \ReflectionClass($event->request);
+                    if ($reflection->hasProperty('url')) {
+                        $property = $reflection->getProperty('url');
+                        $property->setAccessible(true);
+                        $url = (string) $property->getValue($event->request);
+                    }
+                    
+                    // Obtém o método
+                    if ($reflection->hasProperty('method')) {
+                        $property = $reflection->getProperty('method');
+                        $property->setAccessible(true);
+                        $method = strtoupper($property->getValue($event->request) ?? 'GET');
+                    }
+                    
+                    // Obtém headers
+                    if ($reflection->hasProperty('headers')) {
+                        $property = $reflection->getProperty('headers');
+                        $property->setAccessible(true);
+                        $headers = $property->getValue($event->request);
+                        if (is_array($headers)) {
+                            $requestHeaders = $headers;
+                        }
+                    }
+                    
+                    // Obtém body
+                    if ($reflection->hasProperty('data')) {
+                        $property = $reflection->getProperty('data');
+                        $property->setAccessible(true);
+                        $requestBody = $property->getValue($event->request);
+                    }
+                } catch (\ReflectionException $e) {
+                    // Se reflection falhar, continua com valores padrão
+                }
             }
             
-            // Tenta extrair headers se não estiverem nas opções
-            if (!isset($options['headers']) && method_exists($request, 'getHeaders')) {
-                $options['headers'] = $request->getHeaders();
-            } elseif (!isset($options['headers']) && method_exists($request, 'headers')) {
-                $options['headers'] = $request->headers();
+            // Se ainda não tem URL, tenta métodos públicos
+            if (!$url && method_exists($event->request, 'toPsrRequest')) {
+                try {
+                    $psrRequest = $event->request->toPsrRequest();
+                    $url = (string) $psrRequest->getUri();
+                    $method = strtoupper($psrRequest->getMethod());
+                    $requestHeaders = $psrRequest->getHeaders();
+                    $requestBody = (string) $psrRequest->getBody();
+                    
+                    // Tenta decodificar JSON se for o caso
+                    if ($requestBody) {
+                        $decoded = json_decode($requestBody, true);
+                        if (json_last_error() === JSON_ERROR_NONE) {
+                            $requestBody = $decoded;
+                        }
+                    }
+                } catch (\Throwable $e) {
+                    // Ignora erros
+                }
             }
             
             // Obtém informações da resposta
@@ -86,26 +128,69 @@ class HttpClientListener
             $responseHeaders = $event->response->headers();
             $responseBody = $event->response->body();
             
-            // Se não conseguiu obter URL, tenta do response
+            // Tenta decodificar JSON do response
+            $responseBodyDecoded = null;
+            $contentType = $responseHeaders['Content-Type'][0] ?? $responseHeaders['content-type'][0] ?? '';
+            if (str_contains($contentType, 'application/json')) {
+                $responseBodyDecoded = json_decode($responseBody, true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    $responseBodyDecoded = null;
+                }
+            }
+            
+            // Se ainda não tem URL, usa fallback
             if (!$url) {
-                $url = $event->response->effectiveUri() ?? 'unknown';
+                $url = 'unknown';
             }
 
-            $lonomia->addHttpRequest(
-                $method,
-                (string) $url,
-                $options,
-                $startTime,
-                $endTime,
-                $statusCode,
-                $responseHeaders,
-                $responseBody
+            // Converte headers do Laravel para array simples
+            $requestHeadersArray = [];
+            foreach ($requestHeaders as $key => $value) {
+                if (is_array($value)) {
+                    $requestHeadersArray[$key] = implode(', ', $value);
+                } else {
+                    $requestHeadersArray[$key] = $value;
+                }
+            }
+            
+            $responseHeadersArray = [];
+            foreach ($responseHeaders as $key => $value) {
+                if (is_array($value)) {
+                    $responseHeadersArray[$key] = implode(', ', $value);
+                } else {
+                    $responseHeadersArray[$key] = $value;
+                }
+            }
+
+            // Usa addExternalRequest que é mais adequado para requisições HTTP externas
+            $lonomia->addExternalRequest(
+                url: $url,
+                method: $method,
+                requestHeaders: $requestHeadersArray,
+                requestBody: $requestBody,
+                statusCode: $statusCode,
+                responseHeaders: $responseHeadersArray,
+                responseBody: $responseBodyDecoded ?? $responseBody,
+                executionTime: $executionTime,
+                success: $statusCode >= 200 && $statusCode < 400
             );
+            
+            // Debug apenas em desenvolvimento
+            if (env('APP_DEBUG', false)) {
+                \Log::debug('Lonomia: Requisição HTTP capturada', [
+                    'url' => $url,
+                    'method' => $method,
+                    'status_code' => $statusCode,
+                    'execution_time' => $executionTime,
+                ]);
+            }
         } catch (\Throwable $e) {
             // Silenciosamente ignora erros para não afetar o fluxo da aplicação
             // Log apenas em desenvolvimento
             if (env('APP_DEBUG', false)) {
-                \Log::debug('Erro ao capturar requisição HTTP no Lonomia: ' . $e->getMessage());
+                \Log::debug('Erro ao capturar requisição HTTP no Lonomia: ' . $e->getMessage(), [
+                    'trace' => $e->getTraceAsString(),
+                ]);
             }
         }
     }
