@@ -11,6 +11,7 @@ class LonomiaService
     protected $apmTags = [];
     protected $logs = [];
     protected $queries = [];
+    protected $httpRequests = [];
 
     /**
      * Define o contexto do usuário.
@@ -159,11 +160,9 @@ class LonomiaService
         // Exemplo fictício de envio:
         $data['project_token'] = config('lonomia.api_key');
         $data['image_tag'] = env('LOMONIA_IMAGE_TAG');
-        $data['app_route'] = isset($data['request']['url']) 
-            ? $this->getAppRoute($data['request']['url']) 
-            : null;
+        $data['app_route'] = $this->getAppRoute($data['request']['url']);
         $url = env('LOMONIA_API_URL', 'https://lonomia.com.br');
-        Http::post($url . '/api/monitoring', $data)->timeout(1);
+        Http::post($url . '/api/monitoring', $data);
         //Http::post('http://127.0.0.1' . '/api/monitoring', $data);
     }
 
@@ -212,5 +211,122 @@ class LonomiaService
     public function getLogs(): array
     {
         return $this->logs;
+    }
+
+    /**
+     * Adiciona uma requisição HTTP ao registro.
+     *
+     * @param string $method
+     * @param string $url
+     * @param array $options
+     * @param float $startTime
+     * @param float|null $endTime
+     * @param int|null $statusCode
+     * @param array|null $responseHeaders
+     * @param string|null $responseBody
+     * @param \Throwable|null $exception
+     */
+    public function addHttpRequest(
+        string $method,
+        string $url,
+        array $options = [],
+        float $startTime,
+        ?float $endTime = null,
+        ?int $statusCode = null,
+        ?array $responseHeaders = null,
+        ?string $responseBody = null,
+        ?\Throwable $exception = null
+    ): void {
+        $requestId = uniqid('http_', true);
+        
+        $this->httpRequests[$requestId] = [
+            'method' => $method,
+            'url' => $url,
+            'headers' => $options['headers'] ?? [],
+            'body' => $this->extractHttpBody($options),
+            'start_time' => $startTime,
+            'end_time' => $endTime,
+            'duration' => $endTime !== null ? ($endTime - $startTime) : null,
+            'status_code' => $statusCode,
+            'response_headers' => $responseHeaders,
+            'response_body' => $responseBody ? $this->limitResponseBody($responseBody) : null,
+            'exception' => $exception ? [
+                'message' => $exception->getMessage(),
+                'code' => $exception->getCode(),
+            ] : null,
+        ];
+    }
+
+    /**
+     * Retorna todas as requisições HTTP registradas.
+     *
+     * @return array
+     */
+    public function getHttpRequests(): array
+    {
+        return array_values($this->httpRequests);
+    }
+
+    /**
+     * Limpa todas as requisições HTTP registradas.
+     */
+    public function clearHttpRequests(): void
+    {
+        $this->httpRequests = [];
+    }
+
+    /**
+     * Extrai o body da requisição HTTP das opções.
+     */
+    private function extractHttpBody(array $options): ?array
+    {
+        if (isset($options['json'])) {
+            return $options['json'];
+        }
+        
+        if (isset($options['form_params'])) {
+            return $options['form_params'];
+        }
+        
+        if (isset($options['multipart'])) {
+            // Remove arquivos do multipart para não enviar conteúdo binário
+            return array_map(function ($part) {
+                if (isset($part['contents']) && is_string($part['contents']) && strlen($part['contents']) > 1000) {
+                    $part['contents'] = '[arquivo binário - ' . strlen($part['contents']) . ' bytes]';
+                }
+                return $part;
+            }, $options['multipart']);
+        }
+        
+        if (isset($options['body'])) {
+            $body = $options['body'];
+            // Tenta decodificar JSON
+            if (is_string($body)) {
+                $decoded = json_decode($body, true);
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    return $decoded;
+                }
+                return ['raw' => $this->limitResponseBody($body)];
+            }
+            return $body;
+        }
+        
+        return null;
+    }
+
+    /**
+     * Limita o tamanho do body da resposta para evitar payloads muito grandes.
+     */
+    private function limitResponseBody(?string $body, int $maxLength = 5000): ?string
+    {
+        if ($body === null) {
+            return null;
+        }
+        
+        if (strlen($body) > $maxLength) {
+            return substr($body, 0, $maxLength) . '...[truncado ' . (strlen($body) - $maxLength) . ' bytes]';
+        }
+        
+        return $body;
     }
 }
