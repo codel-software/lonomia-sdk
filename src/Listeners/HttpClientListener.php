@@ -6,6 +6,7 @@ use Illuminate\Http\Client\Events\RequestSending;
 use Illuminate\Http\Client\Events\ResponseReceived;
 use CodelSoftware\LonomiaSdk\Services\LonomiaService;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 class HttpClientListener
 {
@@ -25,7 +26,7 @@ class HttpClientListener
 
         // Debug apenas em desenvolvimento
         if (env('APP_DEBUG', false)) {
-            \Log::debug('Lonomia: Requisição HTTP iniciada', [
+            Log::debug('Lonomia: Requisição HTTP iniciada', [
                 'request_id' => $requestId,
             ]);
         }
@@ -177,7 +178,7 @@ class HttpClientListener
             
             // Debug apenas em desenvolvimento
             if (env('APP_DEBUG', false)) {
-                \Log::debug('Lonomia: Requisição HTTP capturada', [
+                Log::debug('Lonomia: Requisição HTTP capturada', [
                     'url' => $url,
                     'method' => $method,
                     'status_code' => $statusCode,
@@ -188,7 +189,7 @@ class HttpClientListener
             // Silenciosamente ignora erros para não afetar o fluxo da aplicação
             // Log apenas em desenvolvimento
             if (env('APP_DEBUG', false)) {
-                \Log::debug('Erro ao capturar requisição HTTP no Lonomia: ' . $e->getMessage(), [
+                Log::debug('Erro ao capturar requisição HTTP no Lonomia: ' . $e->getMessage(), [
                     'trace' => $e->getTraceAsString(),
                 ]);
             }
