@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use CodelSoftware\LonomiaSdk\Services\LonomiaService;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -252,7 +253,12 @@ class CaptureErrors
             }
         }catch(\Throwable $e){
             if(env('LONOMIA_ENABLED',true) == true){
-              throw new \Exception($e->getMessage(), $e->getCode(), $e);
+                Log::error('Lonomia SDK Error: ' . $e->getMessage(), [
+                    'exception' => $e,
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ]);
+                throw new \Exception($e->getMessage(), $e->getCode(), $e);
             }
         }
         return $response;
