@@ -7,6 +7,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use CodelSoftware\LonomiaSdk\Facades\Lonomia;
+use Illuminate\Support\Facades\Log;
 
 class GuzzleLonomiaMiddleware
 {
