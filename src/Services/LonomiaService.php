@@ -14,6 +14,8 @@ class LonomiaService
     protected $queries = [];
     protected $httpRequests = [];
     protected $externalRequests = [];
+    protected $cacheOperations = [];
+    protected $jobs = [];
 
     /**
      * Define o contexto do usuário.
@@ -161,12 +163,14 @@ class LonomiaService
      */
     public function logPerformanceData(array $data)
     {
+        dd(json_encode($data));
         // Converte array de performance para objeto PerformanceData se necessário
         if (isset($data['performance']) && is_array($data['performance'])) {
             $performanceData = new PerformanceData($data['performance']);
             // Converte de volta para array para serialização HTTP
             $data['performance'] = $performanceData->toArray();
         }
+
         
         // Aqui você implementa o envio dos dados para o servidor de monitoramento.
         // Exemplo fictício de envio:
@@ -174,8 +178,11 @@ class LonomiaService
         $data['image_tag'] = env('LOMONIA_IMAGE_TAG');
         $data['app_route'] = $this->getAppRoute($data['request']['url']);
         
-        // Adiciona external_requests ao payload (null se vazio)
-        $data['external_requests'] = !empty($this->externalRequests) ? $this->externalRequests : null;
+        // Se external_requests não foi passado no array $data, adiciona do serviço
+        // (para compatibilidade com chamadas antigas)
+        if (!isset($data['external_requests'])) {
+            $data['external_requests'] = !empty($this->externalRequests) ? $this->externalRequests : null;
+        }
         
         $url = env('LOMONIA_API_URL', 'https://lonomia.com.br');
         Http::post($url . '/api/monitoring', $data);
@@ -418,5 +425,162 @@ class LonomiaService
         }
         
         return $body;
+    }
+
+    /**
+     * Registra uma operação de cache/Redis realizada durante a requisição.
+     * 
+     * Este método armazena informações sobre todas as operações de cache (get, put, forget, remember, etc.)
+     * realizadas durante a requisição. Os dados são enviados ao servidor Lonomia junto com os demais
+     * dados de monitoramento para rastrear uso de cache e identificar possíveis problemas de performance.
+     *
+     * @param string $operation Tipo de operação (get, put, forget, remember, has, etc.)
+     * @param string|null $key Chave do cache
+     * @param mixed|null $value Valor armazenado/recuperado (será serializado se necessário)
+     * @param float|null $executionTime Tempo de execução em segundos
+     * @param bool $success Indica se a operação foi bem-sucedida
+     * @param string|null $errorMessage Mensagem de erro se houver
+     * @param array|null $metadata Metadados adicionais (TTL, tags, etc.)
+     * @return void
+     */
+    public function addCacheOperation(
+        string $operation,
+        ?string $key = null,
+        $value = null,
+        ?float $executionTime = null,
+        bool $success = true,
+        ?string $errorMessage = null,
+        ?array $metadata = null
+    ): void {
+        // Timestamp atual (Unix timestamp com microsegundos)
+        $executedAt = microtime(true);
+
+        // Serializa valores complexos para evitar problemas de memória
+        $serializedValue = null;
+        if ($value !== null) {
+            if (is_string($value) || is_numeric($value) || is_bool($value) || is_null($value)) {
+                $serializedValue = $value;
+            } elseif (is_array($value) || is_object($value)) {
+                // Limita o tamanho para evitar payloads muito grandes
+                $serialized = json_encode($value);
+                if ($serialized !== false) {
+                    $serializedValue = strlen($serialized) > 1000 
+                        ? substr($serialized, 0, 1000) . '...[truncado]'
+                        : $serialized;
+                } else {
+                    $serializedValue = '[valor não serializável]';
+                }
+            } else {
+                $serializedValue = '[tipo: ' . gettype($value) . ']';
+            }
+        }
+
+        $this->cacheOperations[] = [
+            'operation' => strtolower($operation),
+            'key' => $key,
+            'value' => $serializedValue,
+            'value_size' => $value !== null && is_string($value) ? strlen($value) : null,
+            'execution_time' => $executionTime,
+            'executed_at' => $executedAt,
+            'success' => $success,
+            'error_message' => $errorMessage,
+            'metadata' => $metadata ?? [],
+        ];
+    }
+
+    /**
+     * Retorna todas as operações de cache registradas.
+     *
+     * @return array
+     */
+    public function getCacheOperations(): array
+    {
+        return $this->cacheOperations;
+    }
+
+    /**
+     * Limpa o array de operações de cache.
+     *
+     * Útil para resetar após enviar os dados ao servidor, evitando acúmulo de memória entre requisições.
+     *
+     * @return void
+     */
+    public function clearCacheOperations(): void
+    {
+        $this->cacheOperations = [];
+    }
+
+    /**
+     * Registra um evento de job (queued, processing, processed, failed).
+     * 
+     * Este método armazena informações sobre jobs que são enviados para a fila ou executados.
+     * Os dados são enviados ao servidor Lonomia junto com os demais dados de monitoramento.
+     *
+     * @param string $status Status do job (queued, processing, processed, failed)
+     * @param string $jobClass Nome da classe do job
+     * @param string|null $jobId ID único do job na fila
+     * @param string|null $connection Nome da conexão da fila
+     * @param string|null $queue Nome da fila
+     * @param float|null $executionTime Tempo de execução em segundos (apenas para processed/failed)
+     * @param \Throwable|null $exception Exceção se o job falhou
+     * @param array|null $payload Payload do job (serializado)
+     * @return void
+     */
+    public function addJob(
+        string $status,
+        string $jobClass,
+        ?string $jobId = null,
+        ?string $connection = null,
+        ?string $queue = null,
+        ?float $executionTime = null,
+        ?\Throwable $exception = null,
+        ?array $payload = null
+    ): void {
+        $executedAt = microtime(true);
+
+        $jobData = [
+            'status' => $status,
+            'job_class' => $jobClass,
+            'job_id' => $jobId,
+            'connection' => $connection,
+            'queue' => $queue,
+            'execution_time' => $executionTime,
+            'executed_at' => $executedAt,
+            'payload' => $payload,
+        ];
+
+        if ($exception) {
+            $jobData['exception'] = [
+                'message' => $exception->getMessage(),
+                'code' => $exception->getCode(),
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+                'trace' => $exception->getTraceAsString(),
+            ];
+        }
+
+        $this->jobs[] = $jobData;
+    }
+
+    /**
+     * Retorna todas as operações de jobs registradas.
+     *
+     * @return array
+     */
+    public function getJobs(): array
+    {
+        return $this->jobs;
+    }
+
+    /**
+     * Limpa o array de jobs.
+     *
+     * Útil para resetar após enviar os dados ao servidor, evitando acúmulo de memória entre requisições.
+     *
+     * @return void
+     */
+    public function clearJobs(): void
+    {
+        $this->jobs = [];
     }
 }

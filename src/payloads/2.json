@@ -1,0 +1,297 @@
+{
+    "tracking_id": "user_2315",
+    "request": {
+      "method": "POST",
+      "url": "http://localhost:8081/api/v1/documento",
+      "headers": {
+        "content-length": [
+          "2277"
+        ],
+        "host": [
+          "localhost:8081"
+        ],
+        "content-type": [
+          "multipart/form-data; boundary=X-INSOMNIA-BOUNDARY"
+        ],
+        "authorization": [
+          "Bearer 263866|SbMIBiJaIRYO2SOGGcGs9sqv4dVMrqTyAXW7ksjua70de6d4"
+        ],
+        "accept": [
+          "*/*"
+        ],
+        "user-agent": [
+          "insomnia/11.3.0"
+        ]
+      },
+      "body": {
+        "documento": {}
+      }
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "cache-control": [
+          "no-cache, private"
+        ],
+        "date": [
+          "Wed, 21 Jan 2026 21:44:55 GMT"
+        ],
+        "content-type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "name": "README.md",
+        "url": "/api/v1/documento/arquivo/documentos/users/2315/pLutzFhweLgy4DMKzjlGkeBiU4uh4S8UihGTxSpL.txt",
+        "user_id": 2315,
+        "extensao": "md",
+        "tamanho": 2124,
+        "updated_at": "2026-01-21T21:44:46.000000Z",
+        "created_at": "2026-01-21T21:44:46.000000Z",
+        "id": 17158
+      }
+    },
+    "performance": {
+      "execution_time": 8.333063840866089,
+      "memory_start": 4620152,
+      "memory_end": 7504608,
+      "peak_memory": 13275968,
+      "is_streamed": false
+    },
+    "queries": [
+      {
+        "sql": "insert into `documentos` (`name`, `url`, `user_id`, `extensao`, `tamanho`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "README.md",
+          "/api/v1/documento/arquivo/documentos/users/2315/pLutzFhweLgy4DMKzjlGkeBiU4uh4S8UihGTxSpL.txt",
+          2315,
+          "md",
+          2124,
+          "2026-01-21 18:44:46",
+          "2026-01-21 18:44:46"
+        ],
+        "time": 337.75,
+        "executed_at": "2026-01-21 18:44:47.324807"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 309.91,
+        "executed_at": "2026-01-21 18:44:47.649693"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_escritorios` where `id` = ? and `module_sub_escritorios`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          3
+        ],
+        "time": 307.95,
+        "executed_at": "2026-01-21 18:44:47.961714"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_organizacoes` where `id` = ? and `module_sub_organizacoes`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          5
+        ],
+        "time": 322.12,
+        "executed_at": "2026-01-21 18:44:48.286818"
+      },
+      {
+        "sql": "insert into `module_logs_audits` (`old_values`, `new_values`, `event`, `auditable_id`, `auditable_type`, `user_id`, `user_type`, `tags`, `ip_address`, `user_agent`, `url`, `escritorio_id`, `organizacao_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "[]",
+          "{\"name\":\"README.md\",\"url\":\"\\/api\\/v1\\/documento\\/arquivo\\/documentos\\/users\\/2315\\/pLutzFhweLgy4DMKzjlGkeBiU4uh4S8UihGTxSpL.txt\",\"user_id\":2315,\"extensao\":\"md\",\"tamanho\":2124,\"id\":17158}",
+          "created",
+          17158,
+          "App\\Module\\Documento\\Models\\Documento",
+          null,
+          null,
+          null,
+          "172.19.0.1",
+          "insomnia/11.3.0",
+          "http://localhost:8081/api/v1/documento",
+          3,
+          5,
+          "2026-01-21 18:44:48",
+          "2026-01-21 18:44:48"
+        ],
+        "time": 311.75,
+        "executed_at": "2026-01-21 18:44:48.601359"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 333.32,
+        "executed_at": "2026-01-21 18:44:48.936092"
+      },
+      {
+        "sql": "select * from `documentos` where `documentos`.`id` = ? limit 1",
+        "bindings": [
+          17158
+        ],
+        "time": 447.13,
+        "executed_at": "2026-01-21 18:44:49.393171"
+      },
+      {
+        "sql": "update `documentos` set `tempo_previsto_processamento_simples` = ?, `tempo_previsto_processamento_complexo` = ?, `documentos`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+          16,
+          31,
+          "2026-01-21 18:44:49",
+          17158
+        ],
+        "time": 309.76,
+        "executed_at": "2026-01-21 18:44:50.000062"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 331.12,
+        "executed_at": "2026-01-21 18:44:50.333104"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_escritorios` where `id` = ? and `module_sub_escritorios`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          3
+        ],
+        "time": 304.6,
+        "executed_at": "2026-01-21 18:44:50.639740"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_organizacoes` where `id` = ? and `module_sub_organizacoes`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          5
+        ],
+        "time": 331.85,
+        "executed_at": "2026-01-21 18:44:50.973171"
+      },
+      {
+        "sql": "insert into `module_logs_audits` (`old_values`, `new_values`, `event`, `auditable_id`, `auditable_type`, `user_id`, `user_type`, `tags`, `ip_address`, `user_agent`, `url`, `escritorio_id`, `organizacao_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "{\"tempo_previsto_processamento_simples\":null,\"tempo_previsto_processamento_complexo\":null}",
+          "{\"tempo_previsto_processamento_simples\":16,\"tempo_previsto_processamento_complexo\":31}",
+          "updated",
+          17158,
+          "App\\Module\\Documento\\Models\\Documento",
+          null,
+          null,
+          null,
+          "172.19.0.1",
+          "insomnia/11.3.0",
+          "http://localhost:8081/api/v1/documento",
+          3,
+          5,
+          "2026-01-21 18:44:50",
+          "2026-01-21 18:44:50"
+        ],
+        "time": 359.25,
+        "executed_at": "2026-01-21 18:44:51.334324"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 312.16,
+        "executed_at": "2026-01-21 18:44:51.648384"
+      },
+      {
+        "sql": "select * from `cache` where `key` in (?)",
+        "bindings": [
+          "chatadv_cache_garantirColecaoExiste"
+        ],
+        "time": 319.89,
+        "executed_at": "2026-01-21 18:44:52.221499"
+      },
+      {
+        "sql": "insert into `cache` (`expiration`, `key`, `value`) values (?, ?, ?) on duplicate key update `expiration` = values(`expiration`), `key` = values(`key`), `value` = values(`value`)",
+        "bindings": [
+          1769118292,
+          "chatadv_cache_garantirColecaoExiste",
+          "N;"
+        ],
+        "time": 316.4,
+        "executed_at": "2026-01-21 18:44:52.876037"
+      },
+      {
+        "sql": "update `documentos` set `erro_processamento` = ?, `processado` = ?, `documentos`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+          "Sending to model (text-embedding-3-small) failed: HTTP request returned status code 401:\n{\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-proj-***************************************************** (truncated...)\n\n/app/vendor/prism-php/prism/src/Exceptions/PrismException.php\n65",
+          2,
+          "2026-01-21 18:44:53",
+          17158
+        ],
+        "time": 313.19,
+        "executed_at": "2026-01-21 18:44:53.456165"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 330.48,
+        "executed_at": "2026-01-21 18:44:53.788836"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_escritorios` where `id` = ? and `module_sub_escritorios`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          3
+        ],
+        "time": 318.51,
+        "executed_at": "2026-01-21 18:44:54.109629"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_organizacoes` where `id` = ? and `module_sub_organizacoes`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          5
+        ],
+        "time": 320.74,
+        "executed_at": "2026-01-21 18:44:54.431688"
+      },
+      {
+        "sql": "insert into `module_logs_audits` (`old_values`, `new_values`, `event`, `auditable_id`, `auditable_type`, `user_id`, `user_type`, `tags`, `ip_address`, `user_agent`, `url`, `escritorio_id`, `organizacao_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "{\"erro_processamento\":null,\"processado\":0}",
+          "{\"erro_processamento\":\"Sending to model (text-embedding-3-small) failed: HTTP request returned status code 401:\\n{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Incorrect API key provided: sk-proj-***************************************************** (truncated...)\\n\\n\\/app\\/vendor\\/prism-php\\/prism\\/src\\/Exceptions\\/PrismException.php\\n65\",\"processado\":2}",
+          "updated",
+          17158,
+          "App\\Module\\Documento\\Models\\Documento",
+          null,
+          null,
+          null,
+          "172.19.0.1",
+          "insomnia/11.3.0",
+          "http://localhost:8081/api/v1/documento",
+          3,
+          5,
+          "2026-01-21 18:44:54",
+          "2026-01-21 18:44:54"
+        ],
+        "time": 309.16,
+        "executed_at": "2026-01-21 18:44:54.742585"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 307.77,
+        "executed_at": "2026-01-21 18:44:55.052260"
+      }
+    ],
+    "http_requests": [],
+    "apm": {
+      "request-total": {
+        "start": 1769031886.733709,
+        "end": 1769031895.066395,
+        "duration": 8.332685947418213
+      }
+    },
+    "logs": [],
+    "exception": null
+  }

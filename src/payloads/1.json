@@ -1,0 +1,2761 @@
+{
+  "tracking_id": "user_2315",
+  "request": {
+    "method": "GET",
+    "url": "http://localhost:8081/api/v1/documento",
+    "headers": {
+      "host": [
+        "localhost:8081"
+      ],
+      "user-agent": [
+        "insomnia/11.3.0"
+      ],
+      "authorization": [
+        "Bearer 263866|SbMIBiJaIRYO2SOGGcGs9sqv4dVMrqTyAXW7ksjua70de6d4"
+      ],
+      "accept": [
+        "*/*"
+      ]
+    },
+    "body": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "cache-control": [
+        "no-cache, private"
+      ],
+      "date": [
+        "Wed, 21 Jan 2026 21:43:16 GMT"
+      ],
+      "content-type": [
+        "application/json"
+      ]
+    },
+    "body": {
+      "current_page": 1,
+      "data": [
+        {
+          "id": 17157,
+          "mind_map": null,
+          "tempo_previsto_processamento_simples": 16,
+          "tempo_previsto_processamento_complexo": 31,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": "Sending to model (text-embedding-3-small) failed: HTTP request returned status code 401:\n{\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-proj-***************************************************** (truncated...)\n\n/app/vendor/prism-php/prism/src/Exceptions/PrismException.php\n65",
+          "user_id": 2315,
+          "name": "README.md",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-21T21:38:46.000000Z",
+          "updated_at": "2026-01-21T21:38:52.000000Z",
+          "descricao": null,
+          "url": "/api/v1/documento/arquivo/documentos/users/2315/nt4EBnRxYhCIcEPg9jAgzvtUGCpMgsJZZFmZoh1D.txt",
+          "processado": 2,
+          "extensao": "md",
+          "tamanho": 2124,
+          "interacoes_ia": []
+        },
+        {
+          "id": 16963,
+          "mind_map": {
+            "id": "root",
+            "label": "Landing Page Fenalaw25 e ChatADV",
+            "children": [
+              {
+                "id": "primeira-dobra-hero-section",
+                "label": "1ª dobra (Hero Section)",
+                "children": [
+                  {
+                    "id": "titulo",
+                    "label": "Título: O futuro da advocacia: inteligência artificial está na Fenalaw 2025"
+                  },
+                  {
+                    "id": "subtitulo",
+                    "label": "Subtítulo: uso do ChatADV por mais de 150.000 advogados para ganho de tempo e resultados práticos"
+                  },
+                  {
+                    "id": "call-to-action-cta",
+                    "label": "CTA para garantir experiência no evento"
+                  },
+                  {
+                    "id": "integracoes",
+                    "label": "Integração via WhatsApp, plataforma web e reconhecimento pela OAB"
+                  }
+                ]
+              },
+              {
+                "id": "segunda-dobra-problema-e-solucao",
+                "label": "2ª dobra (Problema e Solução)",
+                "children": [
+                  {
+                    "id": "problema",
+                    "label": "Desafio da advocacia moderna: alta demanda e pouco tempo"
+                  },
+                  {
+                    "id": "solucao",
+                    "label": "ChatADV: IA treinada para rotina jurídica que libera tempo para advocacia eficaz e melhores resultados"
+                  }
+                ]
+              },
+              {
+                "id": "terceira-dobra-funcionalidades-e-beneficios",
+                "label": "3ª dobra (Funcionalidades e Benefícios)",
+                "children": [
+                  {
+                    "id": "funcionalidades-chatadv",
+                    "label": "Principais recursos do ChatADV",
+                    "children": [
+                      {
+                        "id": "criacao-pecas-juridicas",
+                        "label": "Criação inteligente de peças jurídicas"
+                      },
+                      {
+                        "id": "acesso-jurisprudencias",
+                        "label": "Acesso a 19 milhões de jurisprudências"
+                      },
+                      {
+                        "id": "uso-whatsapp",
+                        "label": "Uso via WhatsApp"
+                      },
+                      {
+                        "id": "plataforma-web",
+                        "label": "Plataforma web completa"
+                      },
+                      {
+                        "id": "reconhecimento-oab",
+                        "label": "Reconhecimento da OAB"
+                      },
+                      {
+                        "id": "mini-cta-teste",
+                        "label": "Mini CTA para teste"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "quarta-dobra-depoimentos-e-apoios",
+                "label": "4ª dobra (Depoimentos e Apoios)",
+                "children": [
+                  {
+                    "id": "depoimentos-advogados",
+                    "label": "Depoimentos de advogados das áreas trabalhista, criminal e cível"
+                  },
+                  {
+                    "id": "logos-apoiadores",
+                    "label": "Logos da OAB, ESA, AWS, Microsoft e Meta",
+                    "children": []
+                  },
+                  {
+                    "id": "autoridade-e-confianca",
+                    "label": "Autoridade e confiança da comunidade com mais de 150.000 usuários"
+                  }
+                ]
+              },
+              {
+                "id": "quinta-dobra-tabela-comparativa-de-planos",
+                "label": "5ª dobra (Tabela comparativa de planos)",
+                "children": [
+                  {
+                    "id": "planos",
+                    "label": "Planos",
+                    "children": [
+                      {
+                        "id": "basico",
+                        "label": "Básico (R$97/mês)",
+                        "children": []
+                      },
+                      {
+                        "id": "pro",
+                        "label": "Pro (R$147/mês)",
+                        "children": []
+                      },
+                      {
+                        "id": "premium",
+                        "label": "Premium (R$247/mês)",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "id": "funcionalidades-distribuidas",
+                    "label": "Funcionalidades distribuídas",
+                    "children": [
+                      {
+                        "id": "criacao-pecas-juridicas-todos-planos",
+                        "label": "Criação de peças jurídicas: todos os planos"
+                      },
+                      {
+                        "id": "pesquisa-jurisprudencial-todos-planos",
+                        "label": "Pesquisa jurisprudencial: todos os planos"
+                      },
+                      {
+                        "id": "acesso-whatsapp-todos-planos",
+                        "label": "Acesso via WhatsApp: todos os planos"
+                      },
+                      {
+                        "id": "multiusuarios-pro-premium",
+                        "label": "Multiusuários: planos Pro e Premium"
+                      },
+                      {
+                        "id": "acesso-antecipado-pro-premium",
+                        "label": "Acesso antecipado a novidades: planos Pro e Premium"
+                      },
+                      {
+                        "id": "suporte-prioritario-premium",
+                        "label": "Suporte prioritário exclusivo: plano Premium"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "implementacao-landing-page",
+                "label": "Implementação da landing page",
+                "children": [
+                  {
+                    "id": "tecnologias-html-tailwind",
+                    "label": "HTML, Tailwind CSS ou framework similar"
+                  },
+                  {
+                    "id": "estrutura-hierarquia",
+                    "label": "Hierarquia de títulos, CTAs e componentes visuais"
+                  },
+                  {
+                    "id": "boas-praticas",
+                    "label": "Boas práticas de UX, copywriting e conversão"
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 16,
+          "tempo_previsto_processamento_complexo": 31,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "landingpage_fenalaw25.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-21T14:25:47.000000Z",
+          "updated_at": "2026-01-21T14:26:57.000000Z",
+          "descricao": "O documento apresenta uma landing page estruturada em cinco dobras para promover o evento Fenalaw25 e o software jurídico ChatADV, destacando:\n\n- **1ª dobra (Hero Section):** Título “O futuro da advocacia: inteligência artificial está na Fenalaw 2025”, subtítulo mencionando o uso do ChatADV por mais de 150.000 advogados para ganho de tempo e resultados práticos, com call to action (CTA) para garantir experiência no evento. Inclui integração via WhatsApp, plataforma web e reconhecimento oficial pela OAB.\n\n- **2ª dobra (Problema e Solução):** Identifica o desafio da advocacia moderna, que enfrenta alta demanda e pouco tempo, ressaltando que o ChatADV, IA treinada para rotina jurídica, libera tempo para advocacia eficaz e melhores resultados.\n\n- **3ª dobra (Funcionalidades e Benefícios):** Lista os principais recursos do ChatADV: criação inteligente de peças jurídicas, acesso a 19 milhões de jurisprudências, uso via WhatsApp, plataforma web completa e reconhecimento da OAB, com mini CTA para teste.\n\n- **4ª dobra (Depoimentos e Apoios):** Apresenta depoimentos de advogados das áreas trabalhista, criminal e cível, além de exibir logos da OAB, ESA, AWS, Microsoft e Meta, sinalizando autoridade e confiança da comunidade de mais de 150.000 usuários.\n\n- **5ª dobra (Tabela comparativa de planos):** Três planos — Básico (R$97/mês), Pro (R$147/mês) e Premium (R$247/mês) — com funcionalidades distribuídas:\n\n  - Criação de peças jurídicas: disponível em todos os planos\n\n  - Pesquisa jurisprudencial: todos os planos\n\n  - Acesso via WhatsApp: todos os planos\n\n  - Multiusuários: planos Pro e Premium\n\n  - Acesso antecipado a novidades: planos Pro e Premium\n\n  - Suporte prioritário exclusivo: plano Premium\n\nO documento ainda orienta a implementação da landing page utilizando HTML, Tailwind CSS ou framework similar, observando hierarquia de títulos, CTAs e componentes visuais, seguindo boas práticas de UX, copywriting e conversão.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/etiMXqaQO5WtmA6ESsNmovMuoxEm7ks6mbd0Xxt0.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 4577,
+          "interacoes_ia": [
+            {
+              "id": 12196,
+              "titulo": "Decisão de Proteção ao Consumidor",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-21T14:25:43.000000Z",
+              "updated_at": "2026-01-21T19:49:49.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16963,
+                "interacao_ia_id": 12196,
+                "created_at": "2026-01-21T14:25:48.000000Z",
+                "updated_at": "2026-01-21T14:25:48.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16962,
+          "mind_map": null,
+          "tempo_previsto_processamento_simples": 56,
+          "tempo_previsto_processamento_complexo": 71,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": "cURL error 28: Operation timed out after 30001 milliseconds with 0 bytes received (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for https://api.openai.com/v1/responses\n/app/vendor/laravel/framework/src/Illuminate/Http/Client/PendingRequest.php\n1787",
+          "user_id": 2315,
+          "name": "Sentença (4).pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-21T14:25:45.000000Z",
+          "updated_at": "2026-01-21T14:27:31.000000Z",
+          "descricao": "Trata-se de ação de obrigação de fazer cumulada com pedidos reparatorios por danos materiais e morais, em que a autora alega falha na prestação de serviço pelo banco requerido, decorrente de atraso no pagamento de parcela de financiamento e retenção integral de seus vencimentos mesmo após acordo, comprometendo sua subsistência. A autora comprovou que tentou renegociar a dívida, mas o banco exigiu valores incompatíveis e efetuou descontos excessivos, em desconformidade com o limite de 30% sobre os rendimentos líquidos, configurando prática vedada e violação à boa-fé contratual.\n\nO réu sustentou que a pretensão altera a natureza do contrato, defendendo a observância dos princípios da segurança jurídica, autonomia da vontade, e vedação ao enriquecimento sem causa, requerendo improcedência da ação e alegando falta de interesse de agir, preliminar rejeitada no processo.\n\nO juízo reconheceu a falha na prestação do serviço pelo réu, confirmou tutela antecipatória para limitar os descontos a 30% dos vencimentos líquidos da autora, sob pena de multa, e condenou o banco ao pagamento de R$ 8.000,00 a título de danos morais. Esclareceu-se que eventual condenação por danos materiais deverá ser corrigida monetariamente e acrescida de juros, conforme os artigos 405 e 406 do Código Civil. Não foram estabelecidos honorários advocatícios, dada a natureza do rito sumaríssimo e a gratuidade da justiça.\n\nA decisão fundamenta-se nos dispositivos do Código de Defesa do Consumidor, especialmente o artigo 14, que impõe responsabilidade objetiva do fornecedor por serviço defeituoso, e nos princípios da função social do contrato e da boa-fé objetiva. Ressaltou-se a hipossuficiência da autora na relação de consumo e o direito fundamental à reparação integral por danos materiais e morais, considerada a limitação legal dos descontos e a proteção à dignidade do consumidor.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/SQevNqe0MLZQo39bi47Tu1JmVWKfT7RT3OUIaPmF.pdf",
+          "processado": 4,
+          "extensao": "pdf",
+          "tamanho": 47399,
+          "interacoes_ia": [
+            {
+              "id": 12196,
+              "titulo": "Decisão de Proteção ao Consumidor",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-21T14:25:43.000000Z",
+              "updated_at": "2026-01-21T19:49:49.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16962,
+                "interacao_ia_id": 12196,
+                "created_at": "2026-01-21T14:25:46.000000Z",
+                "updated_at": "2026-01-21T14:25:46.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16857,
+          "mind_map": {
+            "id": "root",
+            "label": "Ação de Obrigação de Fazer com Pedido Reparatório",
+            "children": [
+              {
+                "id": "parte-autora-e-introducao",
+                "label": "Parte autora e Introdução",
+                "children": [
+                  {
+                    "id": "josilene-dias-souza",
+                    "label": "Josilene Dias Souza"
+                  },
+                  {
+                    "id": "banco-do-brasil-sa",
+                    "label": "Banco do Brasil S.A."
+                  },
+                  {
+                    "id": "alegacao-da-autora",
+                    "label": "Alegação da autora",
+                    "children": [
+                      {
+                        "id": "falha-na-prestacao-de-servico",
+                        "label": "Falha na prestação de serviço bancário"
+                      },
+                      {
+                        "id": "renegociacao-da-parcela",
+                        "label": "Renegociação de parcela do financiamento em atraso"
+                      },
+                      {
+                        "id": "retencao-de-vencimentos",
+                        "label": "Banco reteve integralmente seus vencimentos, comprometendo subsistência"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "contestacao-do-banco",
+                    "label": "Contestação do banco",
+                    "children": [
+                      {
+                        "id": "ausencia-de-interesse-processual",
+                        "label": "Ausência de interesse processual"
+                      },
+                      {
+                        "id": "descontos-seguranca-juridica",
+                        "label": "Descontos observam segurança jurídica e liberdade contratual"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "analise-da-juiza",
+                "label": "Análise da juíza Hadja Rayanne Holanda Alencar",
+                "children": [
+                  {
+                    "id": "reconhecimento-da-falha",
+                    "label": "Reconhecimento da falha na prestação do serviço"
+                  },
+                  {
+                    "id": "limite-dos-descontos",
+                    "label": "Limite dos descontos até 30% dos rendimentos líquidos",
+                    "children": [
+                      {
+                        "id": "jurisprudencia-e-direitos",
+                        "label": "Jurisprudência resguarda dignidade do consumidor"
+                      },
+                      {
+                        "id": "boa-fe-objetiva-funcao-social",
+                        "label": "Respeito à boa-fé objetiva e função social do contrato",
+                        "children": [
+                          {
+                            "id": "arts-codigo-civil",
+                            "label": "Artigos 421, 422 e 31 do Código Civil"
+                          },
+                          {
+                            "id": "arts-cdc",
+                            "label": "Artigos 14 e 39 do Código de Defesa do Consumidor"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "falha-informativa-e-hipossuficiencia",
+                    "label": "Falha informativa e hipossuficiência da autora",
+                    "children": [
+                      {
+                        "id": "boa-fe-contratual-violada",
+                        "label": "Violação da boa-fé contratual"
+                      },
+                      {
+                        "id": "responsabilidade-objetiva",
+                        "label": "Responsabilidade objetiva do fornecedor (art. 14 CDC)"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "decisao-e-sentenca",
+                "label": "Decisão e Sentença",
+                "children": [
+                  {
+                    "id": "manutencao-do-limite-dos-descontos",
+                    "label": "Manutenção do limite de descontos em conta em até 30% dos rendimentos líquidos",
+                    "children": [
+                      {
+                        "id": "multa",
+                        "label": "Sujeito a multa em caso de descumprimento"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "condenacao-a-pagamento-de-danos-morais",
+                    "label": "Condenação do banco a pagamento de R$ 8.000,00 por danos morais"
+                  },
+                  {
+                    "id": "correcao-monetaria-e-juros-legais",
+                    "label": "Correção monetária e juros legais",
+                    "children": [
+                      {
+                        "id": "dano-material",
+                        "label": "Danos materiais desde data da citação"
+                      },
+                      {
+                        "id": "dano-moral",
+                        "label": "Dano moral a partir do arbitramento na sentença (Súmula 362 STJ)"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "indeferimento-da-alegacao-preliminar",
+                    "label": "Indeferimento da alegação preliminar de falta de interesse de agir"
+                  },
+                  {
+                    "id": "cumprimento-da-tutela-antecipada",
+                    "label": "Imposição de cumprimento de tutela antecipada concedida"
+                  },
+                  {
+                    "id": "isencao-de-custas-e-honorarios",
+                    "label": "Isenção da autora do pagamento de custas processuais e honorários",
+                    "children": [
+                      {
+                        "id": "artigos-lei-9099",
+                        "label": "Artigos 54 e 55 da Lei 9.099/95"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "consideracoes-finais",
+                "label": "Considerações finais",
+                "children": [
+                  {
+                    "id": "reparacao-integral-do-dano",
+                    "label": "Reparação integral dos danos é direito do consumidor"
+                  },
+                  {
+                    "id": "arbitramento-do-dano-moral",
+                    "label": "Arbitramento do dano moral deve observar prudência para evitar enriquecimento sem causa"
+                  },
+                  {
+                    "id": "execucao-da-sentenca",
+                    "label": "Execução da sentença após trânsito em julgado",
+                    "children": [
+                      {
+                        "id": "ferramenta-de-atualizacao-do-debito",
+                        "label": "Uso de ferramenta automática no site do TJRN para atualização do débito"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 56,
+          "tempo_previsto_processamento_complexo": 71,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "Sentença (4).pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:50:32.000000Z",
+          "updated_at": "2026-01-20T20:51:16.000000Z",
+          "descricao": "Trata-se de ação de obrigação de fazer cumulada com pedidos reparatórios por danos materiais e morais proposta por Josilene Dias Souza contra Banco do Brasil S.A., na qual a autora alega falha na prestação de serviço bancário, pois, apesar de ter realizado uma renegociação de parcela de financiamento em atraso, o banco teria retido integralmente seus vencimentos, comprometendo sua subsistência. O banco réu contestou, sustentando ausência de interesse processual e que os descontos realizados observam a segurança jurídica e a liberdade contratual.\n\nA juíza Hadja Rayanne Holanda Alencar, ao analisar os autos, reconheceu a existência da falha na prestação do serviço pelo réu, destacando que a limitação dos descontos em conta corrente de até 30% dos rendimentos líquidos é pacificada na jurisprudência, resguardando a dignidade do consumidor e evitando a privação dos meios mínimos de subsistência. Ressaltou que essa limitação deve ser respeitada mesmo em caso de atraso e renegociação, sob pena de atuação contrária à boa-fé objetiva e função social do contrato, conforme arts. 421, 422 e 31 do Código Civil e artigos 14 e 39 do Código de Defesa do Consumidor (CDC).\n\nConstatou-se que o banco agiu com falha informativa no momento da renegociação, ferindo a boa-fé contratual, e que a autora estava hipossuficiente na relação de consumo. A responsabilidade do fornecedor de serviços por vício na prestação é objetiva, nos termos do art. 14 do CDC.\n\nDiante disso, foram acolhidos os pedidos da autora, e a sentença determinou:  \n- Manutenção dos descontos em conta no percentual máximo de 30% dos rendimentos líquidos da autora, sob pena de multa;  \n- Condenação do banco ao pagamento de R$ 8.000,00 a título de danos morais;  \n- Correção monetária e juros legais incidentes sobre eventual dano material, desde a data da citação, e sobre dano moral a partir do arbitramento na sentença, conforme Súmula 362 do STJ;  \n- Indeferimento da alegação preliminar de falta de interesse de agir da autora;  \n- Imposição de cumprimento de tutela antecipada concedida durante o processo;  \n- Isenção da autora do pagamento de custas processuais e honorários advocatícios, conforme arts. 54 e 55 da Lei 9.099/95.  \n\nA decisão ressaltou que a reparação integral dos danos decorrentes de defeitos em serviços é direito do consumidor e que o arbitramento do dano moral deve observar critérios de prudência, evitando enriquecimento sem causa. A parte vencedora foi informada da necessidade de requerer execução da sentença após trânsito em julgado, utilizando ferramenta automática de atualização do débito disponível no site do TJRN.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/9YY5WuyKREsiMJ1v87MGbnlWn1FvICFAQvzKC3fC.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 47399,
+          "interacoes_ia": [
+            {
+              "id": 12121,
+              "titulo": "Fundamentos Jurídicos Essenciais",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:50:25.000000Z",
+              "updated_at": "2026-01-20T20:52:57.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16857,
+                "interacao_ia_id": 12121,
+                "created_at": "2026-01-20T20:50:33.000000Z",
+                "updated_at": "2026-01-20T20:50:33.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16856,
+          "mind_map": {
+            "id": "root",
+            "label": "Aplicação da Inteligência Artificial na Gestão Jurídica",
+            "children": [
+              {
+                "id": "importancia-da-tecnologia",
+                "label": "Importância da Tecnologia",
+                "children": [
+                  {
+                    "id": "alta-performance",
+                    "label": "Alta Performance"
+                  },
+                  {
+                    "id": "eficiencia-operacional",
+                    "label": "Eficiência Operacional"
+                  },
+                  {
+                    "id": "produtividade",
+                    "label": "Produtividade"
+                  }
+                ]
+              },
+              {
+                "id": "utilizacao-da-ia",
+                "label": "Utilização da IA",
+                "children": [
+                  {
+                    "id": "controle-de-dados",
+                    "label": "Controle de Dados"
+                  },
+                  {
+                    "id": "apoio-estrategico",
+                    "label": "Apoio Estratégico"
+                  },
+                  {
+                    "id": "otimizacao-do-tempo",
+                    "label": "Otimização do Tempo"
+                  },
+                  {
+                    "id": "precisao-nas-decisoes",
+                    "label": "Precisão nas Decisões"
+                  },
+                  {
+                    "id": "operacao-juridica-escalavel",
+                    "label": "Operação Jurídica Escalável"
+                  },
+                  {
+                    "id": "sem-sobrecarga",
+                    "label": "Operação sem Sobrecarga"
+                  }
+                ]
+              },
+              {
+                "id": "gestao-inteligente-por-dados",
+                "label": "Gestão Inteligente Orientada por Dados",
+                "children": [
+                  {
+                    "id": "excelencia-continua",
+                    "label": "Excelência Contínua"
+                  },
+                  {
+                    "id": "crescimento-sustentavel",
+                    "label": "Crescimento Sustentável",
+                    "children": [
+                      {
+                        "id": "honorarios",
+                        "label": "Honorários"
+                      },
+                      {
+                        "id": "resultados-do-escritorio",
+                        "label": "Resultados do Escritório Jurídico"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 8,
+          "tempo_previsto_processamento_complexo": 23,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "Design.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:50:31.000000Z",
+          "updated_at": "2026-01-20T20:50:50.000000Z",
+          "descricao": "O texto aborda a aplicação da inteligência artificial (IA) na gestão e operação de escritórios jurídicos, enfatizando a importância da tecnologia para alcançar alta performance, eficiência operacional e produtividade. Destaca-se a utilização da IA para controle de dados, apoio estratégico, otimização do tempo e precisão nas decisões, possibilitando uma operação jurídica escalável e sem sobrecarga. A abordagem visa, ainda, a gestão inteligente orientada por dados, promovendo excelência contínua e crescimento sustentável dos honorários e resultados do escritório jurídico.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/vW4ARbgToIGzQpvdv01XLKUoR1mzBEBCDK3iRxTL.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 489332,
+          "interacoes_ia": [
+            {
+              "id": 12121,
+              "titulo": "Fundamentos Jurídicos Essenciais",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:50:25.000000Z",
+              "updated_at": "2026-01-20T20:52:57.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16856,
+                "interacao_ia_id": 12121,
+                "created_at": "2026-01-20T20:50:31.000000Z",
+                "updated_at": "2026-01-20T20:50:31.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16855,
+          "mind_map": {
+            "id": "root",
+            "label": "Mapa Mental - Fenalaw25 e Planos Advocacia",
+            "children": [
+              {
+                "id": "planos-advocacia",
+                "label": "Planos para Advocacia",
+                "children": [
+                  {
+                    "id": "plano-basico",
+                    "label": "Básico (R$97/mês)",
+                    "children": [
+                      {
+                        "id": "planos-basico-inclusoes",
+                        "label": "Inclusões",
+                        "children": [
+                          {
+                            "id": "criacao-pecas-juridicas",
+                            "label": "Criação de peças jurídicas"
+                          },
+                          {
+                            "id": "pesquisa-jurisprudencial",
+                            "label": "Pesquisa jurisprudencial"
+                          },
+                          {
+                            "id": "acesso-whatsapp",
+                            "label": "Acesso via WhatsApp"
+                          },
+                          {
+                            "id": "multiusuarios",
+                            "label": "Multiusuários"
+                          },
+                          {
+                            "id": "acesso-antecipado-novidades",
+                            "label": "Acesso antecipado a novidades"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "plano-pro",
+                    "label": "Pro (R$147/mês)",
+                    "children": [
+                      {
+                        "id": "planos-pro-inclusoes",
+                        "label": "Inclusões",
+                        "children": [
+                          {
+                            "id": "criacao-pecas-juridicas-pro",
+                            "label": "Criação de peças jurídicas"
+                          },
+                          {
+                            "id": "pesquisa-jurisprudencial-pro",
+                            "label": "Pesquisa jurisprudencial"
+                          },
+                          {
+                            "id": "acesso-whatsapp-pro",
+                            "label": "Acesso via WhatsApp"
+                          },
+                          {
+                            "id": "multiusuarios-pro",
+                            "label": "Multiusuários"
+                          },
+                          {
+                            "id": "acesso-antecipado-novidades-pro",
+                            "label": "Acesso antecipado a novidades"
+                          },
+                          {
+                            "id": "suporte-prioritario-pro",
+                            "label": "Suporte prioritário"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "plano-premium",
+                    "label": "Premium (R$247/mês)",
+                    "children": [
+                      {
+                        "id": "planos-premium-inclusoes",
+                        "label": "Inclusões",
+                        "children": [
+                          {
+                            "id": "criacao-pecas-juridicas-premium",
+                            "label": "Criação de peças jurídicas"
+                          },
+                          {
+                            "id": "pesquisa-jurisprudencial-premium",
+                            "label": "Pesquisa jurisprudencial"
+                          },
+                          {
+                            "id": "acesso-whatsapp-premium",
+                            "label": "Acesso via WhatsApp"
+                          },
+                          {
+                            "id": "multiusuarios-premium",
+                            "label": "Multiusuários"
+                          },
+                          {
+                            "id": "acesso-antecipado-novidades-premium",
+                            "label": "Acesso antecipado a novidades"
+                          },
+                          {
+                            "id": "suporte-prioritario-premium",
+                            "label": "Suporte prioritário"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "landing-page-fenalaw25",
+                "label": "Landing Page Fenalaw25",
+                "children": [
+                  {
+                    "id": "estrutura-secoes",
+                    "label": "Estrutura em 5 Seções",
+                    "children": [
+                      {
+                        "id": "hero-section",
+                        "label": "Hero Section",
+                        "children": [
+                          {
+                            "id": "destaque-chatadv",
+                            "label": "Futuro da advocacia com IA ChatADV"
+                          },
+                          {
+                            "id": "usuarios-chatadv",
+                            "label": "Mais de 150 mil advogados no Brasil"
+                          },
+                          {
+                            "id": "cta-participacao-evento",
+                            "label": "CTA para garantir participação"
+                          },
+                          {
+                            "id": "integracao-whatsapp",
+                            "label": "Integração via WhatsApp"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "problema-solucao",
+                        "label": "Problema e Solução",
+                        "children": [
+                          {
+                            "id": "desafio-advocacia-moderna",
+                            "label": "Excesso de demandas e pouco tempo"
+                          },
+                          {
+                            "id": "chatadv-como-solucao",
+                            "label": "ChatADV economiza tempo e aumenta resultados"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "funcionalidades-beneficios",
+                        "label": "Funcionalidades e Benefícios",
+                        "children": [
+                          {
+                            "id": "ia-juridica",
+                            "label": "Plataforma referência em IA jurídica"
+                          },
+                          {
+                            "id": "criacao-inteligente-pecas",
+                            "label": "Criação inteligente de peças"
+                          },
+                          {
+                            "id": "acesso-jurisprudencias",
+                            "label": "Acesso a 19 milhões de jurisprudências"
+                          },
+                          {
+                            "id": "uso-via-whatsapp",
+                            "label": "Uso via WhatsApp"
+                          },
+                          {
+                            "id": "plataforma-web-completa",
+                            "label": "Plataforma web completa"
+                          },
+                          {
+                            "id": "reconhecimento-oab",
+                            "label": "Reconhecimento oficial da OAB"
+                          },
+                          {
+                            "id": "mini-cta-teste",
+                            "label": "Mini CTA para teste"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "depoimentos-apoios",
+                        "label": "Depoimentos e Apoios",
+                        "children": [
+                          {
+                            "id": "advogados-especializados",
+                            "label": "Advogados especializados atestam confiança"
+                          },
+                          {
+                            "id": "apoio-institucional",
+                            "label": "Apoio institucional",
+                            "children": [
+                              {
+                                "id": "oab",
+                                "label": "OAB"
+                              },
+                              {
+                                "id": "esa",
+                                "label": "ESA"
+                              },
+                              {
+                                "id": "aws",
+                                "label": "AWS"
+                              },
+                              {
+                                "id": "microsoft",
+                                "label": "Microsoft"
+                              },
+                              {
+                                "id": "meta",
+                                "label": "Meta"
+                              }
+                            ]
+                          },
+                          {
+                            "id": "comunidade-chatadv",
+                            "label": "Mais de 150 mil advogados integram ChatADV"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "implementacao-tecnica",
+                "label": "Implementação Técnica",
+                "children": [
+                  {
+                    "id": "uso-html-tailwind",
+                    "label": "Uso de HTML com Tailwind CSS ou similar"
+                  },
+                  {
+                    "id": "hierarquia-titulos-ctas",
+                    "label": "Respeito à hierarquia de títulos, CTAs e componentes visuais"
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 16,
+          "tempo_previsto_processamento_complexo": 31,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "landingpage_fenalaw25.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:50:27.000000Z",
+          "updated_at": "2026-01-20T20:50:59.000000Z",
+          "descricao": "A tabela comparativa apresenta três planos para advocacia: Básico (R$97/mês), Pro (R$147/mês) e Premium (R$247/mês). Todos os planos incluem criação de peças jurídicas, pesquisa jurisprudencial, acesso via WhatsApp, multiusuários e acesso antecipado a novidades. O plano Pro adiciona suporte prioritário, exclusivo também no Premium.\n\nA landing page do evento Fenalaw25 segue boa prática de UX e copywriting, com estrutura em cinco seções:\n\n1. Hero section: destaca o futuro da advocacia com a inteligência artificial ChatADV, usada por mais de 150 mil advogados no Brasil, com CTA para garantir participação no evento e integração via WhatsApp.\n2. Problema e solução: ressalta o desafio da advocacia moderna, com excesso de demandas e pouco tempo, apresentando o ChatADV como solução que economiza tempo e aumenta resultados.\n3. Funcionalidades e benefícios: apresenta a plataforma como referência em IA jurídica, com criação inteligente de peças, acesso a 19 milhões de jurisprudências, uso via WhatsApp, plataforma web completa e reconhecimento oficial da OAB, incluindo mini CTA para teste.\n4. Depoimentos e apoios: advogados especializados em diversas áreas atestam a confiança na ferramenta, com apoio institucional da OAB, ESA, AWS, Microsoft e Meta, destacando que mais de 150 mil advogados integram a comunidade ChatADV.\n\nA implementação recomenda uso de HTML com Tailwind CSS ou framework similar, respeitando a hierarquia de títulos, CTAs e componentes visuais.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/jDAHUfClXITfoIwvPARW78gKtA74V653zscwEafB.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 4577,
+          "interacoes_ia": [
+            {
+              "id": 12121,
+              "titulo": "Fundamentos Jurídicos Essenciais",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:50:25.000000Z",
+              "updated_at": "2026-01-20T20:52:57.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16855,
+                "interacao_ia_id": 12121,
+                "created_at": "2026-01-20T20:50:27.000000Z",
+                "updated_at": "2026-01-20T20:50:27.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16850,
+          "mind_map": {
+            "id": "root",
+            "label": "Mapa Mental - Landing Page Fenalaw25",
+            "children": [
+              {
+                "id": "hero-section",
+                "label": "1ª dobra – Hero Section",
+                "children": [
+                  {
+                    "id": "titulo-hero",
+                    "label": "Título: O futuro da advocacia: inteligência artificial está na Fenalaw 2025"
+                  },
+                  {
+                    "id": "subtitulo-hero",
+                    "label": "Subtítulo: ChatADV, IA jurídica reconhecida no Brasil, auxilia mais de 150.000 advogados"
+                  },
+                  {
+                    "id": "cta-hero",
+                    "label": "CTA: Garanta sua experiência na Fenalaw25"
+                  },
+                  {
+                    "id": "visual-hero",
+                    "label": "Complemento visual: integração com WhatsApp, plataforma web, reconhecimento OAB"
+                  }
+                ]
+              },
+              {
+                "id": "problema-solucao",
+                "label": "2ª dobra – Problema e Solução",
+                "children": [
+                  {
+                    "id": "titulo-problema",
+                    "label": "Título: Desafio da advocacia moderna: mais demandas, menos tempo"
+                  },
+                  {
+                    "id": "texto-problema",
+                    "label": "Advogados perdem horas em tarefas repetitivas; ChatADV transforma essa realidade"
+                  },
+                  {
+                    "id": "frase-impacto",
+                    "label": "Frase de impacto: Mais tempo para advogar, mais resultado para seus clientes"
+                  }
+                ]
+              },
+              {
+                "id": "funcionalidades-beneficios",
+                "label": "3ª dobra – Funcionalidades e benefícios",
+                "children": [
+                  {
+                    "id": "titulo-funcionalidades",
+                    "label": "Título: Por que ChatADV, a referência em IA para advogados"
+                  },
+                  {
+                    "id": "beneficios-chatadv",
+                    "label": "Benefícios",
+                    "children": [
+                      {
+                        "id": "criacao-pecas",
+                        "label": "Criação inteligente de peças jurídicas"
+                      },
+                      {
+                        "id": "acesso-jurisprudencias",
+                        "label": "Acesso a 19 milhões de jurisprudências"
+                      },
+                      {
+                        "id": "uso-whatsapp",
+                        "label": "Uso via WhatsApp"
+                      },
+                      {
+                        "id": "plataforma-web",
+                        "label": "Plataforma web completa"
+                      },
+                      {
+                        "id": "reconhecimento-oab",
+                        "label": "Reconhecimento oficial da OAB"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "mini-cta",
+                    "label": "Mini CTA: Quero testar agora"
+                  }
+                ]
+              },
+              {
+                "id": "depoimentos-apoios",
+                "label": "4ª dobra – Depoimentos e apoios",
+                "children": [
+                  {
+                    "id": "titulo-depoimentos",
+                    "label": "Título: Advogados de todo Brasil já confiam no ChatADV"
+                  },
+                  {
+                    "id": "depoimentos-profissionais",
+                    "label": "Depoimentos de profissionais",
+                    "children": [
+                      {
+                        "id": "mariana",
+                        "label": "Mariana (trabalhista)"
+                      },
+                      {
+                        "id": "ricardo",
+                        "label": "Ricardo (criminalista)"
+                      },
+                      {
+                        "id": "juliana",
+                        "label": "Juliana (cível)"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "logos-apoios",
+                    "label": "Logos de apoios",
+                    "children": [
+                      {
+                        "id": "oab",
+                        "label": "OAB"
+                      },
+                      {
+                        "id": "esa",
+                        "label": "ESA"
+                      },
+                      {
+                        "id": "aws",
+                        "label": "AWS"
+                      },
+                      {
+                        "id": "microsoft",
+                        "label": "Microsoft"
+                      },
+                      {
+                        "id": "meta",
+                        "label": "Meta"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "frase-autoridade",
+                    "label": "Frase de autoridade: Mais de 150.000 advogados já fazem parte da comunidade"
+                  }
+                ]
+              },
+              {
+                "id": "tabela-precos",
+                "label": "5ª dobra – Tabela de preços comparativa",
+                "children": [
+                  {
+                    "id": "titulo-precos",
+                    "label": "Título: Escolha o plano ideal para sua advocacia"
+                  },
+                  {
+                    "id": "planos",
+                    "label": "Planos",
+                    "children": [
+                      {
+                        "id": "basico",
+                        "label": "Básico - R$ 97/mês"
+                      },
+                      {
+                        "id": "pro",
+                        "label": "Pro - R$ 147/mês"
+                      },
+                      {
+                        "id": "premium",
+                        "label": "Premium - R$ 247/mês"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "funcionalidades-por-plano",
+                    "label": "Funcionalidades comparadas por plano",
+                    "children": [
+                      {
+                        "id": "criacao-pecas-todos",
+                        "label": "Criação de peças jurídicas (todos)"
+                      },
+                      {
+                        "id": "pesquisa-jurisprudencial-todos",
+                        "label": "Pesquisa jurisprudencial (todos)"
+                      },
+                      {
+                        "id": "acesso-whatsapp-todos",
+                        "label": "Acesso via WhatsApp (todos)"
+                      },
+                      {
+                        "id": "multiusuarios-pro-premium",
+                        "label": "Multiusuários (Pro e Premium)"
+                      },
+                      {
+                        "id": "acesso-antecipado-novidades-pro-premium",
+                        "label": "Acesso antecipado a novidades (Pro e Premium)"
+                      },
+                      {
+                        "id": "suporte-prioritario-premium",
+                        "label": "Suporte prioritário (Premium exclusivo)"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cta-final",
+                    "label": "CTA final: Quero começar agora"
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 16,
+          "tempo_previsto_processamento_complexo": 31,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "landingpage_fenalaw25.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:12:52.000000Z",
+          "updated_at": "2026-01-20T20:13:24.000000Z",
+          "descricao": "A landing page do evento Fenalaw25 está estruturada em cinco seções principais, concebidas conforme boas práticas de UX, copywriting e conversão, sugerindo-se implementação em HTML, Tailwind CSS ou framework similar, mantendo hierarquia de títulos, CTAs e elementos visuais.\n\n1. **1ª dobra – Hero Section:**  \nTítulo: \"O futuro da advocacia: inteligência artificial está na Fenalaw 2025\".  \nSubtítulo destaca que o ChatADV, IA jurídica reconhecida no Brasil, auxilia mais de 150.000 advogados a economizarem tempo e obterem resultados reais.  \nCTA: \"Garanta sua experiência na Fenalaw25\".  \nComplemento visual: integração 100% com WhatsApp, plataforma web completa, reconhecimento oficial da OAB.\n\n2. **2ª dobra – Problema e Solução:**  \nTítulo: \"Desafio da advocacia moderna: mais demandas, menos tempo\".  \nTexto aponta que advogados perdem horas em tarefas repetitivas e que o ChatADV transforma essa realidade com IA exclusiva para rotina jurídica.  \nFrase de impacto: \"Mais tempo para advogar, mais resultado para seus clientes\".\n\n3. **3ª dobra – Funcionalidades e benefícios:**  \nTítulo: \"Por que ChatADV, a referência em IA para advogados\".  \nBenefícios: criação inteligente de peças jurídicas, acesso a 19 milhões de jurisprudências, uso via WhatsApp, plataforma web completa, reconhecimento da OAB.  \nMini CTA: \"Quero testar agora\".\n\n4. **4ª dobra – Depoimentos e apoios:**  \nTítulo: \"Advogados de todo Brasil já confiam no ChatADV\".  \nDepoimentos de profissionais: Mariana (trabalhista), Ricardo (criminalista), Juliana (cível).  \nLogos de apoios: OAB, ESA, AWS, Microsoft, Meta.  \nFrase de autoridade: \"Mais de 150.000 advogados já fazem parte da comunidade\".\n\n5. **5ª dobra – Tabela de preços comparativa:**  \nTítulo: \"Escolha o plano ideal para sua advocacia\".  \nTabela com planos Básico (R$ 97/mês), Pro (R$ 147/mês) e Premium (R$ 247/mês).  \nFuncionalidades comparadas por plano:  \n- Criação de peças jurídicas (todos);  \n- Pesquisa jurisprudencial (todos);  \n- Acesso via WhatsApp (todos);  \n- Multiusuários (Pro e Premium);  \n- Acesso antecipado a novidades (Pro e Premium);  \n- Suporte prioritário (Premium exclusivo).  \nCTA final: \"Quero começar agora\".",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/sKvDZLZowHOc5t0SGa7uRIPwE7XSmHTg7pREVg7x.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 4577,
+          "interacoes_ia": [
+            {
+              "id": 12116,
+              "titulo": "Fundamentos Jurídicos Não Citados",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:12:47.000000Z",
+              "updated_at": "2026-01-20T20:22:15.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16850,
+                "interacao_ia_id": 12116,
+                "created_at": "2026-01-20T20:12:55.000000Z",
+                "updated_at": "2026-01-20T20:12:55.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16849,
+          "mind_map": {
+            "id": "root",
+            "label": "Inteligência Artificial na Gestão e Operação Jurídica",
+            "children": [
+              {
+                "id": "beneficios",
+                "label": "Benefícios",
+                "children": [
+                  {
+                    "id": "aumento-produtividade",
+                    "label": "Aumento da produtividade"
+                  },
+                  {
+                    "id": "precisao",
+                    "label": "Precisão"
+                  },
+                  {
+                    "id": "eficiencia-operacional",
+                    "label": "Eficiência operacional"
+                  },
+                  {
+                    "id": "alta-performance",
+                    "label": "Alta performance"
+                  }
+                ]
+              },
+              {
+                "id": "uso-tecnologia-dados",
+                "label": "Uso de tecnologia e dados",
+                "children": [
+                  {
+                    "id": "controle",
+                    "label": "Controle"
+                  },
+                  {
+                    "id": "tomada-decisao-estrategica",
+                    "label": "Tomada de decisões estratégicas"
+                  },
+                  {
+                    "id": "otimizacao-tempo",
+                    "label": "Otimização do tempo"
+                  }
+                ]
+              },
+              {
+                "id": "escritorios-escalaveis",
+                "label": "Escritórios jurídicos escaláveis",
+                "children": [
+                  {
+                    "id": "sem-sobrecarga",
+                    "label": "Sem sobrecarga"
+                  }
+                ]
+              },
+              {
+                "id": "estrategia-baseada-dados",
+                "label": "Estratégia baseada em dados",
+                "children": [
+                  {
+                    "id": "excelencia-continua",
+                    "label": "Excelência contínua"
+                  },
+                  {
+                    "id": "crescimento-sustentavel",
+                    "label": "Crescimento sustentável"
+                  },
+                  {
+                    "id": "melhor-gestao-honorarios",
+                    "label": "Melhor gestão dos honorários"
+                  }
+                ]
+              },
+              {
+                "id": "ia-ferramenta-essencial",
+                "label": "IA como ferramenta essencial",
+                "children": [
+                  {
+                    "id": "evolucao",
+                    "label": "Evolução"
+                  },
+                  {
+                    "id": "escalabilidade-area-juridica",
+                    "label": "Escalabilidade na área jurídica"
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 8,
+          "tempo_previsto_processamento_complexo": 23,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "Design.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:12:50.000000Z",
+          "updated_at": "2026-01-20T20:13:13.000000Z",
+          "descricao": "O texto aborda a aplicação da inteligência artificial (IA) na gestão e operação jurídica, destacando benefícios como aumento da produtividade, precisão, eficiência operacional e alta performance. Ressalta-se o uso de tecnologia e dados para controle, tomada de decisões estratégicas e otimização do tempo, permitindo escritórios jurídicos escaláveis sem sobrecarga. A estratégia baseada em dados visa excelência contínua, crescimento sustentável e melhor gestão dos honorários, posicionando a IA como ferramenta essencial para evolução e escalabilidade na área jurídica.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/temMBZzoyHOKJQx0d8Cob0NDQpPMWFiVMuBTh05R.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 489332,
+          "interacoes_ia": [
+            {
+              "id": 12116,
+              "titulo": "Fundamentos Jurídicos Não Citados",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:12:47.000000Z",
+              "updated_at": "2026-01-20T20:22:15.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16849,
+                "interacao_ia_id": 12116,
+                "created_at": "2026-01-20T20:12:51.000000Z",
+                "updated_at": "2026-01-20T20:12:51.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16846,
+          "mind_map": {
+            "id": "root",
+            "label": "Mapa Mental - Landing Page Fenalaw25",
+            "children": [
+              {
+                "id": "hero-section",
+                "label": "Hero section",
+                "children": [
+                  {
+                    "id": "titulo",
+                    "label": "Título: O futuro da advocacia: inteligência artificial está na Fenalaw 2025"
+                  },
+                  {
+                    "id": "subtitulo",
+                    "label": "Subtítulo: ChatAdv como a IA jurídica mais reconhecida do Brasil, auxiliando mais de 150.000 advogados"
+                  },
+                  {
+                    "id": "cta-hero",
+                    "label": "Call to Action: Garanta sua experiência na Fenalaw25"
+                  },
+                  {
+                    "id": "integracao",
+                    "label": "Integração com WhatsApp e plataforma web reconhecida pela OAB"
+                  }
+                ]
+              },
+              {
+                "id": "problema-e-solucao",
+                "label": "Problema e solução",
+                "children": [
+                  {
+                    "id": "desafio-advocacia-moderna",
+                    "label": "Desafio da advocacia moderna: aumento de demandas e menor tempo disponível"
+                  },
+                  {
+                    "id": "chatadv-transformacao",
+                    "label": "ChatAdv transforma realidade com IA treinada para rotina jurídica"
+                  },
+                  {
+                    "id": "resultado",
+                    "label": "\"Mais tempo para advogar, mais resultado para seus clientes\""
+                  }
+                ]
+              },
+              {
+                "id": "funcionalidades-e-beneficios",
+                "label": "Funcionalidades e benefícios",
+                "children": [
+                  {
+                    "id": "referencia-ia",
+                    "label": "ChatAdv como referência em IA para advogados"
+                  },
+                  {
+                    "id": "criacao-pecas-juridicas",
+                    "label": "Criação inteligente de peças jurídicas"
+                  },
+                  {
+                    "id": "acesso-jurisprudencias",
+                    "label": "Acesso a 19 milhões de jurisprudências"
+                  },
+                  {
+                    "id": "uso-whatsapp",
+                    "label": "Uso via WhatsApp"
+                  },
+                  {
+                    "id": "plataforma-web-completa",
+                    "label": "Plataforma web completa"
+                  },
+                  {
+                    "id": "reconhecimento-oab",
+                    "label": "Reconhecimento oficial da OAB"
+                  },
+                  {
+                    "id": "cta-funcionalidades",
+                    "label": "Call to Action: Quero testar agora"
+                  }
+                ]
+              },
+              {
+                "id": "depoimentos-e-apoios",
+                "label": "Depoimentos e apoios",
+                "children": [
+                  {
+                    "id": "avaliacoes-advogados",
+                    "label": "Avaliações de advogados nas áreas trabalhista, criminal e cível"
+                  },
+                  {
+                    "id": "logos-entidades",
+                    "label": "Logos de entidades: OAB, ESA, AWS, Microsoft e Meta"
+                  },
+                  {
+                    "id": "autoridade-e-adocao",
+                    "label": "Reforça autoridade e adoção por mais de 150.000 advogados"
+                  }
+                ]
+              },
+              {
+                "id": "tabela-comparativa",
+                "label": "Tabela comparativa de planos",
+                "children": [
+                  {
+                    "id": "planos",
+                    "label": "Planos",
+                    "children": [
+                      {
+                        "id": "basico",
+                        "label": "Básico: R$ 97/mês"
+                      },
+                      {
+                        "id": "pro",
+                        "label": "Pro: R$ 147/mês"
+                      },
+                      {
+                        "id": "premium",
+                        "label": "Premium: R$ 247/mês"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "funcionalidades-comparadas",
+                    "label": "Funcionalidades comparadas",
+                    "children": [
+                      {
+                        "id": "criacao-pecas-juridicas-tabela",
+                        "label": "Criação de peças jurídicas: disponível em todos os planos"
+                      },
+                      {
+                        "id": "pesquisa-jurisprudencial-tabela",
+                        "label": "Pesquisa jurisprudencial: todos os planos"
+                      },
+                      {
+                        "id": "acesso-whatsapp-tabela",
+                        "label": "Acesso via WhatsApp: todos os planos"
+                      },
+                      {
+                        "id": "multiusuarios",
+                        "label": "Multiusuários: Pro e Premium"
+                      },
+                      {
+                        "id": "acesso-antecipado",
+                        "label": "Acesso antecipado a novidades: Pro e Premium"
+                      },
+                      {
+                        "id": "suporte-prioritario",
+                        "label": "Suporte prioritário: exclusivo Premium"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "orientacoes-gerais",
+                "label": "Orientações gerais",
+                "children": [
+                  {
+                    "id": "implementacao-coerente",
+                    "label": "Implementação coerente da landing page"
+                  },
+                  {
+                    "id": "respeito-hierarquia",
+                    "label": "Respeito à hierarquia de títulos, CTAs e componentes visuais"
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 16,
+          "tempo_previsto_processamento_complexo": 31,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "landingpage_fenalaw25.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:08:13.000000Z",
+          "updated_at": "2026-01-20T20:08:45.000000Z",
+          "descricao": "A landing page do evento Fenalaw25 está estruturada em cinco dobras, seguindo boas práticas de UX, copywriting e conversão, com sugestão de implementação em HTML, Tailwind CSS ou framework similar. \n\n1. Hero section: apresenta o título \"O futuro da advocacia: inteligência artificial está na Fenalaw 2025\", subtítulo destacando o ChatAdv como a IA jurídica mais reconhecida do Brasil, auxiliando mais de 150.000 advogados, e call to action (CTA) \"Garanta sua experiência na Fenalaw25\", além de integração com WhatsApp e plataforma web reconhecida pela OAB.\n  \n2. Problema e solução: contesta o desafio da advocacia moderna frente ao aumento de demandas e menor tempo disponível, ressaltando que o ChatAdv transforma essa realidade com IA treinada para a rotina jurídica, enfatizando \"mais tempo para advogar, mais resultado para seus clientes\".\n\n3. Funcionalidades e benefícios: apresenta o ChatAdv como referência em IA para advogados, destacando criação inteligente de peças jurídicas, acesso a 19 milhões de jurisprudências, uso via WhatsApp, plataforma web completa e reconhecimento oficial da OAB, com CTA \"Quero testar agora\".\n\n4. Depoimentos e apoios: exibe avaliações de advogados nas áreas trabalhista, criminal e cível, e logos de entidades como OAB, ESA, AWS, Microsoft e Meta, reforçando autoridade e adoção por mais de 150.000 advogados.\n\n5. Tabela comparativa de planos básicos, pro e premium:\n- Básico: R$ 97/mês\n- Pro: R$ 147/mês\n- Premium: R$ 247/mês\n\nFuncionalidades comparadas:\n- Criação de peças jurídicas: disponível em todos os planos\n- Pesquisa jurisprudencial: todos os planos\n- Acesso via WhatsApp: todos os planos\n- Multiusuários: Pro e Premium\n- Acesso antecipado a novidades: Pro e Premium\n- Suporte prioritário: exclusivo Premium\n\nA copy traz também a orientação para implementação coerente da landing page, respeitando hierarquia de títulos, CTAs e componentes visuais.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/Otl4cOV2fJ6H6ZETiPFXsTL3Ye7ItH3JXMeHXx3F.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 4577,
+          "interacoes_ia": [
+            {
+              "id": 12109,
+              "titulo": "Análise Jurídica de Conteúdo",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:08:08.000000Z",
+              "updated_at": "2026-01-20T20:08:45.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16846,
+                "interacao_ia_id": 12109,
+                "created_at": "2026-01-20T20:08:14.000000Z",
+                "updated_at": "2026-01-20T20:08:14.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16845,
+          "mind_map": {
+            "id": "root",
+            "label": "Inteligência Artificial na Gestão Jurídica",
+            "children": [
+              {
+                "id": "contribuicoes",
+                "label": "Contribuições da IA",
+                "children": [
+                  {
+                    "id": "produtividade",
+                    "label": "Produtividade"
+                  },
+                  {
+                    "id": "precisao",
+                    "label": "Precisão"
+                  },
+                  {
+                    "id": "eficiencia-operacional",
+                    "label": "Eficiência Operacional"
+                  }
+                ]
+              },
+              {
+                "id": "utilizacao",
+                "label": "Utilização de IA",
+                "children": [
+                  {
+                    "id": "dados-e-estrategias",
+                    "label": "Dados e Estratégias movidas a IA"
+                  },
+                  {
+                    "id": "maximizar-performance",
+                    "label": "Maximizar a Performance Jurídica"
+                  },
+                  {
+                    "id": "otimizar-tempo",
+                    "label": "Otimizar o Tempo"
+                  },
+                  {
+                    "id": "controlar-operacoes",
+                    "label": "Controlar Operações Escaláveis"
+                  },
+                  {
+                    "id": "tomada-decisao",
+                    "label": "Aprimorar Tomada de Decisão com Alta Precisão"
+                  }
+                ]
+              },
+              {
+                "id": "importancia-tecnologia",
+                "label": "Importância da Tecnologia",
+                "children": [
+                  {
+                    "id": "evolucao-continua",
+                    "label": "Evolução Contínua dos Escritórios"
+                  },
+                  {
+                    "id": "escalada-honorarios",
+                    "label": "Escalada dos Honorários sem Sobrecarga"
+                  },
+                  {
+                    "id": "excelencia-juridica",
+                    "label": "Excelência Jurídica"
+                  },
+                  {
+                    "id": "inteligencia-juridica-aplicada",
+                    "label": "Inteligência Jurídica Aplicada",
+                    "children": [
+                      {
+                        "id": "uso-dados-estrategicos",
+                        "label": "Uso Sistemático de Dados Estratégicos"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 8,
+          "tempo_previsto_processamento_complexo": 23,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "Design.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:08:11.000000Z",
+          "updated_at": "2026-01-20T20:08:24.000000Z",
+          "descricao": "O texto aborda a aplicação da inteligência artificial (IA) na gestão jurídica, destacando sua contribuição para a produtividade, precisão e eficiência operacional em escritórios de advocacia. Enfatiza-se a utilização de dados e estratégias movidas a IA para maximizar a performance jurídica, otimizar tempo, controlar operações escaláveis e aprimorar a tomada de decisões com alta precisão. Ressalta-se ainda a importância da tecnologia para evolução contínua dos escritórios, possibilitando a escalada dos honorários sem sobrecarga e promovendo a excelência jurídica por meio da inteligência jurídica aplicada e do uso sistemático de dados estratégicos.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/Sm40I4e4hEM36nBCmzeoPvFvefhkqz93j6tDPX05.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 489332,
+          "interacoes_ia": [
+            {
+              "id": 12109,
+              "titulo": "Análise Jurídica de Conteúdo",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:08:08.000000Z",
+              "updated_at": "2026-01-20T20:08:45.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16845,
+                "interacao_ia_id": 12109,
+                "created_at": "2026-01-20T20:08:12.000000Z",
+                "updated_at": "2026-01-20T20:08:12.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16840,
+          "mind_map": {
+            "id": "root",
+            "label": "Mapa Mental - Landing Page Fenalaw25",
+            "children": [
+              {
+                "id": "hero-section-1a-dobra",
+                "label": "Hero Section (1ª dobra)",
+                "children": [
+                  {
+                    "id": "titulo-hero",
+                    "label": "Título: O futuro da advocacia: inteligência artificial está na Fenalaw 2025"
+                  },
+                  {
+                    "id": "subtitulo-hero",
+                    "label": "Subtítulo: Apresenta o ChatADV como a IA jurídica mais reconhecida do Brasil, auxiliando mais de 150.000 advogados a economizar tempo e conquistar resultados reais"
+                  },
+                  {
+                    "id": "cta-hero",
+                    "label": "CTA: Garanta sua experiência na Fenalaw25"
+                  },
+                  {
+                    "id": "complemento-visual-hero",
+                    "label": "Complemento visual: Integração 100% via WhatsApp e plataforma web completa, com reconhecimento oficial da OAB"
+                  }
+                ]
+              },
+              {
+                "id": "problema-e-solucao-2a-dobra",
+                "label": "Problema e Solução (2ª dobra)",
+                "children": [
+                  {
+                    "id": "titulo-problema",
+                    "label": "Título: Desafio da advocacia moderna: mais demandas, menos tempo"
+                  },
+                  {
+                    "id": "texto-problema",
+                    "label": "Texto: Advogados perdem horas com tarefas repetitivas; ChatADV transforma essa realidade sendo IA treinada para rotina jurídica"
+                  },
+                  {
+                    "id": "frase-impacto-problema",
+                    "label": "Frase de impacto: Mais tempo para advogar, mais resultado para seus clientes"
+                  }
+                ]
+              },
+              {
+                "id": "funcionalidades-e-beneficios-3a-dobra",
+                "label": "Funcionalidades e Benefícios (3ª dobra)",
+                "children": [
+                  {
+                    "id": "titulo-funcionalidades",
+                    "label": "Título: Por que ChatADV é a referência em IA para advogados"
+                  },
+                  {
+                    "id": "beneficios-destacados",
+                    "label": "Benefícios destacados",
+                    "children": [
+                      {
+                        "id": "criacao-pecas-juridicas",
+                        "label": "Criação inteligente de peças jurídicas"
+                      },
+                      {
+                        "id": "acesso-jurisprudencias",
+                        "label": "Acesso a 19 milhões de jurisprudências"
+                      },
+                      {
+                        "id": "uso-whatsapp",
+                        "label": "Uso via WhatsApp"
+                      },
+                      {
+                        "id": "plataforma-web",
+                        "label": "Plataforma web completa"
+                      },
+                      {
+                        "id": "reconhecimento-oab",
+                        "label": "Reconhecimento da OAB"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "mini-cta-funcionalidades",
+                    "label": "Mini CTA: Quero testar agora"
+                  }
+                ]
+              },
+              {
+                "id": "depoimentos-e-apoios-4a-dobra",
+                "label": "Depoimentos e Apoios (4ª dobra)",
+                "children": [
+                  {
+                    "id": "titulo-depoimentos",
+                    "label": "Título: Advogados de todo Brasil já confiam no ChatADV"
+                  },
+                  {
+                    "id": "depoimentos-advogados",
+                    "label": "Depoimentos de advogados",
+                    "children": [
+                      {
+                        "id": "depoimento-mariana",
+                        "label": "Mariana (trabalhista)"
+                      },
+                      {
+                        "id": "depoimento-ricardo",
+                        "label": "Ricardo (criminalista)"
+                      },
+                      {
+                        "id": "depoimento-juliana",
+                        "label": "Juliana (cível)"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "logos-apoios",
+                    "label": "Logos de apoios",
+                    "children": [
+                      {
+                        "id": "logo-oab",
+                        "label": "OAB"
+                      },
+                      {
+                        "id": "logo-esa",
+                        "label": "ESA"
+                      },
+                      {
+                        "id": "logo-aws",
+                        "label": "AWS"
+                      },
+                      {
+                        "id": "logo-microsoft",
+                        "label": "Microsoft"
+                      },
+                      {
+                        "id": "logo-meta",
+                        "label": "Meta"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "frase-autoridade",
+                    "label": "Frase de autoridade: Mais de 150.000 advogados já fazem parte da comunidade"
+                  }
+                ]
+              },
+              {
+                "id": "tabela-precos-e-comparativo-5a-dobra",
+                "label": "Tabela de Preços e Comparativo (5ª dobra)",
+                "children": [
+                  {
+                    "id": "titulo-precos",
+                    "label": "Título: Escolha o plano ideal para sua advocacia"
+                  },
+                  {
+                    "id": "tabela-comparativa-planos",
+                    "label": "Tabela comparativa de planos",
+                    "children": [
+                      {
+                        "id": "plano-basico",
+                        "label": "Básico (R$ 97/mês)"
+                      },
+                      {
+                        "id": "plano-pro",
+                        "label": "Pro (R$ 147/mês)"
+                      },
+                      {
+                        "id": "plano-premium",
+                        "label": "Premium (R$ 247/mês)"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "funcionalidades-por-plano",
+                    "label": "Funcionalidades discriminadas por plano",
+                    "children": [
+                      {
+                        "id": "func-criacao-pecas-juridicas",
+                        "label": "Criação de peças jurídicas"
+                      },
+                      {
+                        "id": "func-pesquisa-jurisprudencial",
+                        "label": "Pesquisa jurisprudencial"
+                      },
+                      {
+                        "id": "func-acesso-whatsapp",
+                        "label": "Acesso via WhatsApp"
+                      },
+                      {
+                        "id": "func-multiusuarios",
+                        "label": "Multiusuários"
+                      },
+                      {
+                        "id": "func-acesso-antecipado-novidades",
+                        "label": "Acesso antecipado a novidades"
+                      },
+                      {
+                        "id": "func-suporte-prioritario",
+                        "label": "Suporte prioritário"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cta-final",
+                    "label": "CTA final: Quero começar agora, IA jurídica"
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 16,
+          "tempo_previsto_processamento_complexo": 31,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "landingpage_fenalaw25.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:04:29.000000Z",
+          "updated_at": "2026-01-20T20:05:06.000000Z",
+          "descricao": "A landing page para o evento Fenalaw25 está estruturada em cinco seções principais, seguindo boas práticas de UX, copywriting e conversão, com sugestão de implementação em HTML Tailwind CSS ou framework similar, respeitando hierarquia de títulos, CTAs e componentes visuais:\n\n1. **Hero Section (1ª dobra)**:  \n   - Título: \"O futuro da advocacia: inteligência artificial está na Fenalaw 2025\"  \n   - Subtítulo: Apresenta o ChatADV como a IA jurídica mais reconhecida do Brasil, auxiliando mais de 150.000 advogados a economizar tempo e conquistar resultados reais.  \n   - CTA: \"Garanta sua experiência na Fenalaw25\"  \n   - Complemento visual: integração 100% via WhatsApp e plataforma web completa, com reconhecimento oficial da OAB.\n\n2. **Problema e Solução (2ª dobra)**:  \n   - Título: \"Desafio da advocacia moderna: mais demandas, menos tempo\"  \n   - Texto: destaca que advogados perdem horas com tarefas repetitivas e que o ChatADV transforma essa realidade, sendo uma IA treinada para a rotina jurídica.  \n   - Frase de impacto: \"Mais tempo para advogar, mais resultado para seus clientes.\"\n\n3. **Funcionalidades e Benefícios (3ª dobra)**:  \n   - Título: \"Por que ChatADV é a referência em IA para advogados\"  \n   - Benefícios destacados: criação inteligente de peças jurídicas, acesso a 19 milhões de jurisprudências, uso via WhatsApp, plataforma web completa e reconhecimento da OAB.  \n   - Mini CTA: \"Quero testar agora.\"\n\n4. **Depoimentos e Apoios (4ª dobra)**:  \n   - Título: \"Advogados de todo Brasil já confiam no ChatADV\"  \n   - Depoimentos de advogados: Mariana (trabalhista), Ricardo (criminalista), Juliana (cível).  \n   - Logos de apoios: OAB, ESA, AWS, Microsoft e Meta.  \n   - Frase de autoridade: \"Mais de 150.000 advogados já fazem parte da comunidade.\"\n\n5. **Tabela de Preços e Comparativo (5ª dobra)**:  \n   - Título: \"Escolha o plano ideal para sua advocacia\"  \n   - Tabela comparativa de planos: Básico (R$ 97/mês), Pro (R$ 147/mês) e Premium (R$ 247/mês).  \n   - Funcionalidades discriminadas por plano, incluindo criação de peças jurídicas, pesquisa jurisprudencial, acesso via WhatsApp, multiusuários, acesso antecipado a novidades e suporte prioritário.  \n   - CTA final: \"Quero começar agora, IA jurídica.\"",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/DyDcBAM1IXLzq439L8yhQBx4v79V4BbdpPFGz50e.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 4577,
+          "interacoes_ia": [
+            {
+              "id": 12105,
+              "titulo": "Título",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:04:24.000000Z",
+              "updated_at": "2026-01-20T20:04:24.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16840,
+                "interacao_ia_id": 12105,
+                "created_at": "2026-01-20T20:04:30.000000Z",
+                "updated_at": "2026-01-20T20:04:30.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16839,
+          "mind_map": {
+            "id": "root",
+            "label": "Inteligência Artificial na Gestão Jurídica",
+            "children": [
+              {
+                "id": "aplicacao-ia",
+                "label": "Aplicação da IA",
+                "children": [
+                  {
+                    "id": "aceleracao-tecnica-cultural",
+                    "label": "Aceleração técnica e cultural",
+                    "children": [
+                      {
+                        "id": "escritorios-tecnologia-avancada",
+                        "label": "Escritórios com tecnologia avançada"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "aumento-produtividade",
+                    "label": "Aumento da produtividade, precisão e eficiência",
+                    "children": [
+                      {
+                        "id": "operacao-juridica-escalavel",
+                        "label": "Operação jurídica escalável e de alta performance"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "estrategia-controle-analise",
+                "label": "Estratégia",
+                "children": [
+                  {
+                    "id": "controle-analise-dados",
+                    "label": "Controle e análise de dados"
+                  },
+                  {
+                    "id": "otimizacao-honorarios-decisoes",
+                    "label": "Otimização de honorários e decisões"
+                  },
+                  {
+                    "id": "crescimento-sustentado-sem-sobrecarga",
+                    "label": "Crescimento sustentado sem sobrecarga"
+                  }
+                ]
+              },
+              {
+                "id": "foco-implantacao-excelencia",
+                "label": "Foco",
+                "children": [
+                  {
+                    "id": "implantacao-continua-excelencia-juridica",
+                    "label": "Implantação contínua de excelência jurídica"
+                  },
+                  {
+                    "id": "ia-aliada-otimizacao-tempo-gestao",
+                    "label": "IA aliada para otimizar tempo e melhorar a gestão"
+                  },
+                  {
+                    "id": "escalar-servicos-precisao-decisoes",
+                    "label": "Escalar serviços jurídicos com precisão na tomada de decisões"
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 8,
+          "tempo_previsto_processamento_complexo": 23,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "Design.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:04:27.000000Z",
+          "updated_at": "2026-01-20T20:04:41.000000Z",
+          "descricao": "O texto aborda a aplicação da inteligência artificial (IA) na gestão jurídica, enfatizando a aceleração técnica e cultural dos escritórios por meio de tecnologia avançada. Destaca-se o uso de IA para aumentar a produtividade, precisão e eficiência operacional, promovendo uma operação jurídica escalável e de alta performance. A estratégia envolve controle e análise de dados para otimizar honorários e decisões, proporcionando crescimento sustentado sem sobrecarga. O foco é a implantação contínua de excelência jurídica, com IA como aliada para otimizar tempo, melhorar a gestão e escalar serviços jurídicos com precisão na tomada de decisões.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/OyV42IKhdE95mI5oPL3653rDaXhCJMgw2jifsY0f.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 489332,
+          "interacoes_ia": [
+            {
+              "id": 12105,
+              "titulo": "Título",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:04:24.000000Z",
+              "updated_at": "2026-01-20T20:04:24.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16839,
+                "interacao_ia_id": 12105,
+                "created_at": "2026-01-20T20:04:27.000000Z",
+                "updated_at": "2026-01-20T20:04:27.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16838,
+          "mind_map": {
+            "id": "root",
+            "label": "Mapa Mental - Landing Page Fenalaw25",
+            "children": [
+              {
+                "id": "primeira-dobra-hero-section",
+                "label": "Primeira dobra (hero section)",
+                "children": [
+                  {
+                    "id": "titulo-futuro-advocacia",
+                    "label": "Título: O futuro da advocacia: inteligência artificial está na Fenalaw 2025"
+                  },
+                  {
+                    "id": "subtitulo-chatadv",
+                    "label": "Subtítulo: ChatADV como IA jurídica reconhecida no Brasil, auxiliando 150.000 advogados"
+                  },
+                  {
+                    "id": "cta-experiencia-evento",
+                    "label": "Chamada à ação (CTA) para garantir experiência no evento"
+                  },
+                  {
+                    "id": "complemento-visual",
+                    "label": "Complemento visual",
+                    "children": [
+                      {
+                        "id": "integracao-whatsapp",
+                        "label": "Integração ao WhatsApp"
+                      },
+                      {
+                        "id": "plataforma-web",
+                        "label": "Plataforma web completa"
+                      },
+                      {
+                        "id": "reconhecimento-oab",
+                        "label": "Reconhecimento oficial da OAB"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "segunda-dobra-problema-solucao",
+                "label": "Segunda dobra (problema e solução)",
+                "children": [
+                  {
+                    "id": "titulo-desafio-advocacia",
+                    "label": "Título: Desafio da advocacia moderna: mais demandas, menos tempo"
+                  },
+                  {
+                    "id": "texto-problema-advogados",
+                    "label": "Texto: advogados perdem horas em tarefas repetitivas"
+                  },
+                  {
+                    "id": "solucao-chatadv",
+                    "label": "Solução: ChatADV, IA treinada para rotina jurídica"
+                  },
+                  {
+                    "id": "frase-impacto",
+                    "label": "Frase de impacto: Mais tempo para advogar, mais resultado para seus clientes"
+                  }
+                ]
+              },
+              {
+                "id": "terceira-dobra-funcionalidades-beneficios",
+                "label": "Terceira dobra (funcionalidades e benefícios)",
+                "children": [
+                  {
+                    "id": "titulo-por-que-chatadv",
+                    "label": "Título: Por que ChatADV: a referência em IA para advogados"
+                  },
+                  {
+                    "id": "beneficios",
+                    "label": "Benefícios",
+                    "children": [
+                      {
+                        "id": "criacao-pecas-juridicas",
+                        "label": "Criação inteligente de peças jurídicas"
+                      },
+                      {
+                        "id": "acesso-jurisprudencias",
+                        "label": "Acesso a 19 milhões de jurisprudências"
+                      },
+                      {
+                        "id": "uso-whatsapp",
+                        "label": "Uso direto via WhatsApp"
+                      },
+                      {
+                        "id": "plataforma-web-completa",
+                        "label": "Plataforma web completa"
+                      },
+                      {
+                        "id": "reconhecimento-oab-beneficio",
+                        "label": "Reconhecimento da OAB"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "mini-cta-teste-servico",
+                    "label": "Mini CTA para testar o serviço imediatamente"
+                  }
+                ]
+              },
+              {
+                "id": "quarta-dobra-depoimentos-apoios",
+                "label": "Quarta dobra (depoimentos e apoios)",
+                "children": [
+                  {
+                    "id": "titulo-advogados-confiam-chatadv",
+                    "label": "Título: Advogados de todo o Brasil já confiam no ChatADV"
+                  },
+                  {
+                    "id": "depoimentos-advogados",
+                    "label": "Depoimentos de advogados",
+                    "children": [
+                      {
+                        "id": "advogado-trabalhista",
+                        "label": "Especialista em trabalhista"
+                      },
+                      {
+                        "id": "advogado-criminal",
+                        "label": "Especialista em criminal"
+                      },
+                      {
+                        "id": "advogado-civel",
+                        "label": "Especialista em cível"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "logos-entidades",
+                    "label": "Logos de entidades",
+                    "children": [
+                      {
+                        "id": "oab",
+                        "label": "OAB"
+                      },
+                      {
+                        "id": "esa",
+                        "label": "ESA"
+                      },
+                      {
+                        "id": "aws",
+                        "label": "AWS"
+                      },
+                      {
+                        "id": "microsoft",
+                        "label": "Microsoft"
+                      },
+                      {
+                        "id": "meta",
+                        "label": "Meta"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "frase-autoridade-comunidade",
+                    "label": "Frase que reforça autoridade da ferramenta e comunidade com 150.000 advogados"
+                  }
+                ]
+              },
+              {
+                "id": "quinta-dobra-tabela-precos",
+                "label": "Quinta dobra (tabela comparativa de preços)",
+                "children": [
+                  {
+                    "id": "titulo-escolha-plano",
+                    "label": "Título: Escolha o plano ideal para sua advocacia"
+                  },
+                  {
+                    "id": "tabela-comparativa",
+                    "label": "Tabela comparativa entre planos",
+                    "children": [
+                      {
+                        "id": "plano-basico",
+                        "label": "Básico (R$97/mês)"
+                      },
+                      {
+                        "id": "plano-pro",
+                        "label": "Pro (R$147/mês)"
+                      },
+                      {
+                        "id": "plano-premium",
+                        "label": "Premium (R$247/mês)"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "funcionalidades-por-plano",
+                    "label": "Funcionalidades detalhadas por plano",
+                    "children": [
+                      {
+                        "id": "criacao-pecas-por-plano",
+                        "label": "Criação de peças jurídicas"
+                      },
+                      {
+                        "id": "pesquisa-jurisprudencial-por-plano",
+                        "label": "Pesquisa jurisprudencial"
+                      },
+                      {
+                        "id": "acesso-whatsapp-por-plano",
+                        "label": "Acesso via WhatsApp"
+                      },
+                      {
+                        "id": "multiusuarios",
+                        "label": "Multiusuários"
+                      },
+                      {
+                        "id": "acesso-antecipado-novidades",
+                        "label": "Acesso antecipado a novidades"
+                      },
+                      {
+                        "id": "suporte-prioritario",
+                        "label": "Suporte prioritário"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cta-iniciar-contratacao",
+                    "label": "CTA final para iniciar contratação do plano desejado"
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 16,
+          "tempo_previsto_processamento_complexo": 31,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "landingpage_fenalaw25.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:03:52.000000Z",
+          "updated_at": "2026-01-20T20:04:26.000000Z",
+          "descricao": "A landing page da Fenalaw25 está estruturada em cinco seções principais, seguindo boas práticas de UX, copywriting e conversão, recomendando-se a implementação com HTML, Tailwind CSS ou framework similar, respeitando hierarquia de títulos, CTAs e componentes visuais.\n\n1. Primeira dobra (hero section): título \"O futuro da advocacia: inteligência artificial está na Fenalaw 2025\"; subtítulo que destaca o ChatADV como IA jurídica reconhecida no Brasil, auxiliando mais de 150.000 advogados a economizar tempo e alcançar resultados reais; chamada à ação (CTA) para garantir experiência no evento; complemento visual com integração ao WhatsApp, plataforma web completa e reconhecimento oficial da OAB.\n\n2. Segunda dobra (problema e solução): título \"Desafio da advocacia moderna: mais demandas, menos tempo\"; texto que evidencia que advogados perdem horas em tarefas repetitivas; solução apresentada pelo ChatADV, IA treinada para rotina jurídica; frase de impacto \"Mais tempo para advogar, mais resultado para seus clientes\".\n\n3. Terceira dobra (funcionalidades e benefícios): título \"Por que ChatADV: a referência em IA para advogados\"; benefícios incluem criação inteligente de peças jurídicas, acesso a 19 milhões de jurisprudências, uso direto via WhatsApp, plataforma web completa e reconhecimento da OAB; mini CTA para testar o serviço imediatamente.\n\n4. Quarta dobra (depoimentos e apoios): título \"Advogados de todo o Brasil já confiam no ChatADV\"; depoimentos de advogados especializados em trabalhista, criminal e cível; logos de entidades como OAB, ESA, AWS, Microsoft e Meta; frase que reforça a autoridade da ferramenta e a comunidade com mais de 150.000 advogados.\n\n5. Quinta dobra (tabela comparativa de preços): título \"Escolha o plano ideal para sua advocacia\"; tabela comparativa entre planos Básico (R$97/mês), Pro (R$147/mês) e Premium (R$247/mês); funcionalidades detalhadas por plano, incluindo criação de peças jurídicas, pesquisa jurisprudencial, acesso via WhatsApp, multiusuários, acesso antecipado a novidades e suporte prioritário; CTA final para iniciar contratação do plano desejado.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/AqYveV4TLpoTyBulz84iXYQFd4EW64hP7pclbAiL.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 4577,
+          "interacoes_ia": [
+            {
+              "id": 12104,
+              "titulo": "Landing Page do Chatadv",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:03:47.000000Z",
+              "updated_at": "2026-01-20T20:05:17.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16838,
+                "interacao_ia_id": 12104,
+                "created_at": "2026-01-20T20:03:53.000000Z",
+                "updated_at": "2026-01-20T20:03:53.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16837,
+          "mind_map": {
+            "id": "root",
+            "label": "Inteligência Artificial na Gestão Jurídica",
+            "children": [
+              {
+                "id": "otimizacao-operacao-escritorios",
+                "label": "Otimização da Operação de Escritórios Jurídicos",
+                "children": [
+                  {
+                    "id": "tecnologia-avancada",
+                    "label": "Tecnologia Avançada"
+                  }
+                ]
+              },
+              {
+                "id": "importancia-desempenho-juridico",
+                "label": "Importância da Velocidade, Precisão, Eficiência e Produtividade",
+                "children": [
+                  {
+                    "id": "velocidade-tecnica",
+                    "label": "Velocidade Técnica"
+                  },
+                  {
+                    "id": "precisao",
+                    "label": "Precisão"
+                  },
+                  {
+                    "id": "eficiencia-operacional",
+                    "label": "Eficiência Operacional"
+                  },
+                  {
+                    "id": "produtividade",
+                    "label": "Produtividade"
+                  },
+                  {
+                    "id": "alta-performance-juridica",
+                    "label": "Alta Performance Jurídica"
+                  }
+                ]
+              },
+              {
+                "id": "estrategia-dados-controle",
+                "label": "Estratégia Baseada em Dados e Controle",
+                "children": [
+                  {
+                    "id": "suporte-escalabilidade-servicos",
+                    "label": "Suporte à Escalabilidade dos Serviços sem Sobrecarga"
+                  },
+                  {
+                    "id": "excelencia-continua",
+                    "label": "Excelência Contínua"
+                  },
+                  {
+                    "id": "otimizacao-tempo",
+                    "label": "Otimização do Tempo"
+                  }
+                ]
+              },
+              {
+                "id": "ia-como-ferramenta",
+                "label": "IA como Ferramenta Essencial",
+                "children": [
+                  {
+                    "id": "tomada-decisoes-precisas",
+                    "label": "Tomada de Decisões Precisas"
+                  },
+                  {
+                    "id": "crescimento-sustentavel",
+                    "label": "Crescimento Sustentável"
+                  },
+                  {
+                    "id": "melhoria-gestao-honorarios",
+                    "label": "Melhoria na Gestão de Honorários"
+                  },
+                  {
+                    "id": "operacao-juridica-inteligente",
+                    "label": "Operação Jurídica Inteligente"
+                  },
+                  {
+                    "id": "evolucao-expansao-estrategica",
+                    "label": "Evolução e Expansão Estratégica de Escritórios"
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 8,
+          "tempo_previsto_processamento_complexo": 23,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "Design.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T20:03:50.000000Z",
+          "updated_at": "2026-01-20T20:04:09.000000Z",
+          "descricao": "O texto aborda a aplicação da inteligência artificial (IA) na gestão jurídica, destacando seu papel na otimização da operação de escritórios jurídicos por meio de tecnologia avançada. Ressalta-se a importância da velocidade técnica, precisão, eficiência operacional e produtividade para alcançar alta performance jurídica. A estratégia baseada em dados e controle eficaz suporta a escalabilidade dos serviços sem sobrecarga, promovendo excelência contínua e otimização do tempo. A IA é apresentada como ferramenta essencial para a tomada de decisões precisas, crescimento sustentável, melhoria na gestão de honorários e operação jurídica inteligente, contribuindo para a evolução e expansão estratégica de escritórios jurídicos.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/UBwTVnijPw4XqsSQkLsT5kxqw3wb6dV7hTJ12Adv.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 489332,
+          "interacoes_ia": [
+            {
+              "id": 12104,
+              "titulo": "Landing Page do Chatadv",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T20:03:47.000000Z",
+              "updated_at": "2026-01-20T20:05:17.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16837,
+                "interacao_ia_id": 12104,
+                "created_at": "2026-01-20T20:03:51.000000Z",
+                "updated_at": "2026-01-20T20:03:51.000000Z"
+              }
+            }
+          ]
+        },
+        {
+          "id": 16835,
+          "mind_map": {
+            "id": "root",
+            "label": "Landing Page Fenalaw25",
+            "children": [
+              {
+                "id": "hero-section",
+                "label": "1ª dobra – Hero Section",
+                "children": [
+                  {
+                    "id": "hero-titulo",
+                    "label": "Título: O futuro da advocacia: Inteligência Artificial está na Fenalaw 2025"
+                  },
+                  {
+                    "id": "hero-subtitulo",
+                    "label": "Subtítulo: ChatADV, IA jurídica reconhecida nacionalmente que auxilia mais de 150.000 advogados"
+                  },
+                  {
+                    "id": "hero-cta",
+                    "label": "CTA: Garanta sua experiência na Fenalaw25"
+                  },
+                  {
+                    "id": "hero-complemento-visual",
+                    "label": "Complemento visual",
+                    "children": [
+                      {
+                        "id": "integracao-whatsapp",
+                        "label": "Integração via WhatsApp"
+                      },
+                      {
+                        "id": "plataforma-web",
+                        "label": "Plataforma web completa"
+                      },
+                      {
+                        "id": "reconhecimento-oab",
+                        "label": "Reconhecimento oficial da OAB"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "problema-solucao",
+                "label": "2ª dobra – Problema e Solução",
+                "children": [
+                  {
+                    "id": "problema-titulo",
+                    "label": "Título: Desafio da advocacia moderna: mais demandas, menos tempo"
+                  },
+                  {
+                    "id": "problema-texto",
+                    "label": "Perda de horas em tarefas repetitivas"
+                  },
+                  {
+                    "id": "solucao-chatadv",
+                    "label": "ChatADV: IA treinada exclusivamente para a rotina jurídica"
+                  },
+                  {
+                    "id": "solucao-frase-impactante",
+                    "label": "Frase: Mais tempo para advogar, mais resultado para seus clientes"
+                  }
+                ]
+              },
+              {
+                "id": "funcionalidades-beneficios",
+                "label": "3ª dobra – Funcionalidades e Benefícios",
+                "children": [
+                  {
+                    "id": "funcionalidades-titulo",
+                    "label": "Título: Por que ChatADV: a referência em IA para advogados"
+                  },
+                  {
+                    "id": "beneficios-lista",
+                    "label": "Benefícios",
+                    "children": [
+                      {
+                        "id": "criacao-inteligente-pecas",
+                        "label": "Criação inteligente de peças jurídicas"
+                      },
+                      {
+                        "id": "acesso-jurisprudencias",
+                        "label": "Acesso a 19 milhões de jurisprudências"
+                      },
+                      {
+                        "id": "uso-whatsapp",
+                        "label": "Uso direto via WhatsApp"
+                      },
+                      {
+                        "id": "plataforma-web-completa",
+                        "label": "Plataforma web completa"
+                      },
+                      {
+                        "id": "reconhecimento-oab-beneficios",
+                        "label": "Reconhecimento da OAB"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "mini-cta",
+                    "label": "Mini CTA: Quero testar agora"
+                  }
+                ]
+              },
+              {
+                "id": "depoimentos-apoios",
+                "label": "4ª dobra – Depoimentos e Apoios",
+                "children": [
+                  {
+                    "id": "depoimentos-titulo",
+                    "label": "Título: Advogados de todo Brasil já confiam no ChatADV"
+                  },
+                  {
+                    "id": "depoimentos-advogados",
+                    "label": "Depoimentos de advogados",
+                    "children": [
+                      {
+                        "id": "mariana-trabalhista",
+                        "label": "Mariana – trabalhista"
+                      },
+                      {
+                        "id": "ricardo-criminalista",
+                        "label": "Ricardo – criminalista"
+                      },
+                      {
+                        "id": "juliana-civel",
+                        "label": "Juliana – cível"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "logos-instituicoes",
+                    "label": "Logos das instituições apoiadoras",
+                    "children": [
+                      {
+                        "id": "logo-oab",
+                        "label": "OAB"
+                      },
+                      {
+                        "id": "logo-esa",
+                        "label": "ESA"
+                      },
+                      {
+                        "id": "logo-aws",
+                        "label": "AWS"
+                      },
+                      {
+                        "id": "logo-microsoft",
+                        "label": "Microsoft"
+                      },
+                      {
+                        "id": "logo-meta",
+                        "label": "Meta"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "frase-autoridade",
+                    "label": "Mais de 150.000 advogados na comunidade"
+                  }
+                ]
+              },
+              {
+                "id": "tabela-precos",
+                "label": "5ª dobra – Tabela de Preços Comparativa",
+                "children": [
+                  {
+                    "id": "tabela-precos-titulo",
+                    "label": "Título: Escolha o plano ideal para sua advocacia"
+                  },
+                  {
+                    "id": "planos",
+                    "label": "Planos e preços",
+                    "children": [
+                      {
+                        "id": "plano-basico",
+                        "label": "Básico (R$97/mês)"
+                      },
+                      {
+                        "id": "plano-pro",
+                        "label": "Pro (R$147/mês)"
+                      },
+                      {
+                        "id": "plano-premium",
+                        "label": "Premium (R$247/mês)"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cta-final",
+                    "label": "CTA final: Quero começar agora"
+                  },
+                  {
+                    "id": "tabela-comparativa-funcionalidades",
+                    "label": "Tabela comparativa de funcionalidades",
+                    "children": [
+                      {
+                        "id": "func-criacao-pecas",
+                        "label": "Criação de peças jurídicas"
+                      },
+                      {
+                        "id": "func-pesquisa-jurisprudencial",
+                        "label": "Pesquisa jurisprudencial"
+                      },
+                      {
+                        "id": "func-acesso-whatsapp",
+                        "label": "Acesso via WhatsApp"
+                      },
+                      {
+                        "id": "func-multiusuarios",
+                        "label": "Multiusuários"
+                      },
+                      {
+                        "id": "func-acesso-antecipado",
+                        "label": "Acesso antecipado a novidades"
+                      },
+                      {
+                        "id": "func-suporte-prioritario",
+                        "label": "Suporte prioritário"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "tempo_previsto_processamento_simples": 16,
+          "tempo_previsto_processamento_complexo": 31,
+          "aviso_status": 0,
+          "tipo_processamento_resumo": null,
+          "erro_processamento": null,
+          "user_id": 2315,
+          "name": "landingpage_fenalaw25.pdf",
+          "tipo": null,
+          "projeto_id": null,
+          "created_at": "2026-01-20T19:56:49.000000Z",
+          "updated_at": "2026-01-20T19:57:39.000000Z",
+          "descricao": "O documento apresenta a estrutura recomendada para a landing page do evento Fenalaw25, dividida em cinco seções principais, baseadas em boas práticas de UX, copywriting e conversão, sugerindo implementação em HTML com Tailwind CSS ou framework similar, respeitando hierarquia de títulos, CTAs e componentes visuais.\n\n1ª dobra – Hero Section: título “O futuro da advocacia: Inteligência Artificial está na Fenalaw 2025”; subtítulo destacando o ChatADV, IA jurídica reconhecida nacionalmente que auxilia mais de 150.000 advogados a economizar tempo e obter resultados; CTA “Garanta sua experiência na Fenalaw25”; complemento visual com integração via WhatsApp, plataforma web completa e reconhecimento oficial da OAB.\n\n2ª dobra – Problema e Solução: título “Desafio da advocacia moderna: mais demandas, menos tempo”; texto sobre perda de horas em tarefas repetitivas; apresentação do ChatADV como IA treinada exclusivamente para a rotina jurídica; frase impactante “Mais tempo para advogar, mais resultado para seus clientes”.\n\n3ª dobra – Funcionalidades e Benefícios: título “Por que ChatADV: a referência em IA para advogados”; benefícios listados: criação inteligente de peças jurídicas, acesso a 19 milhões de jurisprudências, uso direto via WhatsApp, plataforma web completa e reconhecimento da OAB; mini CTA “Quero testar agora”.\n\n4ª dobra – Depoimentos e Apoios: título “Advogados de todo Brasil já confiam no ChatADV”; depoimentos de advogados (Mariana – trabalhista, Ricardo – criminalista, Juliana – cível); logos das instituições apoiadoras (OAB, ESA, AWS, Microsoft, Meta); frase de autoridade apontando mais de 150.000 advogados na comunidade.\n\n5ª dobra – Tabela de Preços Comparativa: título “Escolha o plano ideal para sua advocacia”; tabela com os planos Básico (R$97/mês), Pro (R$147/mês) e Premium (R$247/mês); CTA final “Quero começar agora”; tabela comparativa de funcionalidades incluindo criação de peças jurídicas, pesquisa jurisprudencial, acesso via WhatsApp, multiusuários, acesso antecipado a novidades, suporte prioritário, com diferenciação entre os planos.",
+          "url": "https://api-core.chatadv.com.br/api/v1/documento/arquivo/documentos/users/2315/TVncFED5s8xFn0Kh3QAup0PUthEiGxLhYVBcWA0e.pdf",
+          "processado": 1,
+          "extensao": "pdf",
+          "tamanho": 4577,
+          "interacoes_ia": [
+            {
+              "id": 12102,
+              "titulo": "Modelo de Dados Jurídico",
+              "tipo_acao": "interacao_com_documento",
+              "mind_map": null,
+              "motor_ia_id": 211,
+              "user_id": 2315,
+              "created_at": "2026-01-20T19:56:42.000000Z",
+              "updated_at": "2026-01-20T20:04:31.000000Z",
+              "deleted_at": null,
+              "pivot": {
+                "documento_id": 16835,
+                "interacao_ia_id": 12102,
+                "created_at": "2026-01-20T19:56:50.000000Z",
+                "updated_at": "2026-01-20T19:56:50.000000Z"
+              }
+            }
+          ]
+        }
+      ],
+      "first_page_url": "http://localhost:8081/api/v1/documento?page=1",
+      "from": 1,
+      "last_page": 14,
+      "last_page_url": "http://localhost:8081/api/v1/documento?page=14",
+      "links": [
+        {
+          "url": null,
+          "label": "&laquo; Previous",
+          "page": null,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=1",
+          "label": "1",
+          "page": 1,
+          "active": true
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=2",
+          "label": "2",
+          "page": 2,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=3",
+          "label": "3",
+          "page": 3,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=4",
+          "label": "4",
+          "page": 4,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=5",
+          "label": "5",
+          "page": 5,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=6",
+          "label": "6",
+          "page": 6,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=7",
+          "label": "7",
+          "page": 7,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=8",
+          "label": "8",
+          "page": 8,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=9",
+          "label": "9",
+          "page": 9,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=10",
+          "label": "10",
+          "page": 10,
+          "active": false
+        },
+        {
+          "url": null,
+          "label": "...",
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=13",
+          "label": "13",
+          "page": 13,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=14",
+          "label": "14",
+          "page": 14,
+          "active": false
+        },
+        {
+          "url": "http://localhost:8081/api/v1/documento?page=2",
+          "label": "Next &raquo;",
+          "page": 2,
+          "active": false
+        }
+      ],
+      "next_page_url": "http://localhost:8081/api/v1/documento?page=2",
+      "path": "http://localhost:8081/api/v1/documento",
+      "per_page": 15,
+      "prev_page_url": null,
+      "to": 15,
+      "total": 199
+    }
+  },
+  "performance": {
+    "execution_time": 1.158696174621582,
+    "memory_start": 36053464,
+    "memory_end": 37877288,
+    "peak_memory": 38114264,
+    "is_streamed": false
+  },
+  "queries": [
+    {
+      "sql": "select count(*) as aggregate from `documentos` where `user_id` = ? and `tipo` is null",
+      "bindings": [
+        2315
+      ],
+      "time": 319.93,
+      "executed_at": "2026-01-21 18:43:15.382316"
+    },
+    {
+      "sql": "select * from `documentos` where `user_id` = ? and `tipo` is null order by `id` desc limit 15 offset 0",
+      "bindings": [
+        2315
+      ],
+      "time": 467.45,
+      "executed_at": "2026-01-21 18:43:15.851638"
+    },
+    {
+      "sql": "select `interacoes_ia`.*, `documento_pv_interacao_ia`.`documento_id` as `pivot_documento_id`, `documento_pv_interacao_ia`.`interacao_ia_id` as `pivot_interacao_ia_id`, `documento_pv_interacao_ia`.`created_at` as `pivot_created_at`, `documento_pv_interacao_ia`.`updated_at` as `pivot_updated_at` from `interacoes_ia` inner join `documento_pv_interacao_ia` on `interacoes_ia`.`id` = `documento_pv_interacao_ia`.`interacao_ia_id` where `documento_pv_interacao_ia`.`documento_id` in (16835, 16837, 16838, 16839, 16840, 16845, 16846, 16849, 16850, 16855, 16856, 16857, 16962, 16963, 17157) and `interacoes_ia`.`deleted_at` is null",
+      "bindings": [],
+      "time": 308.76,
+      "executed_at": "2026-01-21 18:43:16.171439"
+    }
+  ],
+  "http_requests": [],
+  "apm": {
+    "request-total": {
+      "start": 1769031795.054361,
+      "end": 1769031796.212844,
+      "duration": 1.1584827899932861
+    }
+  },
+  "logs": [],
+  "exception": null
+}

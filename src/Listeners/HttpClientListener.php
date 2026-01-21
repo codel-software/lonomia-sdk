@@ -49,6 +49,15 @@ class HttpClientListener
         // Limpa o tempo de início para liberar memória
         unset(self::$requestStartTimes[$requestId]);
 
+        // Debug: verifica se o evento está sendo capturado
+        if (env('APP_DEBUG', false)) {
+            Log::debug('Lonomia: Evento ResponseReceived capturado', [
+                'request_id' => $requestId,
+                'response_class' => get_class($event->response),
+                'request_class' => get_class($event->request),
+            ]);
+        }
+
         try {
             $lonomia = App::make(LonomiaService::class);
             
@@ -59,51 +68,16 @@ class HttpClientListener
             $requestHeaders = [];
             $requestBody = null;
             
-            // Tenta obter a URL do response primeiro (mais confiável)
-            if (method_exists($event->response, 'effectiveUri')) {
-                $url = (string) $event->response->effectiveUri();
-            }
-            
-            // Tenta obter do request usando reflection ou métodos públicos
-            if (!$url) {
-                // O PendingRequest tem uma propriedade 'url' protegida
-                try {
-                    $reflection = new \ReflectionClass($event->request);
-                    if ($reflection->hasProperty('url')) {
-                        $property = $reflection->getProperty('url');
-                        $property->setAccessible(true);
-                        $url = (string) $property->getValue($event->request);
-                    }
-                    
-                    // Obtém o método
-                    if ($reflection->hasProperty('method')) {
-                        $property = $reflection->getProperty('method');
-                        $property->setAccessible(true);
-                        $method = strtoupper($property->getValue($event->request) ?? 'GET');
-                    }
-                    
-                    // Obtém headers
-                    if ($reflection->hasProperty('headers')) {
-                        $property = $reflection->getProperty('headers');
-                        $property->setAccessible(true);
-                        $headers = $property->getValue($event->request);
-                        if (is_array($headers)) {
-                            $requestHeaders = $headers;
-                        }
-                    }
-                    
-                    // Obtém body
-                    if ($reflection->hasProperty('data')) {
-                        $property = $reflection->getProperty('data');
-                        $property->setAccessible(true);
-                        $requestBody = $property->getValue($event->request);
-                    }
-                } catch (\ReflectionException $e) {
-                    // Se reflection falhar, continua com valores padrão
+            // Método 1: Tenta obter a URL do response (mais confiável no Laravel)
+            try {
+                if (method_exists($event->response, 'effectiveUri')) {
+                    $url = (string) $event->response->effectiveUri();
                 }
+            } catch (\Throwable $e) {
+                // Ignora
             }
             
-            // Se ainda não tem URL, tenta métodos públicos
+            // Método 2: Tenta obter do request usando toPsrRequest() (método público)
             if (!$url && method_exists($event->request, 'toPsrRequest')) {
                 try {
                     $psrRequest = $event->request->toPsrRequest();
@@ -121,6 +95,56 @@ class HttpClientListener
                     }
                 } catch (\Throwable $e) {
                     // Ignora erros
+                }
+            }
+            
+            // Método 3: Tenta obter do request usando reflection (fallback)
+            if (!$url) {
+                try {
+                    $reflection = new \ReflectionClass($event->request);
+                    
+                    // Tenta obter URL
+                    if ($reflection->hasProperty('url')) {
+                        $property = $reflection->getProperty('url');
+                        $property->setAccessible(true);
+                        $urlValue = $property->getValue($event->request);
+                        if ($urlValue) {
+                            $url = (string) $urlValue;
+                        }
+                    }
+                    
+                    // Obtém o método
+                    if ($reflection->hasProperty('method')) {
+                        $property = $reflection->getProperty('method');
+                        $property->setAccessible(true);
+                        $methodValue = $property->getValue($event->request);
+                        if ($methodValue) {
+                            $method = strtoupper($methodValue);
+                        }
+                    }
+                    
+                    // Obtém headers
+                    if ($reflection->hasProperty('headers')) {
+                        $property = $reflection->getProperty('headers');
+                        $property->setAccessible(true);
+                        $headers = $property->getValue($event->request);
+                        if (is_array($headers)) {
+                            $requestHeaders = $headers;
+                        }
+                    }
+                    
+                    // Obtém body/data
+                    if ($reflection->hasProperty('data')) {
+                        $property = $reflection->getProperty('data');
+                        $property->setAccessible(true);
+                        $requestBody = $property->getValue($event->request);
+                    } elseif ($reflection->hasProperty('pendingBody')) {
+                        $property = $reflection->getProperty('pendingBody');
+                        $property->setAccessible(true);
+                        $requestBody = $property->getValue($event->request);
+                    }
+                } catch (\ReflectionException $e) {
+                    // Se reflection falhar, continua com valores padrão
                 }
             }
             

@@ -232,9 +232,12 @@ class CaptureErrors
                         ] : null,
                         'performance' => $performanceData,
                         'queries' => $queries,
-                        'http_requests' => $this->lonomia->getHttpRequests(), // Inclui requisições HTTP
+                        'http_requests' => $this->lonomia->getHttpRequests(), // Requisições HTTP internas
+                        'external_requests' => $this->lonomia->getExternalRequests(), // Requisições HTTP externas (Http::get, Http::post, etc)
                         'apm' => $this->lonomia->getApmData(),
                         'logs' => $this->lonomia->getLogs(),
+                        'cache' => $this->lonomia->getCacheOperations(), // Inclui operações de cache/Redis
+                        'jobs' => $this->lonomia->getJobs(), // Inclui jobs enviados para a fila
                         'exception' => $exceptionData,
                     ]);
                 }
@@ -250,6 +253,8 @@ class CaptureErrors
             if (!$isStreamedResponse) {
                 $this->lonomia->clearHttpRequests();
                 $this->lonomia->clearExternalRequests();
+                $this->lonomia->clearCacheOperations();
+                $this->lonomia->clearJobs();
             }
         }catch(\Throwable $e){
             if(env('LONOMIA_ENABLED',true) == true){
@@ -331,9 +336,12 @@ class CaptureErrors
                 ],
                         'performance' => $performanceData,
                         'queries' => $data['queries'],
-                        'http_requests' => $data['lonomia']->getHttpRequests(), // Inclui requisições HTTP
+                        'http_requests' => $data['lonomia']->getHttpRequests(), // Requisições HTTP internas
+                        'external_requests' => $data['lonomia']->getExternalRequests(), // Requisições HTTP externas (Http::get, Http::post, etc)
                         'apm' => $data['lonomia']->getApmData(),
                         'logs' => $data['lonomia']->getLogs(),
+                        'cache' => $data['lonomia']->getCacheOperations(), // Inclui operações de cache/Redis
+                        'jobs' => $data['lonomia']->getJobs(), // Inclui jobs enviados para a fila
                         'exception' => $exceptionData,
                     ]);
         }
@@ -344,6 +352,8 @@ class CaptureErrors
         // Limpa requisições HTTP após processamento do stream
         $data['lonomia']->clearHttpRequests();
         $data['lonomia']->clearExternalRequests();
+        $data['lonomia']->clearCacheOperations();
+        $data['lonomia']->clearJobs();
     }
 
     /**

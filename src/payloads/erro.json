@@ -1,0 +1,1152 @@
+{
+    "tracking_id": "user_2315",
+    "request": {
+      "method": "POST",
+      "url": "http://localhost:8081/api/v1/documento",
+      "headers": {
+        "content-length": [
+          "2277"
+        ],
+        "host": [
+          "localhost:8081"
+        ],
+        "content-type": [
+          "multipart/form-data; boundary=X-INSOMNIA-BOUNDARY"
+        ],
+        "user-agent": [
+          "insomnia/11.3.0"
+        ],
+        "authorization": [
+          "Bearer 263866|SbMIBiJaIRYO2SOGGcGs9sqv4dVMrqTyAXW7ksjua70de6d4"
+        ],
+        "accept": [
+          "*/*"
+        ]
+      },
+      "body": {
+        "documento": {}
+      }
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "cache-control": [
+          "no-cache, private"
+        ],
+        "date": [
+          "Wed, 21 Jan 2026 21:49:30 GMT"
+        ],
+        "content-type": [
+          "text/html; charset=utf-8"
+        ]
+      },
+      "body": null
+    },
+    "performance": {
+      "execution_time": 2.165511131286621,
+      "memory_start": 36154984,
+      "memory_end": 46745184,
+      "peak_memory": 53333888,
+      "is_streamed": false
+    },
+    "queries": [
+      {
+        "sql": "insert into `documentos` (`name`, `url`, `user_id`, `extensao`, `tamanho`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "README.md",
+          "/api/v1/documento/arquivo/documentos/users/2315/HW9QT3wLjYeK3zSkTJJGydrOJsTS8vOWN3OgHssS.txt",
+          2315,
+          "md",
+          2124,
+          "2026-01-21 18:49:28",
+          "2026-01-21 18:49:28"
+        ],
+        "time": 312.54,
+        "executed_at": "2026-01-21 18:49:28.711073"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 308.58,
+        "executed_at": "2026-01-21 18:49:29.029663"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_escritorios` where `id` = ? and `module_sub_escritorios`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          3
+        ],
+        "time": 310.5,
+        "executed_at": "2026-01-21 18:49:29.344277"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_organizacoes` where `id` = ? and `module_sub_organizacoes`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          5
+        ],
+        "time": 309.08,
+        "executed_at": "2026-01-21 18:49:29.655829"
+      },
+      {
+        "sql": "insert into `module_logs_audits` (`old_values`, `new_values`, `event`, `auditable_id`, `auditable_type`, `user_id`, `user_type`, `tags`, `ip_address`, `user_agent`, `url`, `escritorio_id`, `organizacao_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "[]",
+          "{\"name\":\"README.md\",\"url\":\"\\/api\\/v1\\/documento\\/arquivo\\/documentos\\/users\\/2315\\/HW9QT3wLjYeK3zSkTJJGydrOJsTS8vOWN3OgHssS.txt\",\"user_id\":2315,\"extensao\":\"md\",\"tamanho\":2124,\"id\":17160}",
+          "created",
+          17160,
+          "App\\Module\\Documento\\Models\\Documento",
+          null,
+          null,
+          null,
+          "172.19.0.1",
+          "insomnia/11.3.0",
+          "http://localhost:8081/api/v1/documento",
+          3,
+          5,
+          "2026-01-21 18:49:29",
+          "2026-01-21 18:49:29"
+        ],
+        "time": 306.83,
+        "executed_at": "2026-01-21 18:49:29.965047"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 305.74,
+        "executed_at": "2026-01-21 18:49:30.272319"
+      }
+    ],
+    "http_requests": [],
+    "apm": {
+      "request-total": {
+        "start": 1769032168.176655,
+        "end": 1769032170.341831,
+        "duration": 2.1651759147644043
+      }
+    },
+    "logs": [],
+    "exception": {
+      "message": "Division by zero",
+      "trace": [
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php",
+          "line": 46,
+          "function": "criarDocumento",
+          "class": "App\\Module\\Documento\\Controller\\DocumentoController",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php",
+          "line": 265,
+          "function": "dispatch",
+          "class": "Illuminate\\Routing\\ControllerDispatcher",
+          "type": "->",
+          "args": [
+            {
+              "uri": "api/v1/documento",
+              "methods": [
+                "POST"
+              ],
+              "action": {
+                "middleware": [
+                  "api",
+                  "auth:sanctum"
+                ],
+                "uses": "App\\Module\\Documento\\Controller\\DocumentoController@criarDocumento",
+                "controller": "App\\Module\\Documento\\Controller\\DocumentoController@criarDocumento",
+                "as": "api.documento",
+                "namespace": null,
+                "prefix": "api/v1/documento",
+                "where": []
+              },
+              "isFallback": false,
+              "controller": {},
+              "defaults": [],
+              "wheres": [],
+              "parameters": [],
+              "parameterNames": [],
+              "computedMiddleware": [
+                "api",
+                "auth:sanctum"
+              ],
+              "compiled": {}
+            },
+            {},
+            "criarDocumento"
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php",
+          "line": 211,
+          "function": "runController",
+          "class": "Illuminate\\Routing\\Route",
+          "type": "->",
+          "args": []
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+          "line": 822,
+          "function": "run",
+          "class": "Illuminate\\Routing\\Route",
+          "type": "->",
+          "args": []
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 180,
+          "function": "{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}",
+          "class": "Illuminate\\Routing\\Router",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/lonomia-sdk/src/Middleware/CaptureErrors.php",
+          "line": 81,
+          "function": "{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "CodelSoftware\\LonomiaSdk\\Middleware\\CaptureErrors",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/inspector-apm/inspector-laravel/src/Middleware/WebRequestMonitoring.php",
+          "line": 44,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Inspector\\Laravel\\Middleware\\WebRequestMonitoring",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/inspector-apm/inspector-laravel/src/Middleware/WebRequestMonitoring.php",
+          "line": 44,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/inspector-apm/inspector-laravel/src/Middleware/InspectorOctaneMiddleware.php",
+          "line": 29,
+          "function": "handle",
+          "class": "Inspector\\Laravel\\Middleware\\WebRequestMonitoring",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Inspector\\Laravel\\Middleware\\InspectorOctaneMiddleware",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/app/Http/Middleware/B2BContextMiddleware.php",
+          "line": 36,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "App\\Http\\Middleware\\B2BContextMiddleware",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php",
+          "line": 50,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php",
+          "line": 63,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Auth\\Middleware\\Authenticate",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {},
+            "sanctum"
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 137,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+          "line": 821,
+          "function": "then",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+          "line": 800,
+          "function": "runRouteWithinStack",
+          "class": "Illuminate\\Routing\\Router",
+          "type": "->",
+          "args": [
+            {
+              "uri": "api/v1/documento",
+              "methods": [
+                "POST"
+              ],
+              "action": {
+                "middleware": [
+                  "api",
+                  "auth:sanctum"
+                ],
+                "uses": "App\\Module\\Documento\\Controller\\DocumentoController@criarDocumento",
+                "controller": "App\\Module\\Documento\\Controller\\DocumentoController@criarDocumento",
+                "as": "api.documento",
+                "namespace": null,
+                "prefix": "api/v1/documento",
+                "where": []
+              },
+              "isFallback": false,
+              "controller": {},
+              "defaults": [],
+              "wheres": [],
+              "parameters": [],
+              "parameterNames": [],
+              "computedMiddleware": [
+                "api",
+                "auth:sanctum"
+              ],
+              "compiled": {}
+            },
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+          "line": 764,
+          "function": "runRoute",
+          "class": "Illuminate\\Routing\\Router",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {
+              "uri": "api/v1/documento",
+              "methods": [
+                "POST"
+              ],
+              "action": {
+                "middleware": [
+                  "api",
+                  "auth:sanctum"
+                ],
+                "uses": "App\\Module\\Documento\\Controller\\DocumentoController@criarDocumento",
+                "controller": "App\\Module\\Documento\\Controller\\DocumentoController@criarDocumento",
+                "as": "api.documento",
+                "namespace": null,
+                "prefix": "api/v1/documento",
+                "where": []
+              },
+              "isFallback": false,
+              "controller": {},
+              "defaults": [],
+              "wheres": [],
+              "parameters": [],
+              "parameterNames": [],
+              "computedMiddleware": [
+                "api",
+                "auth:sanctum"
+              ],
+              "compiled": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+          "line": 753,
+          "function": "dispatchToRoute",
+          "class": "Illuminate\\Routing\\Router",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+          "line": 200,
+          "function": "dispatch",
+          "class": "Illuminate\\Routing\\Router",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 180,
+          "function": "{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}",
+          "class": "Illuminate\\Foundation\\Http\\Kernel",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php",
+          "line": 66,
+          "function": "{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Barryvdh\\Debugbar\\Middleware\\InjectDebugbar",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
+          "line": 21,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php",
+          "line": 31,
+          "function": "handle",
+          "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
+          "line": 21,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php",
+          "line": 51,
+          "function": "handle",
+          "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php",
+          "line": 27,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Http\\Middleware\\ValidatePostSize",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php",
+          "line": 109,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php",
+          "line": 74,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Http\\Middleware\\HandleCors",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php",
+          "line": 58,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Http\\Middleware\\TrustProxies",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php",
+          "line": 22,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php",
+          "line": 26,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 219,
+          "function": "handle",
+          "class": "Illuminate\\Http\\Middleware\\ValidatePathEncoding",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+          "line": 137,
+          "function": "{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+          "line": 175,
+          "function": "then",
+          "class": "Illuminate\\Pipeline\\Pipeline",
+          "type": "->",
+          "args": [
+            {}
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+          "line": 144,
+          "function": "sendRequestThroughRouter",
+          "class": "Illuminate\\Foundation\\Http\\Kernel",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/octane/src/ApplicationGateway.php",
+          "line": 36,
+          "function": "handle",
+          "class": "Illuminate\\Foundation\\Http\\Kernel",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/octane/src/Worker.php",
+          "line": 84,
+          "function": "handle",
+          "class": "Laravel\\Octane\\ApplicationGateway",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            }
+          ]
+        },
+        {
+          "file": "/app/vendor/laravel/octane/bin/frankenphp-worker.php",
+          "line": 51,
+          "function": "handle",
+          "class": "Laravel\\Octane\\Worker",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {},
+              "query": {},
+              "server": {},
+              "files": {},
+              "cookies": {},
+              "headers": {}
+            },
+            {
+              "data": []
+            }
+          ]
+        },
+        {
+          "function": "{closure:/app/vendor/laravel/octane/bin/frankenphp-worker.php:47}",
+          "args": []
+        },
+        {
+          "file": "/app/vendor/laravel/octane/bin/frankenphp-worker.php",
+          "line": 72,
+          "function": "frankenphp_handle_request",
+          "args": [
+            {}
+          ]
+        },
+        {
+          "file": "/app/public/frankenphp-worker.php",
+          "line": 7,
+          "args": [
+            "/app/vendor/laravel/octane/bin/frankenphp-worker.php"
+          ],
+          "function": "require"
+        }
+      ],
+      "code": 0,
+      "file": "/app/app/Module/Documento/Controller/DocumentoController.php",
+      "line": 112,
+      "file_snippet": {
+        "108": "            'tamanho' => $request->file('documento')->getSize(),\n",
+        "109": "        ]);\n",
+        "110": "\n",
+        "111": "        $a = 0/0;\n",
+        "112": "\n",
+        "113": "        // dispara o processamento em fila\n",
+        "114": "        \\App\\Jobs\\ProcessarDocumentoJob::dispatch($documento->id);\n"
+      }
+    }
+  }
