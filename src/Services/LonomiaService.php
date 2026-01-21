@@ -2,6 +2,7 @@
 
 namespace CodelSoftware\LonomiaSdk\Services;
 
+use CodelSoftware\LonomiaSdk\DTOs\PerformanceData;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -152,11 +153,21 @@ class LonomiaService
 
     /**
      * Envia os dados finais para o servidor de monitoramento.
+     * 
+     * Converte dados de performance de array para objeto PerformanceData para facilitar debug
+     * e garantir type safety. Mantém compatibilidade reversa aceitando arrays.
      *
-     * @param array $data
+     * @param array $data Array contendo os dados de monitoramento, incluindo 'performance'
      */
     public function logPerformanceData(array $data)
     {
+        // Converte array de performance para objeto PerformanceData se necessário
+        if (isset($data['performance']) && is_array($data['performance'])) {
+            $performanceData = new PerformanceData($data['performance']);
+            // Converte de volta para array para serialização HTTP
+            $data['performance'] = $performanceData->toArray();
+        }
+        
         // Aqui você implementa o envio dos dados para o servidor de monitoramento.
         // Exemplo fictício de envio:
         $data['project_token'] = config('lonomia.api_key');
