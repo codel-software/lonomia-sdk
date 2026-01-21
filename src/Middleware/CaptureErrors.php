@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use CodelSoftware\LonomiaSdk\DTOs\MonitoringData;
 use CodelSoftware\LonomiaSdk\Services\LonomiaService;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -30,30 +31,21 @@ class CaptureErrors
             return $next($request);
         }
         
-        try{
+        try {
+            $cookieName = 'tracking_id';
 
-              // Nome do cookie de rastreamento
-              $cookieName = 'tracking_id';
-
-              // Verifica se o cookie já existe
-
-            if( $request->cookie($cookieName) != null ){
+            if ($request->cookie($cookieName) !== null) {
                 $trackingId = $request->cookie($cookieName);
-            }else{
+            } else {
                 $trackingId = 'anon_' . Str::uuid()->toString() . '_' . time();
-                Cookie::queue(Cookie::make($cookieName, $trackingId, 525600)); // 1 ano
+                Cookie::queue(Cookie::make($cookieName, $trackingId, 525600));
             }
 
-             // Verifica se há um usuário logado
-             $user = Auth::user();
-              
-             if ($user) {
-                 // Se há usuário logado, cria um tracking_id baseado no ID do usuário
-                 $trackingId = 'user_' . $user->id;
-             }
-            
-            //dd($trackingId);
-            // Define o contexto do usuário
+            $user = Auth::user();
+            if ($user) {
+                $trackingId = 'user_' . $user->id;
+            }
+
             $this->lonomia->setUserContext(['tracking_id' => $trackingId]);
 
             // Início do monitoramento de performance
@@ -69,7 +61,7 @@ class CaptureErrors
                     'sql' => $query->sql,
                     'bindings' => $query->bindings,
                     'time' => $query->time,
-                    'executed_at' => now()->format('Y-m-d H:i:s.u'),
+                    'executed_at' => microtime(true),
                 ];
 
                 // Adiciona a query ao APM
@@ -80,14 +72,11 @@ class CaptureErrors
                 $this->lonomia->startTag('request-total');
                 $response = $next($request);
                 
-                // Verifica se é uma StreamedResponse
                 if ($response instanceof StreamedResponse) {
                     $isStreamedResponse = true;
                     $streamId = 'stream_' . $trackingId . '_' . time();
                     $streamStartTime = microtime(true);
                     
-                    // Armazena dados do stream para captura posterior
-                    // Clona o array de queries para evitar problemas com referências
                     $queriesCopy = $queries;
                     self::$streamData[$streamId] = [
                         'tracking_id' => $trackingId,
@@ -100,7 +89,6 @@ class CaptureErrors
                         'cookie_name' => $cookieName,
                     ];
                     
-                    // Envolve o callback do stream para capturar dados
                     $originalCallback = $response->getCallback();
                     $response->setCallback(function () use ($originalCallback, $streamId, $request) {
                             $streamCallbackStart = microtime(true);
@@ -108,55 +96,46 @@ class CaptureErrors
                         $streamQueries = [];
                         
                         try {
-                            // Captura queries durante o stream
                             DB::listen(function ($query) use (&$streamQueries) {
                                 $streamQueries[] = [
                                     'sql' => $query->sql,
                                     'bindings' => $query->bindings,
                                     'time' => $query->time,
-                                    'executed_at' => now()->format('Y-m-d H:i:s.u'),
+                                    'executed_at' => microtime(true),
                                 ];
                             });
-                            
-                            // Cria um wrapper para capturar o output usando output buffering
-                            // Mesmo que o stream tente desabilitar, tentamos capturar o máximo possível
+
                             ob_start(function ($buffer) use (&$streamContent) {
                                 $streamContent .= $buffer;
-                                return $buffer; // Retorna o buffer para continuar o fluxo
+                                return $buffer;
                             }, 4096);
-                            
-                            // Executa o callback original
+
                             if ($originalCallback) {
                                 call_user_func($originalCallback);
                             }
-                            
-                            // Finaliza e captura o buffer
+
                             if (ob_get_level() > 0) {
                                 $bufferedContent = ob_get_clean();
                                 if ($bufferedContent !== false) {
                                     $streamContent .= $bufferedContent;
                                 }
                             }
-                            
                         } catch (\Throwable $e) {
-                            // Captura exceções durante o stream
                             if (isset(self::$streamData[$streamId])) {
                                 self::$streamData[$streamId]['exception'] = $e;
                             }
                             throw $e;
                         } finally {
                             $streamCallbackEnd = microtime(true);
-                            
-                            // Registra dados do stream
+
                             if (isset(self::$streamData[$streamId])) {
-                                // Adiciona queries capturadas durante o stream
                                 if (!empty($streamQueries)) {
                                     self::$streamData[$streamId]['queries'] = array_merge(
                                         self::$streamData[$streamId]['queries'],
                                         $streamQueries
                                     );
                                 }
-                                
+
                                 self::$streamData[$streamId]['stream_end_time'] = $streamCallbackEnd;
                                 self::$streamData[$streamId]['stream_content'] = $streamContent;
                                 self::$streamData[$streamId]['stream_duration'] = $streamCallbackEnd - $streamCallbackStart;
@@ -164,8 +143,7 @@ class CaptureErrors
                                 self::$streamData[$streamId]['end_memory'] = memory_get_usage();
                                 self::$streamData[$streamId]['peak_memory'] = memory_get_peak_usage();
                                 self::$streamData[$streamId]['complete'] = true;
-                                
-                                // Processa os dados do stream em background
+
                                 $this->processStreamData($streamId);
                             }
                         }
@@ -175,8 +153,7 @@ class CaptureErrors
                 $this->lonomia->endTag('request-total');
 
                 $exceptionData = null;
-                if(isset($response->exception)){
-                    // Captura dados da exceção para serem enviados no log final
+                if (isset($response->exception)) {
                     $exceptionData = [
                         'message' => $response->exception->getMessage(),
                         'trace' => $response->exception->getTrace(),
@@ -188,12 +165,9 @@ class CaptureErrors
                 }
 
 
-            // Fim do monitoramento de performance
             $endTime = microtime(true);
             $endMemory = memory_get_usage();
             $peakMemory = memory_get_peak_usage();
-
-            // Dados de performance
             $executionTime = $endTime - $startTime;
             
             $performanceData = [
@@ -204,20 +178,17 @@ class CaptureErrors
                 'is_streamed' => $isStreamedResponse,
             ];
 
-            // Obtém o status code da resposta, se existir
             $statusCode = isset($response) ? $response->getStatusCode() : null;
             $isServerError = $statusCode && $statusCode >= 500 && $statusCode < 600;
             $isSlowRequest = $executionTime > 1.0;
             
-            // Para StreamedResponse, o processamento será feito no callback do stream
-            // Aqui processamos apenas respostas não-stream ou respostas com erro imediato
             if (!$isStreamedResponse) {
                 $processa_request = (env('LONOMIA_REQUEST_ALL', false) == true) ? true : ($isSlowRequest || $isServerError);
                 
                 if ($processa_request) {
                     $responseBody = $this->getJsonResponseBody($response);
                     
-                    $this->lonomia->logPerformanceData([
+                    $monitoringData = MonitoringData::fromArray([
                         'tracking_id' => $trackingId,
                         'request' => [
                             'method' => $request->method(),
@@ -232,24 +203,23 @@ class CaptureErrors
                         ] : null,
                         'performance' => $performanceData,
                         'queries' => $queries,
-                        'http_requests' => $this->lonomia->getHttpRequests(), // Requisições HTTP internas
-                        'external_requests' => $this->lonomia->getExternalRequests(), // Requisições HTTP externas (Http::get, Http::post, etc)
+                        'http_requests' => $this->lonomia->getHttpRequests(),
+                        'external_requests' => $this->lonomia->getExternalRequests(),
                         'apm' => $this->lonomia->getApmData(),
                         'logs' => $this->lonomia->getLogs(),
-                        'cache' => $this->lonomia->getCacheOperations(), // Inclui operações de cache/Redis
-                        'jobs' => $this->lonomia->getJobs(), // Inclui jobs enviados para a fila
+                        'cache' => $this->lonomia->getCacheOperations(),
+                        'jobs' => $this->lonomia->getJobs(),
                         'exception' => $exceptionData,
                     ]);
+                    
+                    $this->lonomia->logPerformanceData($monitoringData);
                 }
             }
 
-            // Garante que o cookie de rastreamento está presente na resposta
             if (!Cookie::hasQueued($cookieName)) {
                 Cookie::queue(Cookie::make($cookieName, $trackingId, 525600));
             }
-            
-            // Limpa requisições HTTP após processamento (para não acumular memória)
-            // Apenas para respostas não-stream, pois streams são processados separadamente
+
             if (!$isStreamedResponse) {
                 $this->lonomia->clearHttpRequests();
                 $this->lonomia->clearExternalRequests();
@@ -321,7 +291,7 @@ class CaptureErrors
                 ];
             }
             
-            $data['lonomia']->logPerformanceData([
+            $monitoringData = MonitoringData::fromArray([
                 'tracking_id' => $trackingId,
                 'request' => [
                     'method' => $data['request']->method(),
@@ -334,22 +304,22 @@ class CaptureErrors
                     'headers' => ['Content-Type' => 'text/event-stream'],
                     'body' => $responseBody,
                 ],
-                        'performance' => $performanceData,
-                        'queries' => $data['queries'],
-                        'http_requests' => $data['lonomia']->getHttpRequests(), // Requisições HTTP internas
-                        'external_requests' => $data['lonomia']->getExternalRequests(), // Requisições HTTP externas (Http::get, Http::post, etc)
-                        'apm' => $data['lonomia']->getApmData(),
-                        'logs' => $data['lonomia']->getLogs(),
-                        'cache' => $data['lonomia']->getCacheOperations(), // Inclui operações de cache/Redis
-                        'jobs' => $data['lonomia']->getJobs(), // Inclui jobs enviados para a fila
-                        'exception' => $exceptionData,
-                    ]);
+                'performance' => $performanceData,
+                'queries' => $data['queries'],
+                'http_requests' => $data['lonomia']->getHttpRequests(),
+                'external_requests' => $data['lonomia']->getExternalRequests(),
+                'apm' => $data['lonomia']->getApmData(),
+                'logs' => $data['lonomia']->getLogs(),
+                'cache' => $data['lonomia']->getCacheOperations(),
+                'jobs' => $data['lonomia']->getJobs(),
+                'exception' => $exceptionData,
+            ]);
+            
+            $data['lonomia']->logPerformanceData($monitoringData);
         }
         
-        // Limpa os dados do stream após processamento
         unset(self::$streamData[$streamId]);
-        
-        // Limpa requisições HTTP após processamento do stream
+
         $data['lonomia']->clearHttpRequests();
         $data['lonomia']->clearExternalRequests();
         $data['lonomia']->clearCacheOperations();
@@ -396,7 +366,6 @@ class CaptureErrors
         'file_snippet' => [],
     ];
 
-    // Verifica se o arquivo do erro existe
     if (file_exists($exceptionData['file'])) {
         $fileLines = file($exceptionData['file']); // Lê todas as linhas do arquivo
         $totalLines = count($fileLines);

@@ -2,6 +2,7 @@
 
 namespace CodelSoftware\LonomiaSdk\Services;
 
+use CodelSoftware\LonomiaSdk\DTOs\MonitoringData;
 use CodelSoftware\LonomiaSdk\DTOs\PerformanceData;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -156,75 +157,52 @@ class LonomiaService
     /**
      * Envia os dados finais para o servidor de monitoramento.
      * 
-     * Converte dados de performance de array para objeto PerformanceData para facilitar debug
-     * e garantir type safety. Mantém compatibilidade reversa aceitando arrays.
+     * Aceita MonitoringData tipado ou array (para compatibilidade).
+     * Converte automaticamente arrays para MonitoringData usando fromArray().
      *
-     * @param array $data Array contendo os dados de monitoramento, incluindo 'performance'
+     * @param MonitoringData|array $data Dados de monitoramento tipados ou array
      */
-    public function logPerformanceData(array $data)
+    public function logPerformanceData(MonitoringData|array $data): void
     {
-        dd(json_encode($data));
-        // Converte array de performance para objeto PerformanceData se necessário
-        if (isset($data['performance']) && is_array($data['performance'])) {
-            $performanceData = new PerformanceData($data['performance']);
-            // Converte de volta para array para serialização HTTP
-            $data['performance'] = $performanceData->toArray();
+        if (is_array($data)) {
+            $data = MonitoringData::fromArray($data);
         }
 
-        
-        // Aqui você implementa o envio dos dados para o servidor de monitoramento.
-        // Exemplo fictício de envio:
-        $data['project_token'] = config('lonomia.api_key');
-        $data['image_tag'] = env('LOMONIA_IMAGE_TAG');
-        $data['app_route'] = $this->getAppRoute($data['request']['url']);
-        
-        // Se external_requests não foi passado no array $data, adiciona do serviço
-        // (para compatibilidade com chamadas antigas)
-        if (!isset($data['external_requests'])) {
-            $data['external_requests'] = !empty($this->externalRequests) ? $this->externalRequests : null;
+        $payload = $data->toArray();
+        $payload['project_token'] = config('lonomia.api_key');
+        $payload['image_tag'] = env('LOMONIA_IMAGE_TAG');
+        $payload['app_route'] = $this->getAppRoute($data->request->url);
+
+        if (empty($payload['external_requests']) && !empty($this->externalRequests)) {
+            $payload['external_requests'] = $this->externalRequests;
         }
-        
+
         $url = env('LOMONIA_API_URL', 'https://lonomia.com.br');
-        Http::post($url . '/api/monitoring', $data);
-        //Http::post('http://127.0.0.1' . '/api/monitoring', $data);
-        
-        // Limpa external_requests após envio
+        Http::post($url . '/api/monitoring', $payload);
+
         $this->clearExternalRequests();
     }
 
     
-    public function getAppRoute($url)
+    public function getAppRoute(string $url): ?string
     {
-        // 1. Remover protocolo e domínio (https://lonomia.com.br/)
         $parsedUrl = parse_url($url);
         $path = $parsedUrl['path'] ?? '/';
-    
-        // 2. Remover a barra inicial para padronizar com as rotas do Laravel
         $normalizedPath = ltrim($path, '/');
-    
-        // 3. Normalizar números para {id}
         $normalizedPath = preg_replace('/\b\d+\b/', '{id}', $normalizedPath);
-    
-        // 4. Obter todas as rotas registradas no Laravel
-        $routes = collect(Route::getRoutes())->map(function ($route) {
-            return ltrim($route->uri(), '/'); // Também removemos a barra inicial das rotas
-        });
-        // 5. Comparar a URL normalizada com as rotas registradas
+
+        $routes = collect(Route::getRoutes())->map(fn($route) => ltrim($route->uri(), '/'));
+
         foreach ($routes as $route) {
-            // Criar regex para comparar (substitui {param} por regex)
             $pattern = preg_replace('/\{[^}]+\}/', '([^/]+)', $route);
-            $pattern = "#^" . $pattern . "$#";
-    
-            // Verifica se a URL normalizada bate com a rota
+            $pattern = "#^{$pattern}$#";
+
             if (preg_match($pattern, $normalizedPath)) {
-                if($route ==  ""){
-                    return "/";
-                }
-                return $route; // Retorna a rota correspondente
+                return $route === '' ? '/' : $route;
             }
         }
-    
-        return null; // Nenhuma rota correspondente encontrada
+
+        return null;
     }
     
 
@@ -270,7 +248,6 @@ class LonomiaService
         bool $success = true,
         ?string $errorMessage = null
     ): void {
-        // Timestamp atual (Unix timestamp com microsegundos)
         $executedAt = microtime(true);
 
         $this->externalRequests[] = [
@@ -452,16 +429,12 @@ class LonomiaService
         ?string $errorMessage = null,
         ?array $metadata = null
     ): void {
-        // Timestamp atual (Unix timestamp com microsegundos)
         $executedAt = microtime(true);
-
-        // Serializa valores complexos para evitar problemas de memória
         $serializedValue = null;
         if ($value !== null) {
             if (is_string($value) || is_numeric($value) || is_bool($value) || is_null($value)) {
                 $serializedValue = $value;
             } elseif (is_array($value) || is_object($value)) {
-                // Limita o tamanho para evitar payloads muito grandes
                 $serialized = json_encode($value);
                 if ($serialized !== false) {
                     $serializedValue = strlen($serialized) > 1000 
