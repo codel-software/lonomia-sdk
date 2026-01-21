@@ -3,25 +3,30 @@
 namespace CodelSoftware\LonomiaSdk\Services;
 
 use CodelSoftware\LonomiaSdk\DTOs\MonitoringData;
-use CodelSoftware\LonomiaSdk\DTOs\PerformanceData;
+use CodelSoftware\LonomiaSdk\Support\DeferredHelper;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 class LonomiaService
 {
     protected $userContext = [];
+
     protected $apmTags = [];
+
     protected $logs = [];
+
     protected $queries = [];
+
     protected $httpRequests = [];
+
     protected $externalRequests = [];
+
     protected $cacheOperations = [];
+
     protected $jobs = [];
 
     /**
      * Define o contexto do usuário.
-     *
-     * @param array $context
      */
     public function setUserContext(array $context): void
     {
@@ -31,13 +36,11 @@ class LonomiaService
     /**
      * Adiciona um evento ao log.
      *
-     * @param string $level
-     * @param string $message
-     * @param array $context
+     * @param  array  $context
      */
     private function addLog(string $level, string $message, $context = null): void
     {
-        if($context != null){
+        if ($context != null) {
             $context = json_encode($context);
         }
         $this->logs[] = [
@@ -49,52 +52,50 @@ class LonomiaService
     }
 
     // Métodos para diferentes níveis de log
-    public function emergency(string $message,  $context = null): void
+    public function emergency(string $message, $context = null): void
     {
-        
+
         $this->addLog('emergency', $message, $context);
     }
 
-    public function alert(string $message,  $context = null): void
+    public function alert(string $message, $context = null): void
     {
-        
+
         $this->addLog('alert', $message, $context);
     }
 
-    public function critical(string $message,  $context = null): void
+    public function critical(string $message, $context = null): void
     {
         $this->addLog('critical', $message, $context);
     }
 
-    public function error(string $message,  $context = null): void
+    public function error(string $message, $context = null): void
     {
         $this->addLog('error', $message, $context);
     }
 
-    public function warning(string $message,  $context = null): void
+    public function warning(string $message, $context = null): void
     {
         $this->addLog('warning', $message, $context);
     }
 
-    public function notice(string $message,  $context = null): void
+    public function notice(string $message, $context = null): void
     {
         $this->addLog('notice', $message, $context);
     }
 
-    public function info(string $message,  $context = null): void
+    public function info(string $message, $context = null): void
     {
         $this->addLog('info', $message, $context);
     }
 
-    public function debug(string $message,  $context = null): void
+    public function debug(string $message, $context = null): void
     {
         $this->addLog('debug', $message, $context);
     }
 
     /**
      * Inicia a medição de um bloco de código.
-     *
-     * @param string $tag
      */
     public function startTag(string $tag): void
     {
@@ -107,8 +108,6 @@ class LonomiaService
 
     /**
      * Finaliza a medição de um bloco de código e calcula a duração.
-     *
-     * @param string $tag
      */
     public function endTag(string $tag): void
     {
@@ -120,8 +119,6 @@ class LonomiaService
 
     /**
      * Retorna os dados de APM.
-     *
-     * @return array
      */
     public function getApmData(): array
     {
@@ -130,10 +127,6 @@ class LonomiaService
 
     /**
      * Adiciona uma query ao registro.
-     *
-     * @param string $sql
-     * @param array $bindings
-     * @param float $time
      */
     public function addQuery(string $sql, array $bindings, float $time): void
     {
@@ -146,8 +139,6 @@ class LonomiaService
 
     /**
      * Retorna todas as queries registradas.
-     *
-     * @return array
      */
     public function getQueries(): array
     {
@@ -156,11 +147,15 @@ class LonomiaService
 
     /**
      * Envia os dados finais para o servidor de monitoramento.
-     * 
+     *
      * Aceita MonitoringData tipado ou array (para compatibilidade).
      * Converte automaticamente arrays para MonitoringData usando fromArray().
      *
-     * @param MonitoringData|array $data Dados de monitoramento tipados ou array
+     * O envio é feito de forma deferida (após o envio da resposta HTTP) quando
+     * o Laravel suporta defer() (11.23.0+), garantindo que a experiência do
+     * cliente não seja afetada. Em versões anteriores, executa de forma síncrona.
+     *
+     * @param  MonitoringData|array  $data  Dados de monitoramento tipados ou array
      */
     public function logPerformanceData(MonitoringData|array $data): void
     {
@@ -173,17 +168,22 @@ class LonomiaService
         $payload['image_tag'] = env('LOMONIA_IMAGE_TAG');
         $payload['app_route'] = $this->getAppRoute($data->request->url);
 
-        if (empty($payload['external_requests']) && !empty($this->externalRequests)) {
+        if (empty($payload['external_requests']) && ! empty($this->externalRequests)) {
             $payload['external_requests'] = $this->externalRequests;
         }
 
         $url = env('LOMONIA_API_URL', 'https://lonomia.com.br');
-        Http::post($url . '/api/monitoring', $payload);
+        $endpoint = $url.'/api/monitoring';
+
+        // Executa o envio de forma deferida quando disponível
+        DeferredHelper::run('lonomia.send_monitoring', function () use ($endpoint, $payload) {
+            // Timeout baixo (1.5s) para não bloquear o worker em Octane
+            Http::timeout(1.5)->post($endpoint, $payload);
+        });
 
         $this->clearExternalRequests();
     }
 
-    
     public function getAppRoute(string $url): ?string
     {
         $parsedUrl = parse_url($url);
@@ -191,7 +191,7 @@ class LonomiaService
         $normalizedPath = ltrim($path, '/');
         $normalizedPath = preg_replace('/\b\d+\b/', '{id}', $normalizedPath);
 
-        $routes = collect(Route::getRoutes())->map(fn($route) => ltrim($route->uri(), '/'));
+        $routes = collect(Route::getRoutes())->map(fn ($route) => ltrim($route->uri(), '/'));
 
         foreach ($routes as $route) {
             $pattern = preg_replace('/\{[^}]+\}/', '([^/]+)', $route);
@@ -204,13 +204,9 @@ class LonomiaService
 
         return null;
     }
-    
-
 
     /**
      * Retorna todos os logs registrados.
-     *
-     * @return array
      */
     public function getLogs(): array
     {
@@ -220,21 +216,20 @@ class LonomiaService
     /**
      * Registra uma chamada HTTP externa realizada durante a requisição.
      *
-     * Este método armazena informações sobre chamadas para APIs de terceiros, webhooks, ou qualquer serviço HTTP externo. 
+     * Este método armazena informações sobre chamadas para APIs de terceiros, webhooks, ou qualquer serviço HTTP externo.
      * Os dados são enviados ao servidor Lonomia junto com os demais dados de monitoramento (queries, logs, APM tags).
      * Permite rastrear integrações externas, identificar falhas em serviços de terceiros e medir performance de APIs.
      *
-     * @param string $url URL completa da API externa
-     * @param string $method Método HTTP (GET, POST, PUT, DELETE, etc)
-     * @param array|null $requestHeaders Headers da requisição
-     * @param mixed|null $requestBody Corpo da requisição (array, string, etc)
-     * @param int|null $statusCode Status HTTP da resposta
-     * @param array|null $responseHeaders Headers da resposta
-     * @param mixed|null $responseBody Corpo da resposta
-     * @param float|null $executionTime Tempo de execução em segundos
-     * @param bool $success Indica se a chamada foi bem-sucedida
-     * @param string|null $errorMessage Mensagem de erro se houver
-     * @return void
+     * @param  string  $url  URL completa da API externa
+     * @param  string  $method  Método HTTP (GET, POST, PUT, DELETE, etc)
+     * @param  array|null  $requestHeaders  Headers da requisição
+     * @param  mixed|null  $requestBody  Corpo da requisição (array, string, etc)
+     * @param  int|null  $statusCode  Status HTTP da resposta
+     * @param  array|null  $responseHeaders  Headers da resposta
+     * @param  mixed|null  $responseBody  Corpo da resposta
+     * @param  float|null  $executionTime  Tempo de execução em segundos
+     * @param  bool  $success  Indica se a chamada foi bem-sucedida
+     * @param  string|null  $errorMessage  Mensagem de erro se houver
      */
     public function addExternalRequest(
         string $url,
@@ -267,8 +262,6 @@ class LonomiaService
 
     /**
      * Retorna todas as chamadas HTTP externas registradas.
-     *
-     * @return array
      */
     public function getExternalRequests(): array
     {
@@ -279,8 +272,6 @@ class LonomiaService
      * Limpa o array de chamadas HTTP externas.
      *
      * Útil para resetar após enviar os dados ao servidor, evitando acúmulo de memória entre requisições.
-     *
-     * @return void
      */
     public function clearExternalRequests(): void
     {
@@ -289,21 +280,11 @@ class LonomiaService
 
     /**
      * Adiciona uma requisição HTTP ao registro.
-     *
-     * @param string $method
-     * @param string $url
-     * @param array $options
-     * @param float $startTime
-     * @param float|null $endTime
-     * @param int|null $statusCode
-     * @param array|null $responseHeaders
-     * @param string|null $responseBody
-     * @param \Throwable|null $exception
      */
     public function addHttpRequest(
         string $method,
         string $url,
-        array $options = [],
+        array $options,
         float $startTime,
         ?float $endTime = null,
         ?int $statusCode = null,
@@ -312,7 +293,7 @@ class LonomiaService
         ?\Throwable $exception = null
     ): void {
         $requestId = uniqid('http_', true);
-        
+
         $this->httpRequests[$requestId] = [
             'method' => $method,
             'url' => $url,
@@ -333,8 +314,6 @@ class LonomiaService
 
     /**
      * Retorna todas as requisições HTTP registradas.
-     *
-     * @return array
      */
     public function getHttpRequests(): array
     {
@@ -357,21 +336,22 @@ class LonomiaService
         if (isset($options['json'])) {
             return $options['json'];
         }
-        
+
         if (isset($options['form_params'])) {
             return $options['form_params'];
         }
-        
+
         if (isset($options['multipart'])) {
             // Remove arquivos do multipart para não enviar conteúdo binário
             return array_map(function ($part) {
                 if (isset($part['contents']) && is_string($part['contents']) && strlen($part['contents']) > 1000) {
-                    $part['contents'] = '[arquivo binário - ' . strlen($part['contents']) . ' bytes]';
+                    $part['contents'] = '[arquivo binário - '.strlen($part['contents']).' bytes]';
                 }
+
                 return $part;
             }, $options['multipart']);
         }
-        
+
         if (isset($options['body'])) {
             $body = $options['body'];
             // Tenta decodificar JSON
@@ -380,11 +360,13 @@ class LonomiaService
                 if (json_last_error() === JSON_ERROR_NONE) {
                     return $decoded;
                 }
+
                 return ['raw' => $this->limitResponseBody($body)];
             }
+
             return $body;
         }
-        
+
         return null;
     }
 
@@ -396,29 +378,28 @@ class LonomiaService
         if ($body === null) {
             return null;
         }
-        
+
         if (strlen($body) > $maxLength) {
-            return substr($body, 0, $maxLength) . '...[truncado ' . (strlen($body) - $maxLength) . ' bytes]';
+            return substr($body, 0, $maxLength).'...[truncado '.(strlen($body) - $maxLength).' bytes]';
         }
-        
+
         return $body;
     }
 
     /**
      * Registra uma operação de cache/Redis realizada durante a requisição.
-     * 
+     *
      * Este método armazena informações sobre todas as operações de cache (get, put, forget, remember, etc.)
      * realizadas durante a requisição. Os dados são enviados ao servidor Lonomia junto com os demais
      * dados de monitoramento para rastrear uso de cache e identificar possíveis problemas de performance.
      *
-     * @param string $operation Tipo de operação (get, put, forget, remember, has, etc.)
-     * @param string|null $key Chave do cache
-     * @param mixed|null $value Valor armazenado/recuperado (será serializado se necessário)
-     * @param float|null $executionTime Tempo de execução em segundos
-     * @param bool $success Indica se a operação foi bem-sucedida
-     * @param string|null $errorMessage Mensagem de erro se houver
-     * @param array|null $metadata Metadados adicionais (TTL, tags, etc.)
-     * @return void
+     * @param  string  $operation  Tipo de operação (get, put, forget, remember, has, etc.)
+     * @param  string|null  $key  Chave do cache
+     * @param  mixed|null  $value  Valor armazenado/recuperado (será serializado se necessário)
+     * @param  float|null  $executionTime  Tempo de execução em segundos
+     * @param  bool  $success  Indica se a operação foi bem-sucedida
+     * @param  string|null  $errorMessage  Mensagem de erro se houver
+     * @param  array|null  $metadata  Metadados adicionais (TTL, tags, etc.)
      */
     public function addCacheOperation(
         string $operation,
@@ -437,14 +418,14 @@ class LonomiaService
             } elseif (is_array($value) || is_object($value)) {
                 $serialized = json_encode($value);
                 if ($serialized !== false) {
-                    $serializedValue = strlen($serialized) > 1000 
-                        ? substr($serialized, 0, 1000) . '...[truncado]'
+                    $serializedValue = strlen($serialized) > 1000
+                        ? substr($serialized, 0, 1000).'...[truncado]'
                         : $serialized;
                 } else {
                     $serializedValue = '[valor não serializável]';
                 }
             } else {
-                $serializedValue = '[tipo: ' . gettype($value) . ']';
+                $serializedValue = '[tipo: '.gettype($value).']';
             }
         }
 
@@ -463,8 +444,6 @@ class LonomiaService
 
     /**
      * Retorna todas as operações de cache registradas.
-     *
-     * @return array
      */
     public function getCacheOperations(): array
     {
@@ -475,8 +454,6 @@ class LonomiaService
      * Limpa o array de operações de cache.
      *
      * Útil para resetar após enviar os dados ao servidor, evitando acúmulo de memória entre requisições.
-     *
-     * @return void
      */
     public function clearCacheOperations(): void
     {
@@ -485,19 +462,18 @@ class LonomiaService
 
     /**
      * Registra um evento de job (queued, processing, processed, failed).
-     * 
+     *
      * Este método armazena informações sobre jobs que são enviados para a fila ou executados.
      * Os dados são enviados ao servidor Lonomia junto com os demais dados de monitoramento.
      *
-     * @param string $status Status do job (queued, processing, processed, failed)
-     * @param string $jobClass Nome da classe do job
-     * @param string|null $jobId ID único do job na fila
-     * @param string|null $connection Nome da conexão da fila
-     * @param string|null $queue Nome da fila
-     * @param float|null $executionTime Tempo de execução em segundos (apenas para processed/failed)
-     * @param \Throwable|null $exception Exceção se o job falhou
-     * @param array|null $payload Payload do job (serializado)
-     * @return void
+     * @param  string  $status  Status do job (queued, processing, processed, failed)
+     * @param  string  $jobClass  Nome da classe do job
+     * @param  string|null  $jobId  ID único do job na fila
+     * @param  string|null  $connection  Nome da conexão da fila
+     * @param  string|null  $queue  Nome da fila
+     * @param  float|null  $executionTime  Tempo de execução em segundos (apenas para processed/failed)
+     * @param  \Throwable|null  $exception  Exceção se o job falhou
+     * @param  array|null  $payload  Payload do job (serializado)
      */
     public function addJob(
         string $status,
@@ -537,8 +513,6 @@ class LonomiaService
 
     /**
      * Retorna todas as operações de jobs registradas.
-     *
-     * @return array
      */
     public function getJobs(): array
     {
@@ -549,8 +523,6 @@ class LonomiaService
      * Limpa o array de jobs.
      *
      * Útil para resetar após enviar os dados ao servidor, evitando acúmulo de memória entre requisições.
-     *
-     * @return void
      */
     public function clearJobs(): void
     {
