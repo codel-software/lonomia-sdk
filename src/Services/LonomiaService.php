@@ -4,7 +4,9 @@ namespace CodelSoftware\LonomiaSdk\Services;
 
 use CodelSoftware\LonomiaSdk\DTOs\MonitoringData;
 use CodelSoftware\LonomiaSdk\Support\DeferredHelper;
+use CodelSoftware\LonomiaSdk\Support\PayloadReducer;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 class LonomiaService
@@ -172,13 +174,37 @@ class LonomiaService
             $payload['external_requests'] = $this->externalRequests;
         }
 
+        // Aplica redução de payload antes do envio
+        $isError = $this->isErrorResponse($data);
+        $reducer = new PayloadReducer();
+        $payload = $reducer->reduce($payload, $isError);
+
         $url = env('LOMONIA_API_URL', 'https://lonomia.com.br');
         $endpoint = $url.'/api/monitoring';
 
         // Executa o envio de forma deferida quando disponível
         DeferredHelper::run('lonomia.send_monitoring', function () use ($endpoint, $payload) {
-            // Timeout baixo (1.5s) para não bloquear o worker em Octane
-            Http::timeout(1.5)->post($endpoint, $payload);
+            try {
+                $timeout = config('lonomia.http_timeout', 1.5);
+                Http::timeout($timeout)->post($endpoint, $payload);
+            } catch (\Illuminate\Http\Client\ConnectionException $e) {
+                // Timeout ou falha de conexão - silenciosamente ignora
+                Log::debug('Lonomia: Falha ao enviar dados (timeout/conexão)', [
+                    'error' => $e->getMessage(),
+                ]);
+            } catch (\Illuminate\Http\Client\RequestException $e) {
+                // Erro HTTP - silenciosamente ignora
+                Log::debug('Lonomia: Falha ao enviar dados (erro HTTP)', [
+                    'error' => $e->getMessage(),
+                ]);
+            } catch (\Throwable $e) {
+                // Qualquer outra exceção - silenciosamente ignora
+                Log::debug('Lonomia: Falha ao enviar dados', [
+                    'error' => $e->getMessage(),
+                    'exception' => get_class($e),
+                ]);
+            }
+            // Nunca lança exceção - falha é completamente silenciosa
         });
 
         $this->clearExternalRequests();
@@ -203,6 +229,30 @@ class LonomiaService
         }
 
         return null;
+    }
+
+    /**
+     * Verifica se a resposta é um erro (status >= 400 ou tem exception).
+     *
+     * @param  MonitoringData  $data  Dados de monitoramento
+     * @return bool True se for erro
+     */
+    protected function isErrorResponse(MonitoringData $data): bool
+    {
+        // Verifica se tem exception
+        if ($data->exception !== null) {
+            return true;
+        }
+
+        // Verifica status code
+        if ($data->response !== null) {
+            $status = $data->response->status;
+            if ($status >= 400) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
