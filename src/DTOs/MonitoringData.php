@@ -43,6 +43,7 @@ class MonitoringData
      * Cria uma instância de MonitoringData a partir de um array.
      * 
      * Converte automaticamente todos os sub-arrays para seus respectivos DTOs.
+     * Inclui tratamento de erros robusto para garantir que nunca trave a plataforma.
      *
      * @param array $data Array com os dados de monitoramento
      * @return self
@@ -52,52 +53,130 @@ class MonitoringData
         $queries = [];
         if (isset($data['queries']) && is_array($data['queries'])) {
             foreach ($data['queries'] as $query) {
-                $queries[] = QueryData::fromArray($query);
+                try {
+                    if (is_array($query)) {
+                        $queries[] = QueryData::fromArray($query);
+                    }
+                } catch (\Throwable $e) {
+                    // Ignora queries inválidas para não travar a plataforma
+                    continue;
+                }
             }
         }
 
         $externalRequests = [];
         if (isset($data['external_requests']) && is_array($data['external_requests'])) {
             foreach ($data['external_requests'] as $request) {
-                $externalRequests[] = ExternalRequestData::fromArray($request);
+                try {
+                    if (is_array($request)) {
+                        $externalRequests[] = ExternalRequestData::fromArray($request);
+                    }
+                } catch (\Throwable $e) {
+                    // Ignora requisições externas inválidas para não travar a plataforma
+                    continue;
+                }
             }
         }
 
         $apm = [];
         if (isset($data['apm']) && is_array($data['apm'])) {
             foreach ($data['apm'] as $tagName => $tagData) {
-                $apm[$tagName] = ApmTagData::fromArray($tagData);
+                try {
+                    if (is_array($tagData) && is_string($tagName)) {
+                        $apm[$tagName] = ApmTagData::fromArray($tagData);
+                    }
+                } catch (\Throwable $e) {
+                    // Ignora tags APM inválidas para não travar a plataforma
+                    continue;
+                }
             }
         }
 
         $logs = [];
         if (isset($data['logs']) && is_array($data['logs'])) {
             foreach ($data['logs'] as $log) {
-                $logs[] = LogEntryData::fromArray($log);
+                try {
+                    if (is_array($log)) {
+                        $logs[] = LogEntryData::fromArray($log);
+                    }
+                } catch (\Throwable $e) {
+                    // Ignora logs inválidos para não travar a plataforma
+                    continue;
+                }
             }
         }
 
         $cache = [];
         if (isset($data['cache']) && is_array($data['cache'])) {
             foreach ($data['cache'] as $cacheOp) {
-                $cache[] = CacheOperationData::fromArray($cacheOp);
+                try {
+                    if (is_array($cacheOp)) {
+                        $cache[] = CacheOperationData::fromArray($cacheOp);
+                    }
+                } catch (\Throwable $e) {
+                    // Ignora operações de cache inválidas para não travar a plataforma
+                    continue;
+                }
             }
         }
 
         $jobs = [];
         if (isset($data['jobs']) && is_array($data['jobs'])) {
             foreach ($data['jobs'] as $job) {
-                $jobs[] = JobData::fromArray($job);
+                try {
+                    if (is_array($job)) {
+                        $jobs[] = JobData::fromArray($job);
+                    }
+                } catch (\Throwable $e) {
+                    // Ignora jobs inválidos para não travar a plataforma
+                    continue;
+                }
+            }
+        }
+
+        try {
+            $request = RequestData::fromArray($data['request'] ?? []);
+        } catch (\Throwable $e) {
+            // Cria um RequestData vazio em caso de erro
+            $request = RequestData::fromArray([]);
+        }
+
+        try {
+            $performance = PerformanceData::fromArray($data['performance'] ?? []);
+        } catch (\Throwable $e) {
+            // Cria um PerformanceData vazio em caso de erro
+            $performance = PerformanceData::fromArray([]);
+        }
+
+        $response = null;
+        if (isset($data['response']) && $data['response'] !== null) {
+            try {
+                if (is_array($data['response'])) {
+                    $response = ResponseData::fromArray($data['response']);
+                }
+            } catch (\Throwable $e) {
+                // Ignora resposta inválida, mantém como null
+                $response = null;
+            }
+        }
+
+        $exception = null;
+        if (isset($data['exception']) && $data['exception'] !== null) {
+            try {
+                if (is_array($data['exception'])) {
+                    $exception = ExceptionData::fromArray($data['exception']);
+                }
+            } catch (\Throwable $e) {
+                // Ignora exceção inválida, mantém como null
+                $exception = null;
             }
         }
 
         return new self(
-            trackingId: $data['tracking_id'] ?? '',
-            request: RequestData::fromArray($data['request'] ?? []),
-            performance: PerformanceData::fromArray($data['performance'] ?? []),
-            response: isset($data['response']) && $data['response'] !== null
-                ? ResponseData::fromArray($data['response'])
-                : null,
+            trackingId: (string) ($data['tracking_id'] ?? ''),
+            request: $request,
+            performance: $performance,
+            response: $response,
             queries: $queries,
             httpRequests: $data['http_requests'] ?? [],
             externalRequests: $externalRequests,
@@ -105,9 +184,7 @@ class MonitoringData
             logs: $logs,
             cache: $cache,
             jobs: $jobs,
-            exception: isset($data['exception']) && $data['exception'] !== null
-                ? ExceptionData::fromArray($data['exception'])
-                : null,
+            exception: $exception,
         );
     }
 

@@ -295,31 +295,35 @@ class CaptureErrors
                 ];
             }
             
-            $monitoringData = MonitoringData::fromArray([
-                'tracking_id' => $trackingId,
-                'request' => [
-                    'method' => $data['request']->method(),
-                    'url' => $data['request']->fullUrl(),
-                    'headers' => $data['request']->headers->all(),
-                    'body' => $this->getRequestBody($data['request']),
-                ],
-                'response' => [
-                    'status' => 200,
-                    'headers' => ['Content-Type' => 'text/event-stream'],
-                    'body' => $responseBody,
-                ],
-                'performance' => $performanceData,
-                'queries' => $data['queries'],
-                'http_requests' => $data['lonomia']->getHttpRequests(),
-                'external_requests' => $data['lonomia']->getExternalRequests(),
-                'apm' => $data['lonomia']->getApmData(),
-                'logs' => $data['lonomia']->getLogs(),
-                'cache' => $data['lonomia']->getCacheOperations(),
-                'jobs' => $data['lonomia']->getJobs(),
-                'exception' => $exceptionData,
-            ]);
-            
-            $data['lonomia']->logPerformanceData($monitoringData);
+            try {
+                $monitoringData = MonitoringData::fromArray([
+                    'tracking_id' => $trackingId,
+                    'request' => [
+                        'method' => $data['request']->method(),
+                        'url' => $data['request']->fullUrl(),
+                        'headers' => $data['request']->headers->all(),
+                        'body' => $this->getRequestBody($data['request']),
+                    ],
+                    'response' => [
+                        'status' => 200,
+                        'headers' => ['Content-Type' => 'text/event-stream'],
+                        'body' => $responseBody,
+                    ],
+                    'performance' => $performanceData,
+                    'queries' => $data['queries'],
+                    'http_requests' => $data['lonomia']->getHttpRequests(),
+                    'external_requests' => $data['lonomia']->getExternalRequests(),
+                    'apm' => $data['lonomia']->getApmData(),
+                    'logs' => $data['lonomia']->getLogs(),
+                    'cache' => $data['lonomia']->getCacheOperations(),
+                    'jobs' => $data['lonomia']->getJobs(),
+                    'exception' => $exceptionData,
+                ]);
+                
+                $data['lonomia']->logPerformanceData($monitoringData);
+            } catch (\Throwable $e) {
+                // Ignora erros ao processar dados de monitoramento para não travar a plataforma
+            }
         }
         
         unset(self::$streamData[$streamId]);

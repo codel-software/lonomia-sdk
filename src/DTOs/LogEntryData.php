@@ -19,16 +19,31 @@ class LogEntryData
     /**
      * Cria uma instância de LogEntryData a partir de um array.
      *
+     * Converte automaticamente arrays de context para JSON string.
+     * Garante que o context seja sempre string ou null, nunca array.
+     *
      * @param array $data Array com os dados da entrada de log
      * @return self
      */
     public static function fromArray(array $data): self
     {
+        $context = $data['context'] ?? null;
+        
+        // Converte arrays para JSON string
+        if (is_array($context)) {
+            $context = json_encode($context) ?: null;
+        }
+        
+        // Garante que seja string ou null
+        if ($context !== null && ! is_string($context)) {
+            $context = (string) $context;
+        }
+        
         return new self(
             timestamp: (float) ($data['timestamp'] ?? microtime(true)),
-            level: $data['level'] ?? 'info',
-            message: $data['message'] ?? '',
-            context: $data['context'] ?? null,
+            level: (string) ($data['level'] ?? 'info'),
+            message: (string) ($data['message'] ?? ''),
+            context: $context,
         );
     }
 

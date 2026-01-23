@@ -3,6 +3,8 @@
 namespace CodelSoftware\LonomiaSdk\Services;
 
 use CodelSoftware\LonomiaSdk\DTOs\MonitoringData;
+use CodelSoftware\LonomiaSdk\DTOs\PerformanceData;
+use CodelSoftware\LonomiaSdk\DTOs\RequestData;
 use CodelSoftware\LonomiaSdk\Support\DeferredHelper;
 use CodelSoftware\LonomiaSdk\Support\PayloadReducer;
 use Illuminate\Support\Facades\Http;
@@ -161,14 +163,34 @@ class LonomiaService
      */
     public function logPerformanceData(MonitoringData|array $data): void
     {
-        if (is_array($data)) {
-            $data = MonitoringData::fromArray($data);
+        try {
+            if (is_array($data)) {
+                $data = MonitoringData::fromArray($data);
+            }
+        } catch (\Throwable $e) {
+            // Em caso de erro ao converter array para MonitoringData,
+            // tenta criar um MonitoringData mínimo para não travar a plataforma
+            try {
+                $data = new MonitoringData(
+                    trackingId: $data['tracking_id'] ?? '',
+                    request: RequestData::fromArray($data['request'] ?? []),
+                    performance: PerformanceData::fromArray($data['performance'] ?? []),
+                );
+            } catch (\Throwable $e2) {
+                // Se ainda assim falhar, ignora silenciosamente para não travar a plataforma
+                return;
+            }
         }
 
-        $payload = $data->toArray();
-        $payload['project_token'] = config('lonomia.api_key');
-        $payload['image_tag'] = env('LOMONIA_IMAGE_TAG');
-        $payload['app_route'] = $this->getAppRoute($data->request->url);
+        try {
+            $payload = $data->toArray();
+            $payload['project_token'] = config('lonomia.api_key');
+            $payload['image_tag'] = env('LOMONIA_IMAGE_TAG');
+            $payload['app_route'] = $this->getAppRoute($data->request->url ?? '');
+        } catch (\Throwable $e) {
+            // Ignora erros ao preparar payload para não travar a plataforma
+            return;
+        }
 
         if (empty($payload['external_requests']) && ! empty($this->externalRequests)) {
             $payload['external_requests'] = $this->externalRequests;
