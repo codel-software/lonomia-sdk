@@ -48,6 +48,8 @@ class CaptureErrors
 
             $this->lonomia->setUserContext(['tracking_id' => $trackingId]);
 
+            $clientCorrelationId = 'ccl_' . Str::random(32);
+
             // Início do monitoramento de performance
             $startTime = microtime(true);
             $startMemory = memory_get_usage();
@@ -226,7 +228,9 @@ class CaptureErrors
                 $this->lonomia->clearCacheOperations();
                 $this->lonomia->clearJobs();
             }
-        }catch(\Throwable $e){
+
+            $response->headers->set('X-Lonomia-Client-Correlation-Id', $clientCorrelationId);
+        } catch (\Throwable $e) {
             if(env('LONOMIA_ENABLED',true) == true){
                 Log::error('Lonomia SDK Error: ' . $e->getMessage(), [
                     'exception' => $e,
