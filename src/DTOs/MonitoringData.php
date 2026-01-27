@@ -23,6 +23,7 @@ class MonitoringData
      * @param CacheOperationData[] $cache Array de operações de cache
      * @param JobData[] $jobs Array de jobs executados
      * @param ExceptionData|null $exception Dados de exceção (se houver)
+     * @param string|null $clientCorrelationId ID de correlação para telemetria client-side
      */
     public function __construct(
         public string $trackingId,
@@ -37,6 +38,7 @@ class MonitoringData
         public array $cache = [],
         public array $jobs = [],
         public ?ExceptionData $exception = null,
+        public ?string $clientCorrelationId = null,
     ) {}
 
     /**
@@ -185,6 +187,7 @@ class MonitoringData
             cache: $cache,
             jobs: $jobs,
             exception: $exception,
+            clientCorrelationId: isset($data['client_correlation_id']) ? (string) $data['client_correlation_id'] : null,
         );
     }
 
@@ -202,6 +205,10 @@ class MonitoringData
             'request' => $this->request->toArray(),
             'performance' => $this->performance->toArray(),
         ];
+
+        if ($this->clientCorrelationId !== null) {
+            $result['client_correlation_id'] = $this->clientCorrelationId;
+        }
 
         if ($this->response !== null) {
             $result['response'] = $this->response->toArray();

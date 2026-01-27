@@ -74,6 +74,8 @@ class CaptureErrors
                 $this->lonomia->startTag('request-total');
                 $response = $next($request);
                 
+                
+                
                 if ($response instanceof StreamedResponse) {
                     $isStreamedResponse = true;
                     $streamId = 'stream_' . $trackingId . '_' . time();
@@ -82,6 +84,7 @@ class CaptureErrors
                     $queriesCopy = $queries;
                     self::$streamData[$streamId] = [
                         'tracking_id' => $trackingId,
+                        'client_correlation_id' => $clientCorrelationId,
                         'start_time' => $startTime,
                         'stream_start_time' => $streamStartTime,
                         'request' => $request,
@@ -192,6 +195,7 @@ class CaptureErrors
                     
                     $monitoringData = MonitoringData::fromArray([
                         'tracking_id' => $trackingId,
+                        'client_correlation_id' => $clientCorrelationId,
                         'request' => [
                             'method' => $request->method(),
                             'url' => $request->fullUrl(),
@@ -229,7 +233,10 @@ class CaptureErrors
                 $this->lonomia->clearJobs();
             }
 
-            $response->headers->set('X-Lonomia-Client-Correlation-Id', $clientCorrelationId);
+            // Garante que o header está definido (pode já estar se veio do controller)
+            if (!$response->headers->has('X-Lonomia-Client-Correlation-Id')) {
+                $response->headers->set('X-Lonomia-Client-Correlation-Id', $clientCorrelationId);
+            }
         } catch (\Throwable $e) {
             if(env('LONOMIA_ENABLED',true) == true){
                 Log::error('Lonomia SDK Error: ' . $e->getMessage(), [
@@ -296,8 +303,10 @@ class CaptureErrors
             }
             
             try {
+                $clientCorrelationId = $data['client_correlation_id'] ?? null;
                 $monitoringData = MonitoringData::fromArray([
                     'tracking_id' => $trackingId,
+                    'client_correlation_id' => $clientCorrelationId,
                     'request' => [
                         'method' => $data['request']->method(),
                         'url' => $data['request']->fullUrl(),
