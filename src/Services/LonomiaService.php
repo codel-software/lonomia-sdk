@@ -200,7 +200,6 @@ class LonomiaService
         $isError = $this->isErrorResponse($data);
         $reducer = new PayloadReducer();
         $payload = $reducer->reduce($payload, $isError);
-        dd($payload);
         $url = env('LOMONIA_API_URL', 'https://lonomia.com.br');
         $endpoint = $url.'/api/monitoring';
 
