@@ -5,7 +5,9 @@ namespace CodelSoftware\LonomiaSdk\Support;
 use CodelSoftware\LonomiaSdk\Support\PayloadReducer\Rules\RuleFinalCut;
 use CodelSoftware\LonomiaSdk\Support\PayloadReducer\Rules\RuleReduceBody;
 use CodelSoftware\LonomiaSdk\Support\PayloadReducer\Rules\RuleReduceCache;
+use CodelSoftware\LonomiaSdk\Support\PayloadReducer\Rules\RuleReduceJobs;
 use CodelSoftware\LonomiaSdk\Support\PayloadReducer\Rules\RuleReduceLogs;
+use CodelSoftware\LonomiaSdk\Support\PayloadReducer\Rules\RuleReduceQueries;
 use CodelSoftware\LonomiaSdk\Support\PayloadReducer\Rules\RuleReduceRequests;
 use CodelSoftware\LonomiaSdk\Support\PayloadReducer\ReductionRule;
 use CodelSoftware\LonomiaSdk\Support\PayloadReducer\SizeChecker;
@@ -32,9 +34,11 @@ class PayloadReducer
         // Registra todas as regras
         $this->rules = [
             new RuleReduceBody(),
+            new RuleReduceQueries(),
             new RuleReduceLogs(),
             new RuleReduceRequests(),
             new RuleReduceCache(),
+            new RuleReduceJobs(),
             new RuleFinalCut(),
         ];
 
@@ -56,8 +60,8 @@ class PayloadReducer
         try {
             // Determina limite baseado no tipo de resposta
             $limit = $isError
-                ? config('lonomia.max_payload_error', 512 * 1024) // 512KB (1/3 de 1.5MB)
-                : config('lonomia.max_payload_ok', 100 * 1024); // 100KB (1/3 de 300KB)
+                ? config('lonomia.max_payload_error', 10 * 1024) // 512KB (1/3 de 1.5MB)
+                : config('lonomia.max_payload_ok', 5 * 1024); // 50KB (1/3 de 150KB)
 
             // Verifica se já está dentro do limite
             if (! $this->sizeChecker->exceedsLimit($payload, $limit)) {

@@ -1,0 +1,1351 @@
+{
+    "tracking_id": "user_2315",
+    "request": {
+      "method": "POST",
+      "url": "http://localhost:8081/api/v1/documento",
+      "headers": {
+        "content-length": [
+          "2277"
+        ],
+        "host": [
+          "localhost:8081"
+        ],
+        "content-type": [
+          "multipart/form-data; boundary=X-INSOMNIA-BOUNDARY"
+        ],
+        "user-agent": [
+          "insomnia/11.3.0"
+        ],
+        "authorization": [
+          "Bearer 263866|SbMIBiJaIRYO2SOGGcGs9sqv4dVMrqTyAXW7ksjua70de6d4"
+        ],
+        "accept": [
+          "*/*"
+        ]
+      },
+      "body": {
+        "documento": {}
+      }
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "cache-control": [
+          "no-cache, private"
+        ],
+        "date": [
+          "Wed, 21 Jan 2026 22:38:22 GMT"
+        ],
+        "content-type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "name": "README.md",
+        "url": "/api/v1/documento/arquivo/documentos/users/2315/HZF1H9xg5kODcnrO6kEvXBR3TbcbIiYRYWDqYzDy.txt",
+        "user_id": 2315,
+        "extensao": "md",
+        "tamanho": 2124,
+        "updated_at": "2026-01-21T22:38:14.000000Z",
+        "created_at": "2026-01-21T22:38:14.000000Z",
+        "id": 17170
+      }
+    },
+    "performance": {
+      "execution_time": 11.945722818374634,
+      "memory_start": 36498728,
+      "memory_end": 45994920,
+      "peak_memory": 49979232,
+      "is_streamed": false
+    },
+    "queries": [
+      {
+        "sql": "select * from `cache` where `key` in (?)",
+        "bindings": [
+          "chatadv_cache_12"
+        ],
+        "time": 311.74,
+        "executed_at": "2026-01-21 19:38:11.568902"
+      },
+      {
+        "sql": "delete from `cache` where `key` in (?, ?) and `expiration` <= ?",
+        "bindings": [
+          "chatadv_cache_12",
+          "chatadv_cache_illuminate:cache:flexible:created:12",
+          1769035091
+        ],
+        "time": 304.81,
+        "executed_at": "2026-01-21 19:38:11.875391"
+      },
+      {
+        "sql": "insert into `cache` (`expiration`, `key`, `value`) values (?, ?, ?) on duplicate key update `expiration` = values(`expiration`), `key` = values(`key`), `value` = values(`value`)",
+        "bindings": [
+          1769035151,
+          "chatadv_cache_12",
+          "i:1;"
+        ],
+        "time": 307.29,
+        "executed_at": "2026-01-21 19:38:12.185004"
+      },
+      {
+        "sql": "insert into `documentos` (`name`, `url`, `user_id`, `extensao`, `tamanho`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "README.md",
+          "/api/v1/documento/arquivo/documentos/users/2315/HZF1H9xg5kODcnrO6kEvXBR3TbcbIiYRYWDqYzDy.txt",
+          2315,
+          "md",
+          2124,
+          "2026-01-21 19:38:14",
+          "2026-01-21 19:38:14"
+        ],
+        "time": 306.17,
+        "executed_at": "2026-01-21 19:38:14.887846"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 311.53,
+        "executed_at": "2026-01-21 19:38:15.208432"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_escritorios` where `id` = ? and `module_sub_escritorios`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          3
+        ],
+        "time": 326.08,
+        "executed_at": "2026-01-21 19:38:15.537633"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_organizacoes` where `id` = ? and `module_sub_organizacoes`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          5
+        ],
+        "time": 424.71,
+        "executed_at": "2026-01-21 19:38:15.964520"
+      },
+      {
+        "sql": "insert into `module_logs_audits` (`old_values`, `new_values`, `event`, `auditable_id`, `auditable_type`, `user_id`, `user_type`, `tags`, `ip_address`, `user_agent`, `url`, `escritorio_id`, `organizacao_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "[]",
+          "{\"name\":\"README.md\",\"url\":\"\\/api\\/v1\\/documento\\/arquivo\\/documentos\\/users\\/2315\\/HZF1H9xg5kODcnrO6kEvXBR3TbcbIiYRYWDqYzDy.txt\",\"user_id\":2315,\"extensao\":\"md\",\"tamanho\":2124,\"id\":17170}",
+          "created",
+          17170,
+          "App\\Module\\Documento\\Models\\Documento",
+          null,
+          null,
+          null,
+          "172.19.0.1",
+          "insomnia/11.3.0",
+          "http://localhost:8081/api/v1/documento",
+          3,
+          5,
+          "2026-01-21 19:38:15",
+          "2026-01-21 19:38:15"
+        ],
+        "time": 317.39,
+        "executed_at": "2026-01-21 19:38:16.285085"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 351.25,
+        "executed_at": "2026-01-21 19:38:16.638572"
+      },
+      {
+        "sql": "select * from `documentos` where `documentos`.`id` = ? limit 1",
+        "bindings": [
+          17170
+        ],
+        "time": 340.64,
+        "executed_at": "2026-01-21 19:38:16.989906"
+      },
+      {
+        "sql": "update `documentos` set `tempo_previsto_processamento_simples` = ?, `tempo_previsto_processamento_complexo` = ?, `documentos`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+          16,
+          31,
+          "2026-01-21 19:38:17",
+          17170
+        ],
+        "time": 303.68,
+        "executed_at": "2026-01-21 19:38:17.996392"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 301.42,
+        "executed_at": "2026-01-21 19:38:18.300328"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_escritorios` where `id` = ? and `module_sub_escritorios`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          3
+        ],
+        "time": 300.93,
+        "executed_at": "2026-01-21 19:38:18.603738"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_organizacoes` where `id` = ? and `module_sub_organizacoes`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          5
+        ],
+        "time": 306.77,
+        "executed_at": "2026-01-21 19:38:18.912400"
+      },
+      {
+        "sql": "insert into `module_logs_audits` (`old_values`, `new_values`, `event`, `auditable_id`, `auditable_type`, `user_id`, `user_type`, `tags`, `ip_address`, `user_agent`, `url`, `escritorio_id`, `organizacao_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "{\"tempo_previsto_processamento_simples\":null,\"tempo_previsto_processamento_complexo\":null}",
+          "{\"tempo_previsto_processamento_simples\":16,\"tempo_previsto_processamento_complexo\":31}",
+          "updated",
+          17170,
+          "App\\Module\\Documento\\Models\\Documento",
+          null,
+          null,
+          null,
+          "172.19.0.1",
+          "insomnia/11.3.0",
+          "http://localhost:8081/api/v1/documento",
+          3,
+          5,
+          "2026-01-21 19:38:18",
+          "2026-01-21 19:38:18"
+        ],
+        "time": 304.18,
+        "executed_at": "2026-01-21 19:38:19.218496"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 305.61,
+        "executed_at": "2026-01-21 19:38:19.526215"
+      },
+      {
+        "sql": "select * from `cache` where `key` in (?)",
+        "bindings": [
+          "chatadv_cache_garantirColecaoExiste"
+        ],
+        "time": 300.8,
+        "executed_at": "2026-01-21 19:38:20.070544"
+      },
+      {
+        "sql": "insert into `cache` (`expiration`, `key`, `value`) values (?, ?, ?) on duplicate key update `expiration` = values(`expiration`), `key` = values(`key`), `value` = values(`value`)",
+        "bindings": [
+          1769121500,
+          "chatadv_cache_garantirColecaoExiste",
+          "N;"
+        ],
+        "time": 303.04,
+        "executed_at": "2026-01-21 19:38:20.683435"
+      },
+      {
+        "sql": "update `documentos` set `erro_processamento` = ?, `processado` = ?, `documentos`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+          "Sending to model (text-embedding-3-small) failed: HTTP request returned status code 401:\n{\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-proj-***************************************************** (truncated...)\n\n/app/vendor/prism-php/prism/src/Exceptions/PrismException.php\n65",
+          2,
+          "2026-01-21 19:38:20",
+          17170
+        ],
+        "time": 307.09,
+        "executed_at": "2026-01-21 19:38:21.260178"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 305.47,
+        "executed_at": "2026-01-21 19:38:21.567051"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_escritorios` where `id` = ? and `module_sub_escritorios`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          3
+        ],
+        "time": 304.84,
+        "executed_at": "2026-01-21 19:38:21.874108"
+      },
+      {
+        "sql": "select exists(select * from `module_sub_organizacoes` where `id` = ? and `module_sub_organizacoes`.`deleted_at` is null) as `exists`",
+        "bindings": [
+          5
+        ],
+        "time": 310.77,
+        "executed_at": "2026-01-21 19:38:22.185991"
+      },
+      {
+        "sql": "insert into `module_logs_audits` (`old_values`, `new_values`, `event`, `auditable_id`, `auditable_type`, `user_id`, `user_type`, `tags`, `ip_address`, `user_agent`, `url`, `escritorio_id`, `organizacao_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+          "{\"erro_processamento\":null,\"processado\":0}",
+          "{\"erro_processamento\":\"Sending to model (text-embedding-3-small) failed: HTTP request returned status code 401:\\n{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Incorrect API key provided: sk-proj-***************************************************** (truncated...)\\n\\n\\/app\\/vendor\\/prism-php\\/prism\\/src\\/Exceptions\\/PrismException.php\\n65\",\"processado\":2}",
+          "updated",
+          17170,
+          "App\\Module\\Documento\\Models\\Documento",
+          null,
+          null,
+          null,
+          "172.19.0.1",
+          "insomnia/11.3.0",
+          "http://localhost:8081/api/v1/documento",
+          3,
+          5,
+          "2026-01-21 19:38:22",
+          "2026-01-21 19:38:22"
+        ],
+        "time": 308.5,
+        "executed_at": "2026-01-21 19:38:22.496188"
+      },
+      {
+        "sql": "select `module_sub_times`.* from `module_sub_times` inner join `module_sub_time_usuarios` on `module_sub_times`.`id` = `module_sub_time_usuarios`.`time_id` where `module_sub_time_usuarios`.`usuario_id` = ? and `module_sub_times`.`deleted_at` is null and `module_sub_times`.`deleted_at` is null limit 1",
+        "bindings": [
+          2315
+        ],
+        "time": 305.49,
+        "executed_at": "2026-01-21 19:38:22.803277"
+      }
+    ],
+    "http_requests": [],
+    "external_requests": [
+      {
+        "url": "https://viacep.com.br/ws/06533200/json/",
+        "method": "GET",
+        "request_headers": [],
+        "request_body": null,
+        "status_code": 200,
+        "response_headers": {
+          "Server": "nginx/1.22.0",
+          "Date": "Wed, 21 Jan 2026 22:38:11 GMT",
+          "Content-Type": "application/json; charset=utf-8",
+          "Transfer-Encoding": "chunked",
+          "Connection": "keep-alive",
+          "Expires": "Wed, 21 Jan 2026 23:38:11 GMT",
+          "Cache-Control": "max-age=3600, public",
+          "Pragma": "public",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET",
+          "Access-Control-Allow-Headers": "Content-Type, X-Request-With, X-Requested-By",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Max-Age": "86400"
+        },
+        "response_body": {
+          "cep": "06533-200",
+          "logradouro": "Rua Gama",
+          "complemento": "",
+          "unidade": "",
+          "bairro": "Parque Jaguari (Fazendinha)",
+          "localidade": "Santana de Parnaíba",
+          "uf": "SP",
+          "estado": "São Paulo",
+          "regiao": "Sudeste",
+          "ibge": "3547304",
+          "gia": "6233",
+          "ddd": "11",
+          "siafi": "7047"
+        },
+        "execution_time": 0.3742508888244629,
+        "executed_at": 1769035091.253621,
+        "success": true,
+        "error_message": null
+      },
+      {
+        "url": "http://34.63.53.132:6333/collections",
+        "method": "GET",
+        "request_headers": [],
+        "request_body": null,
+        "status_code": 200,
+        "response_headers": {
+          "content-length": "10681",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "date": "Wed, 21 Jan 2026 22:38:20 GMT"
+        },
+        "response_body": {
+          "result": {
+            "collections": [
+              {
+                "name": "d5ab2d6dedec407cb0a50b1e68403182"
+              },
+              {
+                "name": "dc25bac473d84657bc3e61c9caf9549c"
+              },
+              {
+                "name": "d9f8bad60fe446fdbc5fac1fd7ff44a1"
+              },
+              {
+                "name": "d084ffc4264c44589550ad31bfedddd6"
+              },
+              {
+                "name": "de02fbb0cb25410fb9fd47c71d8a7d26"
+              },
+              {
+                "name": "d8ff0d45f5934006a314a5c1edbe8b56"
+              },
+              {
+                "name": "dde60e8c94444195af5009a349a43ec6"
+              },
+              {
+                "name": "d6fa2e967b8240d4aeb637e2658f50c9"
+              },
+              {
+                "name": "d5e7f448576042cfa807b5bbab55487a"
+              },
+              {
+                "name": "dd150a168a394da5ad9a7540054de78e"
+              },
+              {
+                "name": "d31008540ceb4655bb97169278936265"
+              },
+              {
+                "name": "dcfc46f42d8a4a8b8fe755e0a3bbd6ec"
+              },
+              {
+                "name": "da2bc697a0544a5ebedd9733f00051f7"
+              },
+              {
+                "name": "d31576d2853a4b619a75e67c40558043"
+              },
+              {
+                "name": "d9be01cb04a243b8979ddc4effe8e8a3"
+              },
+              {
+                "name": "dfd1feeaa1d54df5b507e618ce39fcdb"
+              },
+              {
+                "name": "dcd3f007f22b4363a58eb983510d2038"
+              },
+              {
+                "name": "d713efef6b9f418882bece1c18808779"
+              },
+              {
+                "name": "d2904e4187ea4f3c8e7bf6498f28d64c"
+              },
+              {
+                "name": "d23eb32f80084723848e57b4a7fa3df5"
+              },
+              {
+                "name": "dba2b19a4edf487f993aa1c6418cc061"
+              },
+              {
+                "name": "d91bcdcd7df1492abda345984d425230"
+              },
+              {
+                "name": "d4d1793dd4b04e4eb49a2784595eecb8"
+              },
+              {
+                "name": "d205f8bb61b84ad3aa44d35e30d89aa9"
+              },
+              {
+                "name": "da1d7900451e4eedac0577068d6e6577"
+              },
+              {
+                "name": "dc75b87b52044e91b0fb627189c079fd"
+              },
+              {
+                "name": "d0e40e49165f466289943c383247ecf1"
+              },
+              {
+                "name": "d4018daf142b422ca23ea6f2b3880f0b"
+              },
+              {
+                "name": "d3a2d31ad72749b08f5b0f91547bd7c2"
+              },
+              {
+                "name": "documentos_pecas_juridicas"
+              },
+              {
+                "name": "dbec8bf76cc64ed3946459f04aa77227"
+              },
+              {
+                "name": "dcf9251670334f60bfe4940a67261422"
+              },
+              {
+                "name": "dba8a389a1ea4b918811352ce50ebdd0"
+              },
+              {
+                "name": "d6458c3c7a3945f28db2d42cae3c4aef"
+              },
+              {
+                "name": "d52a49326a134e8ea07a874f3ae1269d"
+              },
+              {
+                "name": "de9d3148dddb4b66ac62f6cba83ba18f"
+              },
+              {
+                "name": "d6e51dcccc3d4f46bd4845a3cfd73f16"
+              },
+              {
+                "name": "d297c300c98649d4b21bfe00d81965c7"
+              },
+              {
+                "name": "d4c5fcd867374d859836ace88403f9d3"
+              },
+              {
+                "name": "d2270ccf8f834efc977323eea0a5ad7f"
+              },
+              {
+                "name": "d513faaad0a34bdab01e6e02ab2bf020"
+              },
+              {
+                "name": "de15eb6512b74f1dbccd0c3f59dece8f"
+              },
+              {
+                "name": "d102f0f21ade498d94b5556448742c2a"
+              },
+              {
+                "name": "df9ba1f907b94600853df2e30be76f8e"
+              },
+              {
+                "name": "d50ebe1f6b024b34ab9aebe0b8659e63"
+              },
+              {
+                "name": "d793e2a4ad0542688910455fc061a597"
+              },
+              {
+                "name": "de2d442903ea4b8bbd1316dd128abc46"
+              },
+              {
+                "name": "db4bd05eb4e747a88c99dd4b6a31bfc0"
+              },
+              {
+                "name": "de6adf9e1ac54a7db104d5d4e90caedf"
+              },
+              {
+                "name": "debabd113658442bbe451270351bbb43"
+              },
+              {
+                "name": "d035080cf879446e88fc784ef893c7c2"
+              },
+              {
+                "name": "dc7c32f978914829b2d31721a50c16b9"
+              },
+              {
+                "name": "d6d3445f50ac439c829dc72f1724ae94"
+              },
+              {
+                "name": "d547ae39cbb84139af97e0569eb08b18"
+              },
+              {
+                "name": "da6475e6d0da4233ac4b15281cbbeae8"
+              },
+              {
+                "name": "d569ad3040e64e59a36891a8f731b1c9"
+              },
+              {
+                "name": "d054c3d0949948ad9f9ee30312069f07"
+              },
+              {
+                "name": "d851913fb8da49ef8701a7daf32dcf80"
+              },
+              {
+                "name": "d4f0deb8081c4adea5fd499d09c1fbd7"
+              },
+              {
+                "name": "d13070b648c247a599cd282e81ec12f2"
+              },
+              {
+                "name": "d60ee5aee1d34fcb9511eed860539ccb"
+              },
+              {
+                "name": "df18bd953843445d8efcb217c3ab1740"
+              },
+              {
+                "name": "de0c7a9eb1634f25a7e37dcf5b10a8aa"
+              },
+              {
+                "name": "db6709cda3034269a0a9354061d3dba4"
+              },
+              {
+                "name": "d5523f6111bd4f09a98105af5cc5d73a"
+              },
+              {
+                "name": "d3233dfb43cf483980bf281a7b31b045"
+              },
+              {
+                "name": "dc26514e8507496fa58f573c12c3607b"
+              },
+              {
+                "name": "d697148b98c6421788903beb97bc4690"
+              },
+              {
+                "name": "d9967270a02b461ea76d4a7b5c1d0d6a"
+              },
+              {
+                "name": "d5fa9de5740d4624aaf7a46fe0cd8b0c"
+              },
+              {
+                "name": "d74b841c156943598021bd22f1f3b93d"
+              },
+              {
+                "name": "df843975ee4741afb936d6dcf56ba8a8"
+              },
+              {
+                "name": "d882966bbdd5487a977ebf589091e83e"
+              },
+              {
+                "name": "d607bb58b0934b51a9a01caeb55c293e"
+              },
+              {
+                "name": "d2ee7fca80cc42c8ba7692cc839cbf83"
+              },
+              {
+                "name": "d33b16b8dd254898abf37b891199a9aa"
+              },
+              {
+                "name": "d97e20b56e2d4427b8d692f7114a6cff"
+              },
+              {
+                "name": "d6f34d3d862d41f1a24ec88f244bbf22"
+              },
+              {
+                "name": "d827d69d18ff442989db05d957562e0c"
+              },
+              {
+                "name": "d0ca722ef9174a7f884d02c46131cf59"
+              },
+              {
+                "name": "d5e06db14f0d49e9a1386011337ae163"
+              },
+              {
+                "name": "d1eaffd0fd9746c4a6972893d8b5e400"
+              },
+              {
+                "name": "d6c92f3ddae84c51bf93902ea44e5ec4"
+              },
+              {
+                "name": "d3b01b48c1404fc1bf26483672d05584"
+              },
+              {
+                "name": "d60f6802531949dab25024cc588847d1"
+              },
+              {
+                "name": "d9841be43ada40a88ce90c6135427d61"
+              },
+              {
+                "name": "dc3738d734804f42943290f7dca2789b"
+              },
+              {
+                "name": "d7076a4b8a344ae993a7ef170aa43331"
+              },
+              {
+                "name": "d4f510e1c1c347299447e46fc6ebb4fd"
+              },
+              {
+                "name": "d9fef868a3aa4183a7bc6261117c96d1"
+              },
+              {
+                "name": "dec66860615340bb8bf4993b07cea921"
+              },
+              {
+                "name": "d9ea49517f934237b3bf51612b1dd3fb"
+              },
+              {
+                "name": "dbe7f6866d7941678af49229834120da"
+              },
+              {
+                "name": "d931c89188204a8580964950c8c8d1d8"
+              },
+              {
+                "name": "da8aabe8843c450f938cf2f5fedb7c75"
+              },
+              {
+                "name": "d468b38752cb4d00b2f2c3112c77401d"
+              },
+              {
+                "name": "d5e0261597d440409b168523d6c8787c"
+              },
+              {
+                "name": "d68c25c124764131ac89e4070d3b0073"
+              },
+              {
+                "name": "dcae1622db3c4fafb2375bdd9389a683"
+              },
+              {
+                "name": "deb12b118aa14a818a43bbf262fdeb89"
+              },
+              {
+                "name": "d14eb4b1976c44fe9b62aa696157ca5b"
+              },
+              {
+                "name": "d8b218408a6f4651a01e38c2f414d6d7"
+              },
+              {
+                "name": "d860c119f8e640f38adc643f4c5d50c5"
+              },
+              {
+                "name": "dfdb9d41556547738760f060014710eb"
+              },
+              {
+                "name": "d5b0c408bff74d9092517b93ad3297c7"
+              },
+              {
+                "name": "de44f2966ce04839b18f0f7531f949ee"
+              },
+              {
+                "name": "documentos"
+              },
+              {
+                "name": "d5aca8103b6846d08bd9a2c69743424f"
+              },
+              {
+                "name": "d4ea95ede0a943538e85c89b7ee851a8"
+              },
+              {
+                "name": "d92f884901464e449525a600cc16e69c"
+              },
+              {
+                "name": "db9669acb03b43dba52c8a6195183e85"
+              },
+              {
+                "name": "de22f01fc4ce4ce6996593bcad4d9b83"
+              },
+              {
+                "name": "d39c1fb2985b43429e3ed1208d5692b4"
+              },
+              {
+                "name": "d4415f27a76d43909fe795613f35235f"
+              },
+              {
+                "name": "d3813b2055b54c3b8f429a46f38c9834"
+              },
+              {
+                "name": "d93cf57de96b4d6db1b00059705192aa"
+              },
+              {
+                "name": "d4602c50290e4b0cbc8087608c88c2a9"
+              },
+              {
+                "name": "d924ef44c6b440ed8fcf14391f36f8aa"
+              },
+              {
+                "name": "ddcde73e079f4f5fb7886d135aaf0b52"
+              },
+              {
+                "name": "df951c2a25ac4e038425d5d5f83543c7"
+              },
+              {
+                "name": "dae0cc51ffeb458b9e3ae64605feaf5f"
+              },
+              {
+                "name": "d2924d91eab94706b4394105bad06c63"
+              },
+              {
+                "name": "db4c1c1bcc044af48de278c61c95d61c"
+              },
+              {
+                "name": "d455b0d47a09417599029eb9809d1c88"
+              },
+              {
+                "name": "df69cad3c1ff4f90beb1142c66c3f1c6"
+              },
+              {
+                "name": "d9ae826746204b2d8e2053acf9a73256"
+              },
+              {
+                "name": "d1ebd02359d04f3697998c6d9a5c9e0f"
+              },
+              {
+                "name": "d54f4fc9c6e7490b8ae9cdcf9f0ac654"
+              },
+              {
+                "name": "d3853333996040d2aeabcfe1d04e9263"
+              },
+              {
+                "name": "da7f4f6d32ec4c899452d46d5050c615"
+              },
+              {
+                "name": "d956b4028fae4dcbb1818b6bfdd6a07e"
+              },
+              {
+                "name": "d1b1dca2d4a34a4ba18e2b0342830850"
+              },
+              {
+                "name": "d8634626818842d78d3c3fb825471ff7"
+              },
+              {
+                "name": "dee123b5cc114bb48828260ae52291e3"
+              },
+              {
+                "name": "d736e61804cc432598511a1176d1b1be"
+              },
+              {
+                "name": "d595e43e37914f4c9ca675bd0aadba7c"
+              },
+              {
+                "name": "d874fe53ce714e1fac2546bf7a80f5e6"
+              },
+              {
+                "name": "d93881bbe3324c8fb3e6240949e0d316"
+              },
+              {
+                "name": "d4110ce91d0a4bbeb4462c6708016aaa"
+              },
+              {
+                "name": "d4275e4bfa864ad9b177e04eb3313891"
+              },
+              {
+                "name": "d0eddaff7aa34587b77b30715dddfb2f"
+              },
+              {
+                "name": "dd14dd2c63bc4a86bf9fe905b268ffbc"
+              },
+              {
+                "name": "dd59e26ed57b44a9a86251937955336e"
+              },
+              {
+                "name": "d0faab1669874758b476fd555c517c68"
+              },
+              {
+                "name": "d3bb37d92ba44044a00488749efdf88f"
+              },
+              {
+                "name": "d8971d34c5df4921b15487c66c6d1eb0"
+              },
+              {
+                "name": "d8ee27e923104f429ee89fb8cff5ae83"
+              },
+              {
+                "name": "dd8ee624ef544fe6a093e9a938655560"
+              },
+              {
+                "name": "d9e383f3611b4323af9f9f4047e0e327"
+              },
+              {
+                "name": "df11c688f31c468abc1163838783452e"
+              },
+              {
+                "name": "d637c76a455e4934a7a000a45c7aa97f"
+              },
+              {
+                "name": "d6e978e5483d44308ac8317100bd7777"
+              },
+              {
+                "name": "d550d1198a8641db9f1ddc9f9ba74b26"
+              },
+              {
+                "name": "dcb228fc6b254b258e96f65997cdb02d"
+              },
+              {
+                "name": "db1940014e644d76bafe9a69a45f664c"
+              },
+              {
+                "name": "d0fda7af410141f1b233ee7328539340"
+              },
+              {
+                "name": "d8f7b83172a14c5ca008ed2841d7d524"
+              },
+              {
+                "name": "d9598322f67e40d48617aecbf816494a"
+              },
+              {
+                "name": "dbbff98a84b64bec864f101b4379d33e"
+              },
+              {
+                "name": "d5d4515052c745cfbcc4b9ad7dce72cd"
+              },
+              {
+                "name": "dfb024a662e9462bbf11156196894b30"
+              },
+              {
+                "name": "d13d22db8995462d963b76f268815d49"
+              },
+              {
+                "name": "d7cf92f196704405bdebb26cf768ebdd"
+              },
+              {
+                "name": "d3e66d5523554ce58d7618210e61a98a"
+              },
+              {
+                "name": "da3a75ee0efa41208a2078645eb1fb46"
+              },
+              {
+                "name": "d42d6486a7c14c139f0008c593b93733"
+              },
+              {
+                "name": "d5c8301ff1f64c3d8a1d26a0a1c29fc7"
+              },
+              {
+                "name": "db941b3526194c1fa1659350a42f2553"
+              },
+              {
+                "name": "d2511be84d914b91b90bf79bd67d27b7"
+              },
+              {
+                "name": "d0251e9b5f4749638d20e484a978d2a8"
+              },
+              {
+                "name": "d21858acbc594023aa818efa8c82cc12"
+              },
+              {
+                "name": "d75a0faee54e462e852955bcef47887a"
+              },
+              {
+                "name": "daeee0e23a434992a6ff7288278a8089"
+              },
+              {
+                "name": "dcfd130d4df545179654e3daf6546537"
+              },
+              {
+                "name": "d4977f344b5d4a0e995d538a99c443e5"
+              },
+              {
+                "name": "d3077e0fe2324e61b3891eae085ef579"
+              },
+              {
+                "name": "d20548106d074b39bd26808817e11450"
+              },
+              {
+                "name": "da0ebbc17cbd4ab98e1363f0a1bcdec9"
+              },
+              {
+                "name": "d7b392a8a7554e428858b0f994276fe5"
+              },
+              {
+                "name": "d61f90cecc3d42ed9953c5711f11a042"
+              },
+              {
+                "name": "d693a7eab97448b3ba06c058ae5d58e6"
+              },
+              {
+                "name": "d3572baf1b0440bdb485e2c3a5d074c1"
+              },
+              {
+                "name": "de2e1011850e430ca2e4a0ecc083b997"
+              },
+              {
+                "name": "d3b7f5a3349e4d4ba0274f5e78833fe4"
+              },
+              {
+                "name": "d4c841a175e2416a97ac6991e7264df7"
+              },
+              {
+                "name": "d2315da1cabe4613bc0aa59882aa21c8"
+              },
+              {
+                "name": "da66d64e24884531b39a98fe8adb70bc"
+              },
+              {
+                "name": "d4013e760e324c78afdf5926c45b5ca7"
+              },
+              {
+                "name": "d33bf4c1ebc1447383b4a61169702751"
+              },
+              {
+                "name": "d8e79c0dd48645889d2aac5ec584f240"
+              },
+              {
+                "name": "d12b31f598ee438dba648005a09fa7a5"
+              },
+              {
+                "name": "df0977db5d6144d69bc0d096ac43b547"
+              },
+              {
+                "name": "d03d4a5dfb42468e91d6c4b6dc651270"
+              },
+              {
+                "name": "dadc763491dc40cb84ff8586a126e16d"
+              },
+              {
+                "name": "d52d8f5e3dd448efa533d21ca5389c40"
+              },
+              {
+                "name": "daab3c4d01df414a851739baf3bde982"
+              },
+              {
+                "name": "d20d8f9cac7042658934c918026d262a"
+              },
+              {
+                "name": "dacaed91fc4844e8981d13c955e77f2d"
+              },
+              {
+                "name": "dd13fcbd67c945ab8cf838fe7e9707ce"
+              },
+              {
+                "name": "db5e2aec735b4f1695d6c560da8f349d"
+              },
+              {
+                "name": "d0997f4ccd734c1ea39e4824bf67c750"
+              },
+              {
+                "name": "df55115aa2ef47baa6ecba91db3ef132"
+              },
+              {
+                "name": "d8fb631b11ef441e86b7b1a7298578cd"
+              },
+              {
+                "name": "d21bab1a9120400a86eae8560c7575f9"
+              },
+              {
+                "name": "d6a7303041444d0294aa68067b9c794c"
+              },
+              {
+                "name": "d5172ba1a672488c94f8feac615025ab"
+              },
+              {
+                "name": "dbdf06bc442b4587b6b72b6c2919c82a"
+              },
+              {
+                "name": "dd57e25c4dc34be493deb007e3eb0a50"
+              },
+              {
+                "name": "d3fbb7ed5df7488697a9a539553f1dd5"
+              },
+              {
+                "name": "d29d636fe23741ad9c2ed761a08673ce"
+              },
+              {
+                "name": "d0f752bf6f774e79a6d6dae49eb15ab1"
+              },
+              {
+                "name": "d07e8ee42b2f45768b6c84c0e4d88944"
+              },
+              {
+                "name": "ddf1c983e03241f5b5914d62c02ef8d9"
+              },
+              {
+                "name": "d000822bf5884741a162720947f4ed9e"
+              },
+              {
+                "name": "d8cf554ee86547cfbf23b57653304c0b"
+              },
+              {
+                "name": "dd930ff51dfd4a6b8cb721ba7f7c6a8b"
+              },
+              {
+                "name": "d3b38da2ced444ceacb132d23654d721"
+              },
+              {
+                "name": "d54016bf789648399df2603dbbada7c2"
+              },
+              {
+                "name": "d7449cabb84d46338342c35853a6fc5c"
+              },
+              {
+                "name": "ddf8556f1e7f4ebd8031a3aec5c269ce"
+              },
+              {
+                "name": "dc461b737cfd45fb94560533cec0279d"
+              },
+              {
+                "name": "dfde45b1c0c240b8bc6347953d353b22"
+              },
+              {
+                "name": "d5dbcc1d48f64b8c9e3b4c3f9af7c270"
+              },
+              {
+                "name": "db13c3d15b724a9185ce70a1c044d083"
+              },
+              {
+                "name": "d41633013e3348d9a9db826338b45134"
+              },
+              {
+                "name": "dedc0617a4c44451a46054b11bb43132"
+              },
+              {
+                "name": "d1aaa773e3634ed4b09a4b796f7a653b"
+              },
+              {
+                "name": "d39d6db779514343957a2dbc1cd91fcc"
+              },
+              {
+                "name": "d1b8e23ef22f47a3b60627107d614282"
+              },
+              {
+                "name": "ddf828efd18d42b783e3958e787baefb"
+              },
+              {
+                "name": "d57f66d4b0474407a48e3139a60c86eb"
+              },
+              {
+                "name": "df43839329994fe1a73c889813a95101"
+              },
+              {
+                "name": "de50286c0091418db41f2bb3db6b5596"
+              },
+              {
+                "name": "de4cb97753c74ac89622f8bf36c8ecb6"
+              },
+              {
+                "name": "dccd7de47d8149dcaf6ec2ee63f63e97"
+              },
+              {
+                "name": "dd2ab3189dc94049b0fbd698aa3011b1"
+              },
+              {
+                "name": "d314101708054b90ab23b67981eb907a"
+              },
+              {
+                "name": "dba64c155b8b4ceea01c004116f3427c"
+              },
+              {
+                "name": "d1b3ae6f72b04420bfed9cff29222be7"
+              },
+              {
+                "name": "ddf2412c70cb44d1964436aeb1edc752"
+              },
+              {
+                "name": "dac3d28d97004b3686d84d6871d5c2df"
+              },
+              {
+                "name": "d6cd24bb1cf949b2bda5e16d547e5f0d"
+              }
+            ]
+          },
+          "status": "ok",
+          "time": 0.000215539
+        },
+        "execution_time": 0.3065450191497803,
+        "executed_at": 1769035100.378509,
+        "success": true,
+        "error_message": null
+      },
+      {
+        "url": "https://api.openai.com/v1/embeddings",
+        "method": "GET",
+        "request_headers": [],
+        "request_body": null,
+        "status_code": 401,
+        "response_headers": {
+          "Date": "Wed, 21 Jan 2026 22:38:20 GMT",
+          "Content-Type": "text/plain",
+          "Content-Length": "410",
+          "Connection": "keep-alive",
+          "x-openai-ide-error-code": "invalid_api_key",
+          "x-openai-authorization-error": "401",
+          "x-error-json": "ewogICJlcnJvciI6IHsKICAgICJtZXNzYWdlIjogIkluY29ycmVjdCBBUEkga2V5IHByb3ZpZGVkOiBzay1wcm9qLSoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqdXhZQS4gWW91IGNhbiBmaW5kIHlvdXIgQVBJIGtleSBhdCBodHRwczovL3BsYXRmb3JtLm9wZW5haS5jb20vYWNjb3VudC9hcGkta2V5cy4iLAogICAgInR5cGUiOiAiaW52YWxpZF9yZXF1ZXN0X2Vycm9yIiwKICAgICJjb2RlIjogImludmFsaWRfYXBpX2tleSIsCiAgICAicGFyYW0iOiBudWxsCiAgfSwKICAic3RhdHVzIjogNDAxCn0=",
+          "x-request-id": "req_30c7e35d5f1142dc87e963069a9d2623",
+          "x-datadog-trace-id": "15762031626119709929",
+          "x-datadog-parent-id": "9810980333520850228",
+          "x-datadog-sampling-priority": "0",
+          "x-openai-internal-caller": "unknown_through_ide",
+          "x-envoy-upstream-service-time": "14",
+          "x-openai-proxy-wasm": "v0.1",
+          "cf-cache-status": "DYNAMIC",
+          "Set-Cookie": "__cf_bm=jm6bKpPT0VCX8J9TLuvkKPS5HKqFym8lGPGB8xN2Bnc-1769035100-1.0.1.1-u1fsBRuHsoGmuRLkY.NXBaBwz001rY9jtsmkCHdk3EMsklqsd5N7L1LWGFpIEFkmAkOUJp5t7QgMD89.cod0W9We_pBafC4yd_GDYL_pj7k; path=/; expires=Wed, 21-Jan-26 23:08:20 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None, _cfuvid=cz9A9T5M1rdayajwehLafRBGuWS.sWAUfPKN.UOpaa4-1769035100938-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+          "X-Content-Type-Options": "nosniff",
+          "Server": "cloudflare",
+          "CF-RAY": "9c1a4d23bd71030c-GRU",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        },
+        "response_body": "{\n  \"error\": {\n    \"message\": \"Incorrect API key provided: sk-proj-********************************************************************************************************************************************************uxYA. You can find your API key at https://platform.openai.com/account/api-keys.\",\n    \"type\": \"invalid_request_error\",\n    \"code\": \"invalid_api_key\",\n    \"param\": null\n  },\n  \"status\": 401\n}",
+        "execution_time": 0.26090288162231445,
+        "executed_at": 1769035100.949102,
+        "success": false,
+        "error_message": null
+      }
+    ],
+    "apm": {
+      "request-total": {
+        "start": 1769035090.862543,
+        "end": 1769035102.808032,
+        "duration": 11.945488929748535
+      },
+      "criarDocumento": {
+        "start": 1769035090.863112,
+        "end": 1769035092.185356,
+        "duration": 1.3222439289093018
+      },
+      "uploadDocumento": {
+        "start": 1769035092.185362,
+        "end": 1769035096.639047,
+        "duration": 4.4536848068237305
+      }
+    },
+    "logs": [
+      {
+        "timestamp": 1769035090.879092,
+        "level": "debug",
+        "message": "Lonomia: Requisição HTTP iniciada",
+        "context": "{\"request_id\":\"000000000000090d0000000000000000\"}"
+      },
+      {
+        "timestamp": 1769035091.253463,
+        "level": "debug",
+        "message": "Lonomia: Evento ResponseReceived capturado",
+        "context": "{\"request_id\":\"000000000000090d0000000000000000\",\"response_class\":\"Illuminate\\\\Http\\\\Client\\\\Response\",\"request_class\":\"Illuminate\\\\Http\\\\Client\\\\Request\"}"
+      },
+      {
+        "timestamp": 1769035091.253841,
+        "level": "debug",
+        "message": "Lonomia: Requisição HTTP capturada",
+        "context": "{\"url\":\"https:\\/\\/viacep.com.br\\/ws\\/06533200\\/json\\/\",\"method\":\"GET\",\"status_code\":200,\"execution_time\":0.3742508888244629}"
+      },
+      {
+        "timestamp": 1769035091.254193,
+        "level": "info",
+        "message": "criarDocumento",
+        "context": "{\"request\":1}"
+      },
+      {
+        "timestamp": 1769035091.254422,
+        "level": "info",
+        "message": "teste",
+        "context": "{\"request\":1}"
+      },
+      {
+        "timestamp": 1769035097.689997,
+        "level": "info",
+        "message": "Tempo para identificar quantidade de páginas",
+        "context": "{\"documento_id\":17170,\"tempo_segundos\":0.22246289253234863,\"caminho\":\"\\/tmp\\/HZF1H9xg5kODcnrO6kEvXBR3TbcbIiYRYWDqYzDy.txt\",\"quantidade_paginas\":2}"
+      },
+      {
+        "timestamp": 1769035100.071534,
+        "level": "debug",
+        "message": "Lonomia: Requisição HTTP iniciada",
+        "context": "{\"request_id\":\"0000000000000a800000000000000000\"}"
+      },
+      {
+        "timestamp": 1769035100.37817,
+        "level": "debug",
+        "message": "Lonomia: Evento ResponseReceived capturado",
+        "context": "{\"request_id\":\"0000000000000a800000000000000000\",\"response_class\":\"Illuminate\\\\Http\\\\Client\\\\Response\",\"request_class\":\"Illuminate\\\\Http\\\\Client\\\\Request\"}"
+      },
+      {
+        "timestamp": 1769035100.378745,
+        "level": "debug",
+        "message": "Lonomia: Requisição HTTP capturada",
+        "context": "{\"url\":\"http:\\/\\/34.63.53.132:6333\\/collections\",\"method\":\"GET\",\"status_code\":200,\"execution_time\":0.3065450191497803}"
+      },
+      {
+        "timestamp": 1769035100.688216,
+        "level": "debug",
+        "message": "Lonomia: Requisição HTTP iniciada",
+        "context": "{\"request_id\":\"0000000000000a5a0000000000000000\"}"
+      },
+      {
+        "timestamp": 1769035100.948922,
+        "level": "debug",
+        "message": "Lonomia: Evento ResponseReceived capturado",
+        "context": "{\"request_id\":\"0000000000000a5a0000000000000000\",\"response_class\":\"Illuminate\\\\Http\\\\Client\\\\Response\",\"request_class\":\"Illuminate\\\\Http\\\\Client\\\\Request\"}"
+      },
+      {
+        "timestamp": 1769035100.94941,
+        "level": "debug",
+        "message": "Lonomia: Requisição HTTP capturada",
+        "context": "{\"url\":\"https:\\/\\/api.openai.com\\/v1\\/embeddings\",\"method\":\"GET\",\"status_code\":401,\"execution_time\":0.26090288162231445}"
+      }
+    ],
+    "cache": [
+      {
+        "operation": "get",
+        "key": "12",
+        "value": null,
+        "value_size": null,
+        "execution_time": null,
+        "executed_at": 1769035091.875694,
+        "success": true,
+        "error_message": null,
+        "metadata": {
+          "store": null,
+          "hit": false
+        }
+      },
+      {
+        "operation": "put",
+        "key": "12",
+        "value": 1,
+        "value_size": null,
+        "execution_time": null,
+        "executed_at": 1769035092.185341,
+        "success": true,
+        "error_message": null,
+        "metadata": {
+          "store": null,
+          "seconds": 60,
+          "tags": []
+        }
+      },
+      {
+        "operation": "get",
+        "key": "garantirColecaoExiste",
+        "value": null,
+        "value_size": null,
+        "execution_time": null,
+        "executed_at": 1769035100.070676,
+        "success": true,
+        "error_message": null,
+        "metadata": {
+          "store": null,
+          "hit": false
+        }
+      },
+      {
+        "operation": "put",
+        "key": "garantirColecaoExiste",
+        "value": null,
+        "value_size": null,
+        "execution_time": null,
+        "executed_at": 1769035100.683547,
+        "success": true,
+        "error_message": null,
+        "metadata": {
+          "store": null,
+          "seconds": 86400,
+          "tags": []
+        }
+      }
+    ],
+    "jobs": [
+      {
+        "status": "processing",
+        "job_class": "App\\Jobs\\ProcessarDocumentoJob",
+        "job_id": "",
+        "connection": "sync",
+        "queue": "sync",
+        "execution_time": null,
+        "executed_at": 1769035096.645043,
+        "payload": {
+          "uuid": "4f6d61ea-b979-4375-8181-d7ee43ec9af2",
+          "displayName": "App\\Jobs\\ProcessarDocumentoJob",
+          "job": "Illuminate\\Queue\\CallQueuedHandler@call",
+          "maxTries": null,
+          "maxExceptions": null,
+          "failOnTimeout": true,
+          "backoff": null,
+          "timeout": 180,
+          "retryUntil": null,
+          "data": {
+            "commandName": "App\\Jobs\\ProcessarDocumentoJob",
+            "command": "O:30:\"App\\Jobs\\ProcessarDocumentoJob\":1:{s:11:\"documentoId\";i:17170;}"
+          },
+          "createdAt": 1769035096,
+          "delay": null
+        }
+      },
+      {
+        "status": "processed",
+        "job_class": "App\\Jobs\\ProcessarDocumentoJob",
+        "job_id": "",
+        "connection": "sync",
+        "queue": "sync",
+        "execution_time": 6.158951044082642,
+        "executed_at": 1769035102.80398,
+        "payload": {
+          "uuid": "4f6d61ea-b979-4375-8181-d7ee43ec9af2",
+          "displayName": "App\\Jobs\\ProcessarDocumentoJob",
+          "job": "Illuminate\\Queue\\CallQueuedHandler@call",
+          "maxTries": null,
+          "maxExceptions": null,
+          "failOnTimeout": true,
+          "backoff": null,
+          "timeout": 180,
+          "retryUntil": null,
+          "data": {
+            "commandName": "App\\Jobs\\ProcessarDocumentoJob",
+            "command": "O:30:\"App\\Jobs\\ProcessarDocumentoJob\":1:{s:11:\"documentoId\";i:17170;}"
+          },
+          "createdAt": 1769035096,
+          "delay": null
+        }
+      }
+    ],
+    "exception": null
+  }

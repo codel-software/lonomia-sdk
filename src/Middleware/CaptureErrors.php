@@ -217,6 +217,7 @@ class CaptureErrors
                         'jobs' => $this->lonomia->getJobs(),
                         'exception' => $exceptionData,
                     ]);
+
                     
                     $this->lonomia->logPerformanceData($monitoringData);
                 }

@@ -14,19 +14,19 @@ class DataTruncator
      * Trunca uma string mantendo um indicador de truncamento.
      *
      * @param  string  $str  String a ser truncada
-     * @param  int  $maxLength  Tamanho máximo
+     * @param  int  $maxLength  Tamanho máximo (sem contar o sufixo)
+     * @param  string  $suffix  Sufixo ao final quando truncado (default '...')
      * @return string String truncada
      */
-    public function truncateString(string $str, int $maxLength): string
+    public function truncateString(string $str, int $maxLength, string $suffix = '...'): string
     {
         if (strlen($str) <= $maxLength) {
             return $str;
         }
 
-        $truncated = substr($str, 0, $maxLength);
-        $remaining = strlen($str) - $maxLength;
+        $take = $maxLength - strlen($suffix);
 
-        return $truncated.'...[truncado '.$remaining.' caracteres]';
+        return $take > 0 ? substr($str, 0, $take).$suffix : $suffix;
     }
 
     /**
