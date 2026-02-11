@@ -7,21 +7,21 @@ use CodelSoftware\LonomiaSdk\Support\PayloadReducer\ReductionRule;
 /**
  * Regra de redução para http_requests e external_requests.
  *
- * Prioridade 3.
+ * Prioridade 4.
  * Limita quantidade de requests, reduz headers e bodies.
  */
 class RuleReduceRequests extends ReductionRule
 {
     public function getPriority(): int
     {
-        return 3;
+        return 4;
     }
 
     public function apply(array $payload, int $targetLimit): array
     {
         try {
-            $maxHttpRequests = config('lonomia.reduction.requests.max_http_requests', 50);
-            $maxExternalRequests = config('lonomia.reduction.requests.max_external_requests', 50);
+            $maxHttpRequests = config('lonomia.reduction.requests.max_http_requests', 10);
+            $maxExternalRequests = config('lonomia.reduction.requests.max_external_requests', 10);
 
             // Reduz http_requests
             if (isset($payload['http_requests']) && is_array($payload['http_requests'])) {
@@ -67,29 +67,30 @@ class RuleReduceRequests extends ReductionRule
                 $reducedRequest['headers'] = $this->reduceHeaders($request['headers']);
             }
 
-            // Reduz body
+            $maxStr = config('lonomia.reduction.requests.max_response_body_string_length', 200);
+            $maxItems = config('lonomia.reduction.requests.max_response_body_array_items', 10);
+
             if (isset($request['body']) && $request['body'] !== null) {
                 $reducedRequest['body'] = $this->truncator->truncateNestedStructure(
                     $request['body'],
                     3,
-                    500,
-                    20
+                    $maxStr,
+                    $maxItems
                 );
             }
 
-            // Reduz response_body
             if (isset($request['response_body']) && $request['response_body'] !== null) {
                 if (is_string($request['response_body'])) {
                     $reducedRequest['response_body'] = $this->truncator->truncateString(
                         $request['response_body'],
-                        1000
+                        $maxStr
                     );
                 } else {
                     $reducedRequest['response_body'] = $this->truncator->truncateNestedStructure(
                         $request['response_body'],
                         3,
-                        500,
-                        20
+                        $maxStr,
+                        $maxItems
                     );
                 }
             }
@@ -126,34 +127,34 @@ class RuleReduceRequests extends ReductionRule
                 $reducedRequest['request_headers'] = $this->reduceHeaders($request['request_headers']);
             }
 
-            // Reduz request_body
+            $maxStr = config('lonomia.reduction.requests.max_response_body_string_length', 200);
+            $maxItems = config('lonomia.reduction.requests.max_response_body_array_items', 10);
+
             if (isset($request['request_body']) && $request['request_body'] !== null) {
                 $reducedRequest['request_body'] = $this->truncator->truncateNestedStructure(
                     $request['request_body'],
                     3,
-                    500,
-                    20
+                    $maxStr,
+                    $maxItems
                 );
             }
 
-            // Reduz response_headers
             if (isset($request['response_headers']) && is_array($request['response_headers'])) {
                 $reducedRequest['response_headers'] = $this->reduceHeaders($request['response_headers']);
             }
 
-            // Reduz response_body
             if (isset($request['response_body']) && $request['response_body'] !== null) {
                 if (is_string($request['response_body'])) {
                     $reducedRequest['response_body'] = $this->truncator->truncateString(
                         $request['response_body'],
-                        1000
+                        $maxStr
                     );
                 } else {
                     $reducedRequest['response_body'] = $this->truncator->truncateNestedStructure(
                         $request['response_body'],
                         3,
-                        500,
-                        20
+                        $maxStr,
+                        $maxItems
                     );
                 }
             }

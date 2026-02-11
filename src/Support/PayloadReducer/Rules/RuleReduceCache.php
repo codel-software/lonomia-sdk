@@ -7,14 +7,14 @@ use CodelSoftware\LonomiaSdk\Support\PayloadReducer\ReductionRule;
 /**
  * Regra de redução para operações de cache.
  *
- * Prioridade 4.
+ * Prioridade 5.
  * Limita quantidade de operações e trunca valores grandes.
  */
 class RuleReduceCache extends ReductionRule
 {
     public function getPriority(): int
     {
-        return 4;
+        return 5;
     }
 
     public function apply(array $payload, int $targetLimit): array
@@ -24,7 +24,7 @@ class RuleReduceCache extends ReductionRule
                 return $payload;
             }
 
-            $maxOperations = config('lonomia.reduction.cache.max_operations', 100);
+            $maxOperations = config('lonomia.reduction.cache.max_operations', 20);
 
             $cache = $payload['cache'];
 

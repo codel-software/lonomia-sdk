@@ -7,7 +7,7 @@ use CodelSoftware\LonomiaSdk\Support\PayloadReducer\ReductionRule;
 /**
  * Regra final de corte forçado.
  *
- * Prioridade 5 - Última regra aplicada.
+ * Prioridade 7 - Última regra aplicada.
  * Remove seções inteiras menos prioritárias se ainda exceder limite.
  * Mantém apenas: metadata, request básico, response básico, erro/stack trace.
  */
@@ -15,7 +15,7 @@ class RuleFinalCut extends ReductionRule
 {
     public function getPriority(): int
     {
-        return 5;
+        return 7;
     }
 
     public function apply(array $payload, int $targetLimit): array
@@ -58,16 +58,21 @@ class RuleFinalCut extends ReductionRule
                 $minimal['exception'] = $payload['exception'];
             }
 
-            // Queries - mantém apenas as mais lentas (últimas 10)
+            // Queries - mantém apenas as mais lentas (top 10) e trunca sql/bindings
             if (isset($payload['queries']) && is_array($payload['queries'])) {
                 $queries = $payload['queries'];
-                // Ordena por tempo (mais lento primeiro) e mantém top 10
                 usort($queries, function ($a, $b) {
                     $timeA = $a['time'] ?? 0;
                     $timeB = $b['time'] ?? 0;
                     return $timeB <=> $timeA;
                 });
-                $minimal['queries'] = array_slice($queries, 0, 10);
+                $topQueries = array_slice($queries, 0, 10);
+                $maxSql = config('lonomia.reduction.queries.max_sql_length', 250);
+                $maxBindings = config('lonomia.reduction.queries.max_bindings_count', 5);
+                $maxBindingLen = config('lonomia.reduction.queries.max_binding_length', 80);
+                $minimal['queries'] = array_map(function ($q) use ($maxSql, $maxBindings, $maxBindingLen) {
+                    return $this->truncateQuery($q, $maxSql, $maxBindings, $maxBindingLen);
+                }, $topQueries);
             }
 
             // Logs - mantém apenas erros e warnings (últimos 20)
@@ -100,6 +105,32 @@ class RuleFinalCut extends ReductionRule
                 'exception' => $payload['exception'] ?? null,
             ];
         }
+    }
+
+    /**
+     * Trunca um item de query (sql e bindings) para reduzir tamanho.
+     *
+     * @param  array<string, mixed>  $query
+     * @return array<string, mixed>
+     */
+    private function truncateQuery(array $query, int $maxSqlLength, int $maxBindingsCount, int $maxBindingLength): array
+    {
+        $out = $query;
+        if (isset($query['sql']) && is_string($query['sql'])) {
+            $out['sql'] = $this->truncator->truncateString($query['sql'], $maxSqlLength);
+        }
+        if (isset($query['bindings']) && is_array($query['bindings'])) {
+            $bindings = array_slice($query['bindings'], 0, $maxBindingsCount);
+            $out['bindings'] = array_map(function ($v) use ($maxBindingLength) {
+                if (is_string($v) && strlen($v) > $maxBindingLength) {
+                    return $this->truncator->truncateString($v, $maxBindingLength);
+                }
+
+                return $v;
+            }, array_values($bindings));
+        }
+
+        return $out;
     }
 
     /**

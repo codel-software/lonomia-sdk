@@ -7,7 +7,7 @@ use CodelSoftware\LonomiaSdk\Support\PayloadReducer\ReductionRule;
 /**
  * Regra de redução para logs.
  *
- * Prioridade 2.
+ * Prioridade 3.
  * Limita quantidade de logs e trunca mensagens longas.
  * Preserva: nível, timestamp, mensagem principal, stack trace (em erro).
  */
@@ -15,7 +15,7 @@ class RuleReduceLogs extends ReductionRule
 {
     public function getPriority(): int
     {
-        return 2;
+        return 3;
     }
 
     public function apply(array $payload, int $targetLimit): array
@@ -25,8 +25,8 @@ class RuleReduceLogs extends ReductionRule
                 return $payload;
             }
 
-            $maxCount = config('lonomia.reduction.logs.max_count', 100);
-            $maxMessageLength = config('lonomia.reduction.logs.max_message_length', 1000);
+            $maxCount = config('lonomia.reduction.logs.max_count', 30);
+            $maxMessageLength = config('lonomia.reduction.logs.max_message_length', 300);
 
             // Limita quantidade de logs
             $logs = $payload['logs'];
@@ -48,19 +48,18 @@ class RuleReduceLogs extends ReductionRule
                     );
                 }
 
-                // Trunca contexto se for string
+                // Trunca contexto se for string (ex.: JSON)
                 if (isset($log['context']) && is_string($log['context'])) {
                     $reducedLog['context'] = $this->truncator->truncateString(
                         $log['context'],
                         $maxMessageLength
                     );
                 } elseif (isset($log['context']) && is_array($log['context'])) {
-                    // Se contexto for array, reduz recursivamente
                     $reducedLog['context'] = $this->truncator->truncateNestedStructure(
                         $log['context'],
-                        3, // Profundidade menor para contexto
-                        500, // Strings menores
-                        20 // Menos itens
+                        3,
+                        200,
+                        10
                     );
                 }
 
