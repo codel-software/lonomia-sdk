@@ -204,7 +204,6 @@ class LonomiaService
         $endpoint = $url.'/api/monitoring';
 
         // Executa o envio de forma deferida quando disponível
-        DeferredHelper::run('lonomia.send_monitoring', function () use ($endpoint, $payload) {
             try {
                 $timeout = config('lonomia.http_timeout', 1.5);
                 Http::timeout($timeout)->post($endpoint, $payload);
@@ -226,7 +225,6 @@ class LonomiaService
                 ]);
             }
             // Nunca lança exceção - falha é completamente silenciosa
-        });
 
         $this->clearExternalRequests();
     }
